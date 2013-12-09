@@ -16,6 +16,8 @@ class GithubCom < Website
 
   GIT_HASH_LENGTH = 40
 
+  attr_reader :url
+
   ##
   # package: Hashie::Mash
   # user: string
@@ -24,8 +26,8 @@ class GithubCom < Website
   def initialize(package, user, repo, ref=nil)
     super(package)
     @ref = ref
-
-    LicenseAuto.logger.debug("https://github.com/#{user}/#{repo}, #{@ref}")
+    @url = "https://github.com/#{user}/#{repo}"
+    LicenseAuto.logger.debug(@url)
 
     @server =
       begin
@@ -44,7 +46,7 @@ class GithubCom < Website
 
   def get_license_info()
     possible_ref = @ref || match_versioned_ref
-    LicenseAuto.logger.debug(possible_ref)
+    LicenseAuto.logger.debug("possible_ref: #{possible_ref}")
     # If possible_ref is nil, the Github API server will return the default branch contents
     contents = @server.repos.contents.get(path: '/', ref: possible_ref)
 
@@ -90,10 +92,16 @@ class GithubCom < Website
       end
     }.compact
 
+    pack_wrapper = LicenseAuto::PackWrapper.new(
+        homepage: nil,
+        project_url: nil,
+        source_url: @url
+    )
     LicenseAuto::LicenseInfoWrapper.new(
         licenses: license_files,
         readmes: readme_files,
-        notices: notice_files
+        notices: notice_files,
+        pack: pack_wrapper
     )
   end
 
@@ -129,6 +137,14 @@ class GithubCom < Website
   # Array: [#<Hashie::Mash commit=#<Hashie::Mash sha="8065e5c64a22bd6d60e4df8d9be46b5805ec9355" url="https://api.github.com/repos/bower/bower/commits/8065e5c64a22bd6d60e4df8d9be46b5805ec9355"> name="v1.7.9" tarball_url="https://api.github.com/repos/bower/bower/tarball/v1.7.9" zipball_url="https://api.github.com/repos/bower/bower/zipball/v1.7.9">, #<Hashie::Mash commit=
   def list_tags
     @server.repos.tags.body
+  end
+
+  def list_commits
+    commits = @server.repos.commits.list
+  end
+
+  def latest_commit
+    latest = list_commits.first
   end
 
   def clone

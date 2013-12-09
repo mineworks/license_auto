@@ -1,5 +1,6 @@
 require 'hashie/mash'
 
+require 'license_auto/matcher'
 require 'license_auto/website/ruby_gems_org'
 require 'license_auto/website/gemfury_com'
 require 'license_auto/website/github_com'
@@ -8,7 +9,6 @@ require 'license_auto/website/npm_registry'
 
 module LicenseAuto
 
-  ##
   # Package: {
   #     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
   #     name: 'bundler',
@@ -20,21 +20,21 @@ module LicenseAuto
   class Package < Hashie::Mash
     extend LicenseAuto
 
-    ##
     # Default project server of all kinds of languages.
     #
     # Key: language name
     #
     # Value: default project server
 
-    LANGUAGES_PACKAGE_SERVER = {
+    PACKAGE_SERVERS = {
         Ruby: RubyGemsOrg,
-        NodeJS: NpmRegistry
+        NodeJS: NpmRegistry,
+        # TODO: add many server, eg. http://gopkg.in
+        # Golang: GithubCom
     }
 
-    ALL_SERVERS = [
-        RubyGemsOrg,
-        GemfuryCom,
+    SOURCE_CODE_SERVERS = [
+        # GemfuryCom,
         GithubCom,
     ]
 
@@ -106,11 +106,16 @@ module LicenseAuto
     def chose_package_server()
       begin
         @server =
-            if self.server?
-              # TODO:
-              LANGUAGES_PACKAGE_SERVER.fetch(self.language.to_sym).new(self)
-            elsif self.language
-              LANGUAGES_PACKAGE_SERVER.fetch(self.language.to_sym).new(self)
+            if self.language == 'Golang' and self.server
+              matcher = Matcher::SourceURL.new(self.server)
+              github_matched = matcher.match_github_resource
+              if github_matched
+                GithubCom.new(self, github_matched[:owner], github_matched[:repo])
+              else
+                LicenseAuto.logger.fatal("Golang server: #{self.server} should be supported!")
+              end
+            elsif self.server?
+              PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
             end
       rescue KeyError => e
         LicenseAuto.logger.fatal("#{e}")

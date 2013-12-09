@@ -41,8 +41,8 @@ module LicenseAuto
       def github_resource
         # /(git\+)?(?<protocol>(http[s]?|git))(:\/\/|@)(?<host>(www\.)?github\.com)(\/|:)(?<owner>.+)\/(?<repo>[^\/.]+)(?<vcs>\.git)?/
         /(git\+)?
-        (?<protocol>(http[s]?|git))
-        (:\/\/|@)
+        (?<protocol>(http[s]?|git))?
+        (:\/\/|@)?
         (?<host>(www\.)?github\.com)
         (\/|:)
         (?<owner>.+)\/

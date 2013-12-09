@@ -2,6 +2,7 @@ require 'open3'
 require 'set'
 require 'license_auto/package_manager'
 require 'license_auto/var/golang_std_libs'
+require 'license_auto/matcher'
 
 module LicenseAuto
   class Golang < LicenseAuto::PackageManager
@@ -28,21 +29,32 @@ module LicenseAuto
         [
           {
               dep_file: nil,
-              deps: deps
-              # TODO: deps.
-              #         .map {|dep|
-                        # file_version_remote(dep)
-                      # {
-                      #     name: 'a',
-                      #     version: 'b',
-                      #     remote: 'b'
-                      # }
-                      # }
-
+              deps: deps.map {|dep|
+                      remote, latest_sha = fetch_remote_latest_sha(dep)
+                      {
+                          name: dep,
+                          version: latest_sha,
+                          remote: remote
+                      }
+              }
           }
         ]
       end
       # LicenseAuto.logger.debug(JSON.pretty_generate(dep_files))
+    end
+
+    # @return [clone_url, latest_sha]
+    def fetch_remote_latest_sha(repo_url)
+      matcher = Matcher::SourceURL.new(repo_url)
+      github_matched = matcher.match_github_resource
+      if github_matched
+        github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
+        latest_sha = github.latest_commit.sha
+        # LicenseAuto.logger.debug(latest_sha)
+        [github.url, latest_sha]
+      else
+        [repo_url, nil]
+      end
     end
 
     def filter_deps(listed_content)
