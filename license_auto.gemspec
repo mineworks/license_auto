@@ -39,6 +39,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "json"
   spec.add_runtime_dependency "gems"
   spec.add_runtime_dependency "github_api"
+  spec.add_runtime_dependency "tf-idf-similarity"
+  # spec.add_runtime_dependency "github-markup"
+  # spec.add_runtime_dependency "redcarpet"
+  # spec.add_runtime_dependency "rdoc"
   
   spec.add_development_dependency "rake", "~> 10.0"
 end

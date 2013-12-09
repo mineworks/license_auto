@@ -1,12 +1,11 @@
+require 'matrix'
 require 'tf-idf-similarity'
 require 'license_auto/license/frequency'
 
 
 class Similarity
-  # If text is too long to index, skip it?
-  MAX_TEXT_LENGTH = 20000
 
-  # Similarity ratio
+  # Expected similarity ratio
   SIM_RATIO = 0.85
 
   def initialize(license_content)
@@ -38,14 +37,19 @@ class Similarity
     end
   end
 
-  def most_sim_license
+  def most_license_sim
     license_file_index = @license_template_documents.count - 1
     sim_ratios = @license_template_documents[0..(license_file_index -1)].map.with_index { |doc, index|
-      ratio = @matrix[license_file_index, index]
+      ratio_ = @matrix[license_file_index, index]
     }
-    # LicenseAuto.logger.debug(sim_ratios)
-    sim_license_index = sim_ratios.index(sim_ratios.max)
+    max_sim_ratio = sim_ratios.max
+    sim_license_index = sim_ratios.index(max_sim_ratio)
 
-    LICENSE_SORTED_FREQUENCY[sim_license_index]
+    license_name = LICENSE_SORTED_FREQUENCY[sim_license_index]
+
+    debug = "License: #{license_name}, Ratio: #{max_sim_ratio}"
+    LicenseAuto.logger.debug(debug)
+
+    [license_name, max_sim_ratio]
   end
 end
