@@ -9,7 +9,7 @@ module API
     :readme_file => /readme/i
   }
   FILE_TYPE_PATTERN = {
-    :tar_gz => /tar\.gz$/,
+    :tar_gz => /(tar\.gz|\.tgz)$/,
     :tar_xz => /tar\.xz$/,
     :tar_bz2 => /tar\.bz2$/
   }
