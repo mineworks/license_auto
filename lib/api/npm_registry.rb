@@ -25,7 +25,7 @@ module API
       $plog.debug(api_url)
       response = HTTParty.get(api_url)
       if response.code == 200
-        package_meta = JSON.parse(response.body)
+        package_meta = JSON.parse(response.licenses)
       elsif response.code == 404
         $plog.error("!!! Npm registry API 404 Not found: #{response}")
       else
@@ -41,7 +41,7 @@ module API
       $plog.debug(api_url)
       response = HTTParty.get(api_url)
       if response.code == 200
-        package_info = JSON.parse(response.body)
+        package_info = JSON.parse(response.licenses)
       elsif response.code == 404
         $plog.error("!!! Npm registry API 404 Not found: #{response}")
       else

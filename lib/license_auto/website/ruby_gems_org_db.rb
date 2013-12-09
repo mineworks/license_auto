@@ -25,7 +25,7 @@ class RubyGemsOrgDB
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
       # DOC: http://www.nokogiri.org/tutorials/searching_a_xml_html_document.html#but_i_m_lazy_and_don_t_want_to_deal_with_namespaces_
-      doc = Nokogiri::XML(response.body).remove_namespaces!
+      doc = Nokogiri::XML(response.licenses).remove_namespaces!
 
       xpath = "//Contents[last()]/Key/text()"
       xpath = "//Contents[last()]/Key/text()"

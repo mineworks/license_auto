@@ -55,8 +55,45 @@ module LicenseAuto
       end
     end
 
-    # TODO:
-    class FileName
+
+    class FilepathName
+
+      attr_reader :name
+
+      LICENSE_PATTERN = /(((?<license_name>.*)[-_])?licen[sc]e|copying|copyright|copyleft)+/i
+      NOTICE_PATTERN = /notice/i
+      README_PATTERN = /readme(?<extension>\..*)?/i
+
+      ##
+      # Debian Linux doc:
+      #   [4.2. copyright. Required files under the debian directory](https://www.debian.org/doc/manuals/maint-guide/dreq.en.html#copyright)
+      DPKG_COPYRIGHT_PATTERN = /^[^\/]+\/debian\/copyright$/
+
+
+
+      def initialize(name)
+        @name = name
+      end
+
+      def match_license_file()
+        LICENSE_PATTERN.match(@name)
+      end
+
+      def match_readme_file()
+        README_PATTERN.match(@name)
+      end
+
+      def match_notice_file()
+        NOTICE_PATTERN.match(@name)
+      end
+
+      ##
+      # git ref: commit hash/branch/tag
+      def match_the_ref(ref)
+        version_pattern = /[vV]?#{@name.gsub(/\./, '\.').gsub(/\//, '\/')}$/i
+        version_pattern.match(ref)
+      end
+
 
     end
   end
