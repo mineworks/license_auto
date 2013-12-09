@@ -43,8 +43,8 @@ module ExtractRuby
       all_specs = []
       lockfiles = Obtain_path.new(@repo_path, "gem", ".lock").get_data
       if lockfiles.size == 0
-        $plog.info('gemfile.lock files not found,ruby packages not found ')
-        return -1
+        $plog.info('Gemfile.lock files not found, Ruby packages not found')
+        return all_specs
       end
 
       lockfiles.each do |pathname|
