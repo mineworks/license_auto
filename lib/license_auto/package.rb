@@ -27,25 +27,33 @@ module LicenseAuto
 
     def initialize(hash)
       super(hash)
-      @adaptor = nil
+      @server = nil
     end
 
-    def chose_adapter_by_language()
+    def chose_project_server()
       begin
-        @adaptor = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym)
-      rescue KeyError
-        raise Exception("#{self.language} has no adapter")
-        # TODO: Website::GoogleSearch
-        # @adaptor = LicenseAuto::Website::Google
-        # TODO: Website::GithubSearch
+        @server = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym).new(self)
+      rescue KeyError => e
+        return nil
       end
+    end
+
+    def chose_search_engine()
+      # TODO: Website::Google
+      # logger.info("#{self.language} has no adapter. I will google it...")
+      # @search_engine = LicenseAuto::SearchEngine::Google
+      # TODO: Website::Github
     end
 
     ##
     # Class Entry
 
     def get_license_info()
-      chose_adapter_by_language()
+      # TODO: uncomment this line
+      # chose_project_server() unless chose_project_server()
+
+      @server.get_license_info() if chose_project_server()
+
 
       #   # TODO: detect latest version
       #   @version = nil
@@ -53,7 +61,6 @@ module LicenseAuto
       #   # TODO: fill default project_server
       #   @project_server = nil
 
-      @adaptor.get_license_info()
     end
 
   end
