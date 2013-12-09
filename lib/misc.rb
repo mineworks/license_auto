@@ -4,27 +4,27 @@ require_relative './api'
 
 module Misc
 
-  def Misc.check_private_repo()
-    pg_result = $conn.exec("select * from repo where is_private = false")
+  def Misc.check_private_repo(where)
+    pg_result = $conn.exec("select * from repo #{where}")
 
     pg_result.each {|r|
       source_url = r['source_url']
       $plog.debug("source_url: #{source_url}")
-      response1 = HTTParty.get(source_url)
+      response = HTTParty.get(source_url)
 
-      is_private = false
-      if response1.code == 404
+      priv = -1
+      if response.code == 404
         g = API::Github.new(source_url)
         commits = g.list_commits
         if commits != nil
-          is_private = true
+          priv = 0
         end
-      elsif response1.code == 200
-        is_private = false
+      elsif response.code == 200
+        priv = 1
       end
-      $plog.debug("is_private: #{is_private}")
+      $plog.debug("priv: #{priv}")
 
-      update = $conn.exec_params("update repo set is_private = $1 where source_url = $2", [is_private, source_url])
+      update = $conn.exec_params("update repo set priv = $1 where source_url = $2", [priv, source_url])
     }
   end
 
@@ -44,5 +44,6 @@ module Misc
 end
 
 if __FILE__ == $0
-  Misc.check_private_repo
+  where = ' where 1=1 '
+  Misc.check_private_repo(where)
 end
