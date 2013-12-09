@@ -51,6 +51,7 @@ class Github
           return ref_name
         end
       }
+      return nil
     end
   end
 
@@ -144,7 +145,7 @@ class Github
   def get_license_info(ref=nil)
     license = license_url = license_text = nil
     license_contents = filter_license_contents(path='', ref)
-    $plog.debug("license_contents: #{license_contents}")
+    #$plog.debug("license_contents: #{license_contents}")
     license_contents[:license].each do |c|
       download_url = c['download_url']
       $plog.info("License file 链接: #{download_url}")
@@ -168,8 +169,56 @@ class Github
 
     if license == nil
       license_contents[:readme].each do |c|
-        # todo: @Dragon, readme parser
-        # license = parse_license_info_from_readme
+        p "file name:" + c['name']
+        if File.extname(c['name']) == '.rdoc'
+          regular_start = /^==[ ]*(copying|license){1}:*/i
+          regular_end   = /^==/
+        elsif File.extname(c['name']) == '.md'
+          regular_start = /^##[ ]*(copying|license){1}:*/i
+          regular_end   = /^##/
+        else
+          next
+        end
+        download_url = c['download_url']
+        $plog.info("readme file 链接: #{download_url}")
+        response = HTTParty.get(download_url, options=@http_option)
+        if response.code == 200
+          readme_text = response.body # type : String
+          readme_url = download_url
+          $plog.info("readme_text: #{readme_text}")
+          start_flag = nil
+          end_flag   = nil
+          readme_text.each_line("\n") do |line|
+            if line =~ regular_start
+              a = readme_text =~ /#{line}/
+              start_flag = a + line.size
+            elsif nil != start_flag
+              if line =~ regular_end
+                end_flag = readme_text =~ /#{line}/
+              end
+            end
+          end
+          if start_flag.class == Fixnum and end_flag == nil
+            end_flag = readme_text.size
+          end
+          # readme licnese text Successfully extracted
+          if start_flag != nil
+            #p "readme license info:"
+            #readme_license =  readme_text[start_flag,end_flag - start_flag]
+            license = License_recognition.new.similarity(readme_license, "./extractor_ruby/Package_license")
+            break
+          else
+            #
+          end
+
+          if license
+            break
+          end
+        else
+          # TODO: Use Dragon's HTML crawler, if API call limited
+          $plog.error("!!! response.code: #{response.code}, download_url: #{download_url}")
+        end
+
       end
     end
 
