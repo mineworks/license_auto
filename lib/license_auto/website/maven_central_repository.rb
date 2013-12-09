@@ -5,6 +5,8 @@ require 'hashie'
 require 'nokogiri'
 require 'httparty'
 
+require 'license_auto/license/similarity'
+
 module LicenseAuto
   class MavenCentralRepository
 
@@ -78,7 +80,7 @@ module LicenseAuto
       if response.code == 200
         Hashie::Mash.new(JSON.parse(response.body))
       else
-        error = "CentralRepository select error: #{response}"
+        error = "CentralRepository select error:\n#{response}"
         LicenseAuto.logger.debug(url)
         LicenseAuto.logger.error(error)
         nil
@@ -89,7 +91,7 @@ module LicenseAuto
     def advance_search
       url = "http://search.maven.org/solrsearch/select?q=g:\"#{@group_id}\" AND a:\"#{@artifact_id}\" AND v:\"#{@version}\" AND l:\"#{@classifier}\" AND p:\"jar\"&rows=20&wt=json"
       url = URI.escape(url)
-      $plog.debug("api_url: #{url}")
+      LicenseAuto.logger.debug("api_url: #{url}")
       response = HTTParty.get(url)
       if response.code == 200
         query_set = JSON.parse(response.body)
@@ -97,8 +99,6 @@ module LicenseAuto
         raise "CentralRepository select error: #{response}"
       end
     end
-
-
 
     def get_package_pom(group, name, version)
       pom_url = make_pom_url(group, name, version)
@@ -136,12 +136,11 @@ module LicenseAuto
       not @version.nil? and @version != ''
     end
 
-
     def get_license_info()
       license_info = LicenseAuto::LicenseInfoWrapper.new
       query_set = select
 
-      unless query_set
+      if query_set.nil?
         LicenseAuto.logger.error("Maven search result is empty")
       else
         query_set.response.docs.each {|doc|
@@ -161,7 +160,7 @@ module LicenseAuto
 
     # @return homepage, source_url, licenses_file
     def parser_pom(pom_url, pom_str)
-      LicenseAuto.logger.debug("pom_str: #{pom_str}")
+      LicenseAuto.logger.debug("pom_str:\n#{pom_str[0..70]}")
       doc = Nokogiri::XML(pom_str).remove_namespaces!
 
       # Source Code Manager
@@ -187,28 +186,38 @@ module LicenseAuto
       # Multi licenses: https://maven-repository.com/artifact/org.cryptacular/cryptacular/1.0
       license_files = licenses_node.map {|node|
         license_name = if node.xpath(".//name")
-                         node.xpath(".//name").text
+                         node.xpath(".//name").text.gsub(/\s/, '')
                        end
         license_url = if node.xpath(".//url")
                         node.xpath(".//url").text
                       end
 
-        LicenseAuto.logger.debug(license_url)
         # TODO: find a license_text demo
         license_text = if not node.xpath(".//text").empty?
-                         LicenseAuto.logger.debug('fuck')
                          LicenseAuto.logger.debug(node.xpath(".//text").text)
                          node.xpath(".//text").text
-                       elsif license_url
-                         LicenseAuto.logger.debug('fuck me')
+                       elsif not license_url.empty?
                          LicenseAuto.logger.debug(license_url)
-                         response = HTTParty.get(license_url)
+                         # TODO: add proxy
+                         response = HTTParty.get(license_url, timeout: 10)
                          response.body if response.code == 200
                        end
 
+        _license_name, sim_ratio =
+            if license_text
+              LicenseAuto::Similarity.new(license_text).most_license_sim
+            else
+              [nil, 1.0]
+            end
+
+        if license_text.nil? and not node.xpath(".//comments").empty?
+          LicenseAuto.logger.debug(node.xpath(".//comments").text)
+          license_text = node.xpath(".//comments").text
+        end
+
         LicenseAuto::LicenseWrapper.new(
             name: license_name,
-            sim_ratio: 1.0,
+            sim_ratio: sim_ratio,
             html_url: pom_url,
             download_url: license_url,
             text: license_text
@@ -218,16 +227,32 @@ module LicenseAuto
       # Comment license text info: eg. https://repo1.maven.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.pom
       if license_files.empty?
         comment_head_node = doc.xpath("/comment()[contains(., 'license')]")
-        license_text = comment_head_node.to_xml
-        license_files.push(
-            LicenseAuto::LicenseWrapper.new(
-                name: "UNKNOWN",
-                sim_ratio: 1.0,
-                html_url: pom_url,
-                download_url: pom_url,
-                text: license_text
+        if comment_head_node.size > 0
+          license_text = comment_head_node.to_xml
+          license_files.push(
+              LicenseAuto::LicenseWrapper.new(
+                  name: "UNKNOWN",
+                  sim_ratio: 1.0,
+                  html_url: pom_url,
+                  download_url: pom_url,
+                  text: license_text
+              )
+          )
+        else
+          author_head_node = doc.xpath("/comment()[contains(., 'author')]")
+          if author_head_node.size > 0
+            license_text = author_head_node.to_xml
+            license_files.push(
+                LicenseAuto::LicenseWrapper.new(
+                    name: "UNKNOWN",
+                    sim_ratio: 1.0,
+                    html_url: pom_url,
+                    download_url: pom_url,
+                    text: license_text
+                )
             )
-        )
+          end
+        end
       end
 
       [pack_wrapper, license_files]

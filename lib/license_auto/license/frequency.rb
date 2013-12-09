@@ -22,7 +22,7 @@ LICENSE_SORTED_FREQUENCY = [
     'PerlArtistic',
     'CDDL1.1',
     'Artistic2.0',
-    'TP-Free',
+    # 'TP-Free',
     'Artistic1.0',
     'AFL2.1',
     'CPL1.0',
