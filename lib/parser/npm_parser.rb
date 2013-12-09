@@ -13,7 +13,6 @@ class NpmParser
 
   def start
     pack_name_versions = []
-    p @repo_path
     filenames = Misc::DirUtils.new(@repo_path).filter_filename(@package_json_pattern)
     filenames.each {|filename|
       $plog.debug(filename)
@@ -25,7 +24,6 @@ class NpmParser
           next
         end
         d.each {|pack_name,semver|
-          # TODO:
           if _is_valid_semver(semver)
             certain_version = API::NpmRegistry.new(pack_name, semver).chose_one_available_version(semver)
             pack = {'name' => pack_name, 'version' => certain_version}
@@ -75,7 +73,4 @@ class NpmParser
     }
     is_valid
   end
-end
-
-if __FILE__ == $0
 end
