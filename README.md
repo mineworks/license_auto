@@ -1,5 +1,5 @@
-## license_auto
-[license_auto](https://github.com/mineworks/license_auto) is a ruby gem for Open Source License collection job.
+## license_auto(v0.1.0.beta) (unreleased)
+[license_auto](https://github.com/mineworks/license_auto) is a Ruby Gem for Open Source License collection job.
 
 ### Dependencies Management Detecting Implement Details
 <table>
@@ -8,7 +8,6 @@
     <th>Dependencies programs</th>
     <th>Dependencies file</th>
     <th>Default project servers</th>
-    <th>Optional</th>
     <th>Progress(%)</th>
   </tr>
   <tr>
@@ -16,15 +15,14 @@
     <td>bundler</td>
     <td>Gemfile(.lock)</td>
     <td>https://rubygems.org/</td>
-    <td> https://rubygems.org/pages/data</td>
+    <!-- <td> https://rubygems.org/pages/data</td> -->
     <td>1</td>
   </tr>
   <tr>
     <td>Java</td>
     <td>Gradle, Maven</td>
     <td>build.gradle, pom.xml</td>
-    <td></td>
-    <td></td>
+    <td>https://repo1.maven.org/maven2</td>
     <td>0</td>
   </tr>
   <tr>
@@ -32,21 +30,18 @@
     <td>npm</td>
     <td>package.json</td>
     <td>http://registry.npmjs.org</td>
-    <td></td>
     <td>0</td>
   </tr>
   <tr>
       <td>Debian</td>
       <td>dpkg -l</td>
       <td></td>
-      <td>https://launchpad.net/</td>      
-      <td></td>
+      <td>https://launchpad.net/</td>
       <td>0</td>
   </tr>
   <tr>
     <td>Golang</td>
     <td>go list -json ./...</td>
-    <td></td>
     <td></td>
     <td></td>
     <td>0</td>
@@ -56,7 +51,6 @@
     <td>pip</td>
     <td>requirements.txt</td>
     <td>https://pypi.python.org/pypi</td>
-    <td></td>
     <td>0</td>
   </tr>  
   <tr>
@@ -64,10 +58,8 @@
     <td>rebar</td>
     <td>rebar.config</td>
     <td></td>
-    <td></td>
     <td>0</td>
-  </tr>  
-  
+  </tr>
 </table>
 
 ## Requirements
@@ -82,35 +74,36 @@
 * Python pip v1.5.6
 * go v1.4.2
 
-
-## Design Principles
-* Get resource by HTTP first. 
+## Install
+``` bash
+gem install license_auto
+```
 
 ## Examples
 
-### Optional: Config Github Auth
+* Optional: Config Github Auth
 ``` ruby
+require 'license_auto'
+# TODO: other parameters
 params = {
-    github_username: 'alice'
+    github_username: 'Alice'
     github_password: '123456',
+    http_proxy: 'http://proxyuser:proxypwd@proxy.server.com:8080'
 }
-auto = License::Auto.new().config(params)
+LicenseAuto::Base.config(params)
 ```
 
-### Optional:
-
-TODO: config rubygems.org PostgreSQL database connection string if you have created one.
-
-### Check dependencies of a repository
+* Get dependencies of a repository
 ``` ruby
-auto = License::Auto.new
-repo = {
+# TODO:
+my_repo = {
   repo_url: 'https://github.com/mineworks/license_auto.git'
 }
-dependencies = auto.get_dependencies(repo)
+repo = LicenseAuto::Package.new(my_repo)
+dependencies = repo.get_dependencies()
 ```
 
-### Check License Info of a given package(library)
+* Get License Info of a package
 ``` ruby
 my_pack = {
     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
@@ -123,11 +116,14 @@ package = LicenseAuto::Package.new(my_pack)
 license_info = package.get_license_info()
 ```
 
-# TODO
+## Test
+``` bash
+$ rake spec
+```
+
+## TODO
+* Check My `Gemfile` licensing for legal issues safe
 * Speed up License name recognizing.
 * Groovy gradle
 * CMake
 * Fork Github official licenses text sample
-
-
-
