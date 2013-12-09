@@ -10,6 +10,7 @@ module API
     :github_dot_com => /github\.com/,
     :rubygems_org => /rubygems\.org/,
     :google_source_com => /(?<protocol>http[s]?):\/\/(?<owner>.+)\.(?<host>googlesource\.com)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
+    :code_google_com => /(?<protocol>http[s]?):\/\/(?<host>code\.google\.com)\/(?<owner>p)\/(?<repo>[^\/.]+)?/,
     :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>[^\/.]+))/
   }
   FILE_NAME_PATTERN = {
