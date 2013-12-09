@@ -63,6 +63,7 @@ module Cloner
 
   def self.process_gitmodules(clone_path, release_id, parent_repo_id)
     gitmodules = find_gitmodules(clone_path)
+$plog.info("Hello, workd: #{gitmodules}")
     gitmodules.each {|url|
       # git@github.com:repo_owner/reop_name
       # TODO: /^(?<username>.+)@/
@@ -133,12 +134,16 @@ module Cloner
     gitmodules = []
     filename = '.gitmodules'
     file = "#{clone_path}/#{filename}"
+$plog.info("is this file exits? #file}")
     if File.exists?(file)
       contents = File.readlines(file)
-      pattern = /url\s=\s(?<url>.+)\.git$/
+$plog.info("content is: #{contents}")
+      pattern = /url\s=\s(?<url>.+)(\.git)?$/
       contents.each {|line|
         match_result = pattern.match(line)
+$plog.info("match_result: #{match_result}, line: #{line}")
         if match_result
+$plog.info("hello url: #{match_result[:url]}")
           gitmodules.push(match_result[:url])
         end
       }
