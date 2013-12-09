@@ -4,7 +4,7 @@ require 'license_auto/website/ruby_gems_org'
 # require 'license_auto/package_manager/gemfury'
 
 module LicenseAuto
-  class Bundler < LicenseAuto::VirtualPackageManager
+  class Bundler < LicenseAuto::PackageManager
 
     LANGUAGE = 'Ruby'
 
@@ -82,6 +82,11 @@ module LicenseAuto
         }
       end
       # LicenseAuto.logger.debug(JSON.pretty_generate(dep_files))
+    end
+
+    def self.check_cli
+      # TODO check bundle
+      true
     end
   end
 end

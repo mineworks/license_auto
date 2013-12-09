@@ -4,11 +4,12 @@ require 'license_auto/logger'
 require 'license_auto/module'
 
 module LicenseAuto
-  class VirtualPackageManager
+  class PackageManager
 
     virtual :initialize,
             :parse_dependencies,
-            :dependency_file_pattern
+            :dependency_file_pattern,
+            :check_cli
 
     # def self.package_managers
     #   [Bundler, NPM, Pip, Bower, Maven, Gradle, CocoaPods, Rebar, Nuget]
@@ -27,6 +28,9 @@ module LicenseAuto
 
     # @return Array[Regexp]
     def dependency_file_pattern; end
+
+    # return Boolean
+    def check_sys_tool_first; end
 
     def dependency_file_path_names(pattern=dependency_file_pattern)
       if FileTest.directory?(@path)
