@@ -29,7 +29,7 @@ module LicenseAuto
 
           {
             dep_file: dep_file,
-            deps: [npm_definition.dependencies, npm_definition.dependencies].compact.map {|hash|
+            deps: [npm_definition.dependencies, npm_definition.devDependencies].compact.map {|hash|
                 hash.map {|pack_name, semver|
                   available_version, remote =
                       if semver =~ /^file:/
