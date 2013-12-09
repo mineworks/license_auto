@@ -11,7 +11,8 @@ module API
     :rubygems_org => /rubygems\.org/,
     :google_source_com => /(?<protocol>http[s]?):\/\/(?<owner>.+)\.(?<host>googlesource\.com)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
     :code_google_com => /(?<protocol>http[s]?):\/\/(?<host>code\.google\.com)\/(?<owner>p)\/(?<repo>[^\/.]+)?/,
-    :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>[^\/.]+))/
+    :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>[^\/.]+))/,
+    :golang_org => /(?<protocol>http[s]?):\/\/(?<host>.*golang\.org)\/(?<owner>[^\/.]+)\/(?<repo>[^\/.]+)/
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,
