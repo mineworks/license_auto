@@ -2,6 +2,8 @@ require 'httparty'
 require 'anemone'
 require 'rubygems/package'
 require 'zlib'
+# require 'zopen'
+require 'xz'
 
 require_relative '../../conf/config'
 require_relative '../../lib/api/helper'
@@ -50,6 +52,8 @@ module API
       Anemone.crawl(source_package_link, opts) do |anemone|
         anemone.on_every_page do |page|
           xpath = "//div[@id='source-files']/table/tbody/tr/td/a[contains(@href, '.orig.')]"
+
+          # TODO: wireless-crda, 1.16 no 'orig.tar.gz' package
           page.doc.xpath(xpath).each {|text|
             full_href = text.attr('href')
             if full_href
@@ -77,6 +81,10 @@ module API
       return source_code_path
     end
 
+    def make_up_license_url()
+      license_url = 'http://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/anacron/vivid/view/head:/COPYING'
+    end
+
     # Entry
     def fetch_license_info_from_local_source()
       # TODO: @Micfan, move it common lib:
@@ -89,39 +97,42 @@ module API
             # TODO: move into pattern.rb
             if source_code_path =~ /tar\.gz$/
               reader = Zlib::GzipReader
+            elsif source_code_path =~ /tar\.xz$/
+              reader = XZ::StreamReader
             else
-              # TODO: format: tar, gx (rar, zip, 7z)
+              # TODO: format: tar (bz2, rar, zip, 7z)
               return nil
             end
             tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
             tar_extract.rewind # The extract has to be rewinded after every iteration
-            # TODO: find a case
-            if tar_extract.size == 1 and tar_extract[0] =~ /\.tar$/
+            tar_extract.each do |entry|
+              # puts entry.directory?
+              # puts entry.file?
+              # puts entry.read
 
-            else
-              ### TODO: abstract
-              tar_extract.each do |entry|
-
-                # Only indent the root dir license file
-                if entry.file? and API::Helper.is_license_file(entry.full_name)
-                  puts entry.full_name
-                  puts entry.read
-                end
-
-                if entry.file? and API::Helper.is_readme_file(entry.full_name)
-                  puts entry.full_name
-                  puts entry.read
-                  # TODO: readme
-                end
-
-                # TODO: 2 dir
-                # puts entry.directory?
-                # puts entry.file?
-                # puts entry.read
+              # Root dir files only
+              if entry.directory? or entry.full_name.split('/').size > 2
+                next
               end
-              tar_extract.close ### abstract
-            end
+              # puts entry.full_name
 
+              if entry.file? and API::Helper.is_license_file(entry.full_name)
+                puts entry.full_name
+                # puts entry.read
+                # TODO: parser license info
+                break
+              end
+
+              # TODO:
+              # if entry.file? and API::Helper.is_readme_file(entry.full_name)
+              #   puts entry.full_name
+              #   # puts entry.read
+              #   # TODO: readme parser license info
+              #   break
+              # end
+
+            end
+            tar_extract.close ### abstract
           else
             # nil
           end
@@ -141,6 +152,9 @@ if __FILE__ == $0
   distro_series = 'trusty'
   name = 'anacron'
   version = '2.3-20ubuntu1'
+
+  name = 'sg3-utils'
+  version = '1.36-1ubuntu1'
   a = API::Launchpad.new(distribution, distro_series, name, version)
   license_info = a.fetch_license_info_from_local_source
 
