@@ -273,8 +273,8 @@ class Github
           regular_start = /^==[ ]*(copying|license){1}:*/i
           regular_end   = /^==/
         elsif File.extname(c['name']) == '.md'
-          regular_start = /^##[ ]*(copying|license){1}:*/i
-          regular_end   = /^##/
+          regular_start = /^#+[ ]*(copying|license){1}:*/i
+          regular_end   = /^#+/
         else
           next
         end
