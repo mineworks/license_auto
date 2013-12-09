@@ -12,13 +12,13 @@ def add_product(product_name)
   end
 end
 
-def add_repo(repo_name, source_url, is_private=false)
+def add_repo(repo_name, source_url, priv=-1)
   result = $conn.exec_params("select * from product where name = $1", [repo_name])
   if r.ntuples == 1
     return false, r[0]
   else
-    repo = $conn.exec_params("insert into repo (name, source_url, is_private) select $1, $2, $3 returning *",
-                             [repo_name, source_url, is_private])
+    repo = $conn.exec_params("insert into repo (name, source_url, priv) select $1, $2, $3 returning *",
+                             [repo_name, source_url, priv])
     if repo.ntuples == 1
       return true, repo[0]
     end
@@ -50,7 +50,6 @@ def api_add_product_repo_pack(repo_id, pack_id, release_id)
   r[0]
 end
 
-# TODO: @Micfan
 def api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
   # "select * from select add_pack('goose', 'unknown', 'Golang', null, null, null, null, null) as t(pack_id integer, new bool)"
   # $plog.info("status: #{status}")
@@ -61,15 +60,6 @@ def api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, s
     ret = r[0]
   end
   ret
-end
-
-# = Case: a record in table product_repo
-def get_cases()
-  # FIXME:
-  # conn.prepare('statement1', 'insert into table1 (id, name, profile) values ($1, $2, $3)')
-  # conn.exec_prepared('statement1', [ 11, 'J.R. "Bob" Dobbs', 'Too much is always better than not enough.' ])
-  r = $conn.exec_params("select * from v_product_repo")
-  # r.values
 end
 
 def api_get_pack_by_id(pack_id)
