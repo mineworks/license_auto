@@ -6,6 +6,7 @@ require 'license_auto/package_manager/golang'
 require 'license_auto/package_manager/gradle'
 require 'license_auto/package_manager/maven'
 require 'license_auto/package_manager/git_module'
+# require 'license_auto/package_manager/bower'
 
 module LicenseAuto
   class Repo < Hashie::Mash
@@ -25,6 +26,7 @@ module LicenseAuto
 
     def self.package_managers
       [
+          # Bower,
           Bundler,
           Npm,
           Golang,
