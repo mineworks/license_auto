@@ -1,3 +1,4 @@
+require  'find'
 require 'httparty'
 require_relative '../conf/config'
 
@@ -41,9 +42,45 @@ module Misc
     end
   end
 
+  class DirUtils
+    attr_reader :path, :filenames
+    def initialize(path)
+      @path = path
+      @filenames = []
+
+      if File.exists?(path) and File.directory?(path)
+        Find.find(path) do |filename|
+          if File.file?(filename)
+            @filenames.push(filename)
+          end
+        end
+      else
+        raise "Parameter Error: #{path}"
+      end
+    end
+
+    def filter_filename(filename_pattern)
+      result = []
+      @filenames.each {|f|
+        if f =~ filename_pattern
+          result.push(f)
+        end
+      }
+      result
+    end
+  end
+
+
+
 end
 
 if __FILE__ == $0
   where = ' where 1=1 '
-  Misc.check_private_repo(where)
+  # Misc.check_private_repo(where)
+  f = '/Users/mic/vm/newhire'
+  d = Misc::DirUtils.new(f)
+  p = /package\.json$/
+  p d.filter_filename(p)
+
+
 end

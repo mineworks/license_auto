@@ -8,6 +8,7 @@ require 'openssl'
 require_relative '../extractor_ruby/choice.rb'
 require_relative '../lib/parser/golang_parser'
 require_relative '../lib/parser/manifest_parser'
+require_relative '../lib/parser/npm_parser'
 require_relative '../lib/cloner'
 require_relative '../lib/db'
 require_relative '../lib/recorder'
@@ -42,7 +43,8 @@ def worker(body)
     manifest_packs = ManifestParser.new(clone_path, repo_id).start
     saved = PacksSaver.new(repo_id, manifest_packs, 'manifest.yml', release_id).save
 
-    # TODO: NodeJsParser.start(clone_path)
+    npm_packs = NpmParser.new(clone_path).start
+    saved = PacksSaver.new(repo_id, npm_packs, 'NodeJs', release_id).save
   rescue Git::GitExecuteError => e
     $plog.fatal(e)
     api_setup_case_status(repo_id, 21, e.to_s)
