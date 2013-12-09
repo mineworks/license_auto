@@ -6,6 +6,7 @@ require_relative '../../conf/config'
 module API
 
 class Bitbucket
+  attr_reader :repo_url, :protocol, :host, :owner, :repo 
   def initialize(repo_url)
     @repo_url = repo_url
 

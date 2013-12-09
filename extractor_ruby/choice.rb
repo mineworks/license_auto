@@ -68,7 +68,8 @@ module ExtractRuby
       require_relative '../lib/api/gem_data'
       require_relative '../lib/api'
       local_gemdb = API::GemData.new
-      ruby_gems_org = 'https://rubygems.org'
+      rubygems_org = 'https://rubygems.org'
+      rubygems_org_domain = 'rubygems.org'
 
       first_level_specs = get_first_level_specs
       first_level_specs.each {|s|
@@ -108,18 +109,18 @@ module ExtractRuby
           gem_server_remotes = s.source.options['remotes']
 
           formatted_remotes = gem_server_remotes.collect {|r|
-            r.gsub(/\/$/, '').gsub(/http:\/\/rubygems\.org/, ruby_gems_org)
+            r.gsub(/\/$/, '').gsub(/http:\/\/rubygems\.org/, rubygems_org)
           }
           # TODO: get Gemfile source section
           db_pack = local_gemdb.get_gem(pack_name, pack_version)
-          if formatted_remotes.index(ruby_gems_org) and db_pack
+          if formatted_remotes.index(rubygems_org) and db_pack
             pack = db_pack.merge({
                                     :status => 10,
-                                    :language => ruby_gems_org,
+                                    :language => rubygems_org_domain,
                                     :cmt => nil
                                   })
           else
-            formatted_remotes.delete(ruby_gems_org)
+            formatted_remotes.delete(rubygems_org)
             pack = {
               pack_name: pack_name,
               pack_version: pack_version,

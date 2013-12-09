@@ -21,8 +21,6 @@ module API
     end
 
     def last_commits
-      last_commit = nil
-      p @repo_url
       g = API::Github.new(@repo_url, db_ref=@ref)
       g.last_commits
     end
