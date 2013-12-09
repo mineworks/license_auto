@@ -56,7 +56,7 @@ module API
           }
         end
       end
-      return source_code_download_url
+      return source_code_download_url.map(&:value)[0]
     end
 
     # TODO: @Micfan, fetch file from Launchpad.net API
@@ -107,8 +107,9 @@ if __FILE__ == $0
   # p a.find_source_package_page_link
   url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
   source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
-  # a.find_source_code_download_url(url)
-  a.download_source_code(source_code_url)
+  p a.find_source_code_download_url(url)
+
+  #a.download_source_code(source_code_url)
 
 # ii  anacron                             2.3-20ubuntu1                    amd64        cron-like program that doesn't go by time
 # ii  apparmor                            2.8.95~2430-0ubuntu5.3           amd64        User-space parser utility for AppArmor
