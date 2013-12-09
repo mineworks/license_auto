@@ -10,7 +10,7 @@ group :default do
   gem 'git'
   gem 'log4r'
   gem 'httparty'
-  gem 'nokogiri'
+  gem "nokogiri", ">= 1.8.2"
   gem 'anemone'
   gem 'rest-client'
   # This package should install by bundler as bellow:
@@ -21,7 +21,7 @@ end
 group :test do
   gem 'rspec'
   gem 'webmock'
-  gem 'rubocop'
+  gem "rubocop", ">= 0.49.0"
   # TODO: simplecov, generate HTML
   gem 'simplecov'
 end
