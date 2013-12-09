@@ -7,7 +7,7 @@ describe LicenseAuto::Maven do
     Set.new(["junit:junit:jar:4.8:test"])
   }
   let(:target_collected_deps) {
-    [{:name=>"junit:junit", :version=>"4.8", :remote=>nil}]
+    [{:name=>"junit:junit", :version=>"4.8", :remote=>'repo1.maven.org/maven2'}]
   }
   let(:target_parsed_deps) {
     [
@@ -17,7 +17,7 @@ describe LicenseAuto::Maven do
                 {
                     "name": "junit:junit",
                     "version": "4.8",
-                    "remote": nil
+                    "remote": 'repo1.maven.org/maven2'
                 }
             ]
         }

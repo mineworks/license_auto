@@ -66,9 +66,17 @@
     <td></td>
     <td>0</td>
   </tr>
+  <tr>
+      <td>BowerJS</td>
+      <td>bower</td>
+      <td>bower.json</td>
+      <td></td>
+      <td>50</td>
+    </tr>
 </table>
 
 ## Requirements
+* OS: Ubuntu-16.04
 * HTTP Network(WiFi on)
 * HTTP proxy to Google.com is a plus
 * Ruby v2.2.x
@@ -88,8 +96,8 @@ gem install license_auto
 
 ## Configure
 ```
-sudo cp license_auto/config/sample.config.yml etc/license_auto.conf.yml
-cp license_auto/config/gitconfig ~/.gitconfig
+sudo cp license_auto/config/sample.config.yml /etc/license_auto.conf.yml
+git config --global git-credential
 ```
 
 ## Examples
@@ -128,7 +136,6 @@ rake spec
 
 ## TODO
 * Check My `Gemfile` licensing for legal issues safe
-* Speed up License name recognizing.
-* Groovy gradle
-* CMake
-* Fork Github official licenses text sample
+* Groovy gradle: optional
+* ~~CMake~~
+* Fork Github official licenses text sample or SPDX template

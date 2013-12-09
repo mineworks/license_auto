@@ -63,7 +63,7 @@ module LicenseAuto
     def resolve_dependencies
       bool = false
       Dir.chdir(@path) do
-        cmd = 'mvn dependency:resolve'
+        cmd = 'mvn dependency:resolve -T 4'
         stdout_str, stderr_str, _status = Open3.capture3(cmd)
         if stdout_str.length > 0
           # LicenseAuto.logger.debug("stdout_str: #{stdout_str}")
@@ -100,7 +100,7 @@ module LicenseAuto
       if resolve_dependencies
         deps = Set.new
         Dir.chdir(@path) do
-          cmd = 'mvn dependency:list'
+          cmd = 'mvn dependency:list -T 4'
           out, err, _st = Open3.capture3(cmd)
           # LicenseAuto.logger.debug("#{out}")
           if out.include?("The following files have been resolved:")
