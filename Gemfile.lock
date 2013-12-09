@@ -38,6 +38,3 @@ DEPENDENCIES
   thor
   thread
   writeexcel
-
-BUNDLED WITH
-   1.10.6

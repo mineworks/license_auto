@@ -91,9 +91,7 @@ def worker(body)
       :license_text => pack['license_text'],
       :status => 30
     }
-
     packer = fetch_license_info_by_source(packer)
-
     if packer[:status] < 40 and packer[:source_url] == nil
       if lang == 'Java'
         # TODO: 3 website
@@ -167,7 +165,20 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"pack_id":7384}'
-  # worker(body)
-  main
+  # sql= "select distinct on (name)* from pack
+  #   where source_url like '%github%'"
+  # packs = $conn.exec(sql)
+  #
+  # packs.each {|p|
+  #   #$plog.debug(p)
+  #   pack_id = p['id']
+  #   body = '{"pack_id":' + "#{pack_id}}"
+  #   worker(body)
+  # }
+
+  pack_id = 193
+  body = '{"pack_id":' + "#{pack_id}}"
+  worker(body)
+
+  #main
 end
