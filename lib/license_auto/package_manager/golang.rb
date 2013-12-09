@@ -71,7 +71,7 @@ module LicenseAuto
       }
 
       filtered_deps = Set.new(deps.reject {|dep|
-        bool = GOLANG_STD_LIBS.include?(dep)
+        bool = GOLANG_STD_LIBS.include?(dep) or not dep.include?('.')
         # LicenseAuto.logger.debug("#{dep}, #{bool}")
         # bool
       }.map {|dep|
