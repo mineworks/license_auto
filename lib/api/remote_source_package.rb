@@ -29,7 +29,7 @@ module API
       File.open(source_code_path, 'wb') do |f|
         f.binmode
         http_option = {
-          :timeout => 360
+          :timeout => HTTPARTY_DOWNLOAD_TIMEOUT
         }
         http_proxy = Misc.get_http_proxy
         if http_proxy
