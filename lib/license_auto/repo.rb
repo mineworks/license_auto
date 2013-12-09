@@ -47,12 +47,14 @@ module LicenseAuto
     #     ]
     # }
     def find_dependencies
-      LicenseAuto.logger.debug(@server)
       repo_dir = @server.clone
       deps = {}
       Repo.package_managers.each {|pm|
-        LicenseAuto.logger.debug(pm)
-        deps[pm.to_s.to_sym] = pm.new(repo_dir).parse_dependencies
+        # LicenseAuto.logger.debug(pm)
+        items = pm.new(repo_dir).parse_dependencies
+        unless items.empty?
+          deps[pm.to_s.to_sym] = items
+        end
       }
       LicenseAuto.logger.debug(JSON.pretty_generate(deps))
       deps
@@ -69,7 +71,7 @@ module LicenseAuto
       github_matched = source_code_matcher.match_github_resource
       if github_matched
         # TODO: pass argument: ref
-        LicenseAuto.logger.debug(self.ref)
+
         @server = GithubCom.new({}, github_matched[:owner], github_matched[:repo], ref=self.ref)
       end
     end
