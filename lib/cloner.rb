@@ -153,7 +153,7 @@ module Cloner
         matched = pattern.match(line)
         $plog.debug("matched: #{matched}, submodule line: #{line}")
         if matched
-          gitmodules.push(matched[:url])
+          gitmodules.push(matched[:url].gsub(/\.git$/, ''))
         end
       }
 
