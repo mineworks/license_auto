@@ -61,7 +61,7 @@ module API
       all_versions.each_key {|version|
         # node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
         cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
-        $plog.debug(cmd)
+        # $plog.debug(cmd)
         Open3.popen3(cmd) {|i,o,e,t|
           out = o.readlines
           error = e.readlines
@@ -70,8 +70,8 @@ module API
             raise "node -e evaluate script error: #{cmd}, #{error}"
           elsif out.length > 0
             available = out[0].gsub(/\n/,'')
-            $plog.debug("version available: #{available}")
             if available == 'true'
+              $plog.debug("available version: #{version}")
               available_versions.push(version)
             end
           else
@@ -85,6 +85,7 @@ module API
     def chose_one_available_version(sem_version_range)
       available_versions = get_available_versions(sem_version_range)
       # TODO: is it right?
+      $plog.debug("chose version: #{available_versions.last}")
       available_versions.last
     end
 
