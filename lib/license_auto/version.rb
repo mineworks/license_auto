@@ -8,7 +8,7 @@ module LicenseAuto
     MAJOR = 0
     MINOR = 1
     TINY  = 1
-    PRE   = ''
+    PRE   = '1'
 
     STRING =
         if PRE.empty?
