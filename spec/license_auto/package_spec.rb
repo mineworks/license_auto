@@ -30,7 +30,6 @@ describe LicenseAuto::Package do
   end
 
   it "raise KeyError when get license information of Package" do
-    # my_pack = my_pack.merge({language: 'foo'})
 
     package = LicenseAuto::Package.new(my_pack)
     expect(package.name).to eq(my_pack['name'])
