@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 group :default do
+  gem 'bundler'
   gem "hashie"
   gem "json"
   gem "gems"
