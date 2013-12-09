@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'bundler', '~> 1.10', '>= 0'
   spec.add_runtime_dependency "hashie"
+  spec.add_runtime_dependency "log4r"
   spec.add_runtime_dependency "json"
   spec.add_runtime_dependency "gems"
   spec.add_runtime_dependency "github_api"

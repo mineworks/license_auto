@@ -19,7 +19,7 @@ class GithubCom < Website
   def initialize(package, user, repo, ref=nil)
     super(package)
     @ref = ref
-    LicenseAuto.logger.debug(repo)
+    LicenseAuto.logger.debug("#{user}/#{repo}")
 
     @server = Github.new(user: user, repo: repo)
   end
@@ -45,6 +45,10 @@ class GithubCom < Website
     }
 
     LicenseAuto::LicenseInfo.new(licenses: license_files, readmes: readme_files, notices: notice_files)
+  end
+
+  def get_ref(ref)
+    @server.git_data.references.get(ref: ref)
   end
 
   def match_versioned_ref()
@@ -73,19 +77,13 @@ class GithubCom < Website
 
   def clone
     info = repo_info
-    # LicenseAuto.logger.debug(info)
+
     clone_url = info.body.fetch('clone_url')
+    LicenseAuto.logger.debug(clone_url)
+
     trimmed_url = clone_url.gsub(/^http[s]?:\/\//, '')
     clone_dir = "#{LUTO_CACHE_DIR}/#{trimmed_url}"
-
-    do_clone = lambda {
-      LicenseAuto.logger.debug(@ref)
-      clone_opts = {
-          :depth => 1, # Only last commit history for fast
-          :branch => @ref
-      }
-      cloned_repo = Git.clone(clone_url, clone_dir, clone_opts)
-    }
+    LicenseAuto.logger.debug(clone_dir)
 
     if Dir.exists?(clone_dir)
       git = Git.open(clone_dir, :log => LicenseAuto.logger)
@@ -94,12 +92,22 @@ class GithubCom < Website
         git.pull(remote='origin', branch=local_branch)
       else
         FileUtils::rm_rf(clone_dir)
-        do_clone
+        do_clone(clone_url, clone_dir)
       end
     else
-      do_clone
+      do_clone(clone_url, clone_dir)
     end
     clone_dir
+  end
+
+  def do_clone(clone_url, clone_dir)
+    LicenseAuto.logger.debug(@ref)
+    clone_opts = {
+        :depth => 1, # Only last commit history for fast
+        :branch => @ref
+    }
+    LicenseAuto.logger.debug(clone_url)
+    cloned_repo = Git.clone(clone_url, clone_dir, clone_opts)
   end
 
   def repo_info

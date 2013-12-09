@@ -16,7 +16,7 @@ module LicenseAuto
                                            :filename => LUTO_CONF.logger.file,
                                            :trunc => false,
                                            :level => LUTO_LOG_LEVEL)
-    formatter = Log4r::PatternFormatter.new(:pattern => "%l %d %p - %M  %t")
+    formatter = Log4r::PatternFormatter.new(:pattern => "%C %.1l %d %p => %M  %t")
     stdout_output.formatter = formatter
     file_output.formatter = formatter
 
