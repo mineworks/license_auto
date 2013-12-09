@@ -11,7 +11,7 @@ apt-get install -y rabbitmq-server \
     libpq-dev build-essential \
     libxml2 \
     libxslt bzip2 cmake golang \
-    rebar gradle
+    rebar gradle maven
 
 # If mac osx
 # brew install icu4c
