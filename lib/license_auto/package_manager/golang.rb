@@ -170,7 +170,7 @@ module LicenseAuto
       bash_cmd = "go version"
       # LicenseAuto.logger.debug(bash_cmd)
       stdout_str, stderr_str, _status = Open3.capture3(bash_cmd)
-      golang_version = /1\.6/
+      golang_version = /1\.[456]/
 
       if not stderr_str.empty?
         LicenseAuto.logger.error(stderr_str)

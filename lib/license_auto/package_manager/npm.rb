@@ -91,7 +91,7 @@ module LicenseAuto
       bash_cmd = "node -v"
       LicenseAuto.logger.debug(bash_cmd)
       stdout_str, stderr_str, status = Open3.capture3(bash_cmd)
-      node_version = /v5\.\d+\.\d+/
+      node_version = /v[456]\.\d+\.\d+/
       if not stderr_str.empty?
         LicenseAuto.logger.error(stderr_str)
         return false

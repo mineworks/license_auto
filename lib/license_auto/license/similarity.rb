@@ -17,7 +17,7 @@ module LicenseAuto
             abs_filename_path(template_name).nil?
           }.map {|template_name|
             abs_file = abs_filename_path(template_name)
-            TfIdfSimilarity::Document.new(File.read(abs_file))
+            TfIdfSimilarity::Document.new(File.read(abs_file,encoding:"UTF-8"))
           }.compact
       @license_template_documents.push(
           TfIdfSimilarity::Document.new(@license_content)
