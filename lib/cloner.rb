@@ -36,10 +36,12 @@ module Cloner
           g.pull(remote='origin', branch=local_branch)
         end
       else
-        # opts = {
-        #   :recursive => true
-        # }
-        local_repo = Git.clone(repo, path)
+        opts = {
+          # :recursive => true
+          # Only last commit history
+          :depth => 1
+        }
+        local_repo = Git.clone(repo, path, opts)
         path = local_repo.dir.path
       end
       $plog.debug("Cloned #{repo} into #{path}.")
