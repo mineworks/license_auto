@@ -3,31 +3,28 @@ module API
 class GemData
   require_relative '../db'
   def initialize
-    @name = ''
-    @version = ''
   end
 
-  def get_gemdata(name, version)
-    @name = name
-    @version = version
-    pack = Hash.new()
+  def get_gem(name, version)
+    pack = nil
     if version == nil or version == ''
-      r = api_get_gemdata_by_name(@name)
+      pg_result = api_get_gemdata_by_name(name)
     else
-      r = api_get_gemdata_by_name_and_version(@name, @version)
+      pg_result = api_get_gemdata_by_name_and_version(name, version)
     end
-    if r == nil
-      pack = r
-    else
-      pack[:name] = r["name"]
-      pack[:version] = r["number"]
-      pack[:homepage] = r["home"]
-      pack[:source_url] = r["code"]
-      pack[:license] = r["licenses"]
+    if pg_result.ntuples > 0
+      result = pg_result[0]
+      pack = {
+        :pack_name => result["name"],
+        :pack_version => result["number"],
+        :homepage => result["home"],
+        :source_url => result["code"],
+        :license => result["licenses"]
+      }
     end
 
-    return pack
+    pack
   end
 end
 
-end ### API
+end

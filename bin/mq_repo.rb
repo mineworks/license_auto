@@ -39,9 +39,7 @@ def worker(body)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)
     saver.save
 
-    extractor = ExtractRuby::RubyExtractotr.new
-    extractor.parse_bundler(clone_path)
-    ruby_packs = extractor.select_rubygems_db
+    ruby_packs = ExtractRuby::RubyExtractotr.new(clone_path).start
     saved = PacksSaver.new(repo_id, ruby_packs, 'Ruby', release_id).save
 
     manifest_packs = ManifestParser.new(clone_path, repo_id).start

@@ -7,7 +7,8 @@ module API
     :npm_urls => /(?<protocol>git):\/\/(?<host>.*\..*)\/(?<owner>.+)\/(?<repo>[^\/#]+(\.git)?)(#(?<ref>.*))?/,
     :bitbucket => /(?<protocol>http[s]?):\/\/(?<host>bitbucket\.org)\/(?<owner>.+)\/(?<repo>.+)(?<ext>\.git)?/,
     :github_html_page => /(?<protocol>http[s]?):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/]+)\/blob\/(?<branch>.+)\/(?<file_pathname>.+)?/,
-    :github_dot_com => /github\.com/
+    :github_dot_com => /github\.com/,
+    :rubygems_org => /rubygems\.org/
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,
