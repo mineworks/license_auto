@@ -93,33 +93,32 @@ class PacksSaver
   def save_golang()
     @packs.each { |pack_name, pack_url|
       begin
-        pack_version = 'unknown'
+        $plog.debug("save_golange: #{pack_url}")
 
-        if pack_url.index('github.com')
-          g = API::Github.new(pack_url)
-          last = g.last_commits
-          if last != nil
-            pack_version = last['sha']
-          else
-            $plog.info("Package url version is unknown: #{pack_url}")
+        pack_version = 'unknown'
+        homepage = nil
+        source_url = nil
+        status = 10
+        cmt = nil
+
+        remote = API::RemoteSourceVCS.new(pack_url)
+
+        if remote.vcs == nil
+          status = 30
+          cmt = 'Unknown repo site'
+          pack_name = pack_name.split('/').last
+        else
+          pack_name = remote.vcs.repo
+          source_url = remote.vcs.repo_url
+          homepage = remote.get_homepage
+          last_commit = remote.vcs.last_commits
+          if last_commit
+            pack_version = last_commit['sha']
           end
         end
-        if pack_url.index('bitbucket.org')
-          b = API::Bitbucket.new(pack_url)
-          last_commit = b.last_commits
-          pack_version = last_commit unless last_commit.nil?
-        end
-
-        $plog.debug("#{pack_version}, #{pack_url}")
-        homepage = license = nil
-        if pack_url =~ /github\.com/ or pack_url =~ /bitbucket\.org/
-          status = 10
-          cmt = nil
-        else
-          status = 30
-          cmt = 'Not github or bitbucket'
-        end
-        pg_result = api_add_pack(pack_name.split('/').last, pack_version, 'Golang', homepage, pack_url, license, status, cmt)
+        # $plog.debug("#{pack_version}, #{pack_url}")
+        license = nil
+        pg_result = api_add_pack(pack_name, pack_version, 'Golang', homepage, source_url, license, status, cmt)
         enqueue_result(pg_result)
       rescue Exception => _
         $plog.error(_)

@@ -10,7 +10,7 @@ module API
     :github_dot_com => /github\.com/,
     :rubygems_org => /rubygems\.org/,
     :google_source_com => /(?<protocol>http[s]?):\/\/(?<owner>.+)\.(?<host>googlesource\.com)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
-    :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>.+))/
+    :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>[^\/.]+))/
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,
