@@ -14,6 +14,10 @@ module API
     def self.is_readme_file(filename)
       return filename =~ API::FILE_NAME_PATTERN[:readme_file]
     end
+
+    def self.is_notice_file(filename)
+      return filename =~ API::FILE_NAME_PATTERN[:notice_file]
+    end
   end
 
 end

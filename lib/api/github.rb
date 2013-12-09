@@ -198,6 +198,19 @@ class Github
     license_contents
   end
 
+  def filter_notice_contents(path = '')
+    notice_contents = []
+    root_contents = list_contents(path)
+    root_contents.each do |c|
+      if c['type'] == 'file'
+        if API::Helper.is_notice_file(c['name'])
+          notice_contents.push(c)
+        end
+      end
+    end
+    notice_contents
+  end
+
   def get_gitmodules
     gitmodules = nil
     root_contents = list_contents(path)
@@ -326,6 +339,24 @@ class Github
       end
     end
 
+    if license == 'Apache2.0'
+      license_text = nil
+      items = []
+      notice_contents = filter_notice_contents
+      notice_contents.each do |c|
+        download_url = c['download_url']
+        $plog.info("License file 链接: #{download_url}")
+        response = HTTParty.get(download_url, options=@http_option)
+        if response.code == 200
+          items.push(response.body)
+        end
+      end
+      if items.size > 0
+        split_line = "\n"+'-'*80 + "\n"
+        license_text = items.join(split_line)
+      end
+    end
+
     {
       license: license,
       license_url: license_url,
@@ -337,11 +368,11 @@ end
 end
 
 if __FILE__ == $0
-  url = 'https://github.com/geemus/netrc'
-  url = ' https://github.com/cloudfoundry/compile-extensions'
+  #url = 'https://github.com/geemus/netrc'
+  #url = ' https://github.com/cloudfoundry/compile-extensions'
+  url = 'https://github.com/aws/aws-sdk-ruby'
   g = API::Github.new(url)
-  p g.last_commits
-
-
+  a = g.get_license_info
+  p a[:license_text]
 
 end
