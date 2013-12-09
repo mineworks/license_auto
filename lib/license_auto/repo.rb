@@ -45,6 +45,73 @@ module LicenseAuto
     #                 }
     #             ]
     #         }
+    #     ],
+    #     "LicenseAuto::Npm": [
+    #         {
+    #             "dep_file": "/tmp/license_auto/cache/github.com/mineworks/license_auto.git/package.json",
+    #             "deps": [
+    #                 {
+    #                     "name": "bower",
+    #                     "version": "v1.7.9",
+    #                     "remote": "https://github.com/bower/bower.git"
+    #                 },
+    #                 {
+    #                     "name": "gulp-ng-config",
+    #                     "version": "1.2.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash",
+    #                     "version": "3.10.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash._getnative",
+    #                     "version": "3.9.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash.isarguments",
+    #                     "version": "3.0.8",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash.isarray",
+    #                     "version": "3.0.4",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "bower",
+    #                     "version": "v1.7.9",
+    #                     "remote": "https://github.com/bower/bower.git"
+    #                 },
+    #                 {
+    #                     "name": "gulp-ng-config",
+    #                     "version": "1.2.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash",
+    #                     "version": "3.10.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash._getnative",
+    #                     "version": "3.9.1",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash.isarguments",
+    #                     "version": "3.0.8",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 },
+    #                 {
+    #                     "name": "lodash.isarray",
+    #                     "version": "3.0.4",
+    #                     "remote": "http://registry.npmjs.org/"
+    #                 }
+    #             ]
+    #         }
     #     ]
     # }
     def find_dependencies

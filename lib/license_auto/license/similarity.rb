@@ -50,7 +50,7 @@ module LicenseAuto
 
       license_name = LICENSE_SORTED_FREQUENCY[sim_license_index]
 
-      debug = "License: #{license_name}, Ratio: #{max_sim_ratio}, license_content: #{@license_content[0..20]}..."
+      debug = "License: #{license_name}, Ratio: #{max_sim_ratio}, license_content:\n #{@license_content[0..70]}..."
       LicenseAuto.logger.debug(debug)
 
       [license_name, max_sim_ratio]

@@ -3,6 +3,7 @@ require 'hashie/mash'
 require 'license_auto/website/ruby_gems_org'
 require 'license_auto/website/gemfury_com'
 require 'license_auto/website/github_com'
+require 'license_auto/website/npm_registry'
 
 
 module LicenseAuto
@@ -27,7 +28,8 @@ module LicenseAuto
     # Value: default project server
 
     LANGUAGES_PACKAGE_SERVER = {
-        Ruby: RubyGemsOrg
+        Ruby: RubyGemsOrg,
+        NodeJS: NpmRegistry
     }
 
     ALL_SERVERS = [
