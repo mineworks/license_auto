@@ -1,7 +1,13 @@
-language: ruby
+language: ruby, node_js
+
 rvm:
- - "2.0"
  - "2.2"
+
+node_js:
+ - "5"
+
+before_script:
+ - npm install -g semver
 
 script:
  - bundle exec rake build

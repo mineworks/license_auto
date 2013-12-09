@@ -15,6 +15,8 @@ describe LicenseAuto::Repo do
     expect(dependencies.empty?).to be(false)
     expect(dependencies["LicenseAuto::Bundler"].empty?).to be(false)
     expect(dependencies["LicenseAuto::Bundler"].first.fetch(:deps).empty?).to be(false)
+
+    expect(dependencies["LicenseAuto::Npm"].first.fetch(:deps).empty?).to be(false)
   end
 
   # TODO:
