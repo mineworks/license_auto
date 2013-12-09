@@ -1,7 +1,7 @@
 ##
 # Golang(v1.4.2 darwin/amd64) system libraries
 
-GOLANG_STD_PACKAGES = [
+GOLANG_STD_LIBS = [
 'cmd/addr2line',
 'cmd/cgo',
 'cmd/fix',
