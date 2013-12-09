@@ -81,7 +81,8 @@ module Cloner
         g = API::GitKernelOrg.new(url)
       elsif url =~ API::SOURCE_URL_PATTERN[:bitbucket]
         g = API::Bitbucket.new(url)
-      # TODO: WWWGoogleSourceCom
+      elsif url =~ API::SOURCE_URL_PATTERN[:google_source_com]
+        g = API::GoogleSourceCom.new(url)
       else
         g = nil
         raise "Unknown repostory: #{url}"
