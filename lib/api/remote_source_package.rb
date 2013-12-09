@@ -145,13 +145,13 @@ module API
               # Root dir files only
               if entry.directory? or !API::Helper.is_root_file(entry.full_name)
                 # python-defaults-2.7.5/debian/copyright
-                if API::Helper.is_debian_copyright_file(entry.full_name)
-                  license_url = entry.full_name
-                  license_text = entry.read
-                  break
-                else
+                #if API::Helper.is_debian_copyright_file(entry.full_name)
+                #  license_url = entry.full_name
+                #  license_text = entry.read
+                #  break
+                #else
                   next
-                end
+               # end
               end
 
               if entry.file? and API::Helper.is_license_file(entry.full_name)

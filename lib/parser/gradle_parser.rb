@@ -91,8 +91,8 @@ class GradleParser
 
     if build_dot_gradle
       $plog.debug(build_dot_gradle)
-      all_projects_deps = all_projects_deps.merge(list_dependencies)
       Dir.chdir(@repo_path) {
+        all_projects_deps = all_projects_deps.merge(list_dependencies)
         projects = list_projects
         $plog.debug("projects: #{projects}")
         projects.each {|project_name|
