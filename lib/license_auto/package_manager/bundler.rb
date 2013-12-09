@@ -30,7 +30,7 @@ module LicenseAuto
 
       lock_files = dependency_file_path_names
       if lock_files.empty?
-        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exisit")
+        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exist")
         gem_files = dependency_file_path_names(pattern=gemfile_pattern)
         # TODO: parse gem_files
         unless gem_files.empty?

@@ -27,5 +27,10 @@ end
 
 def test_case_dir(sub_dir)
   test_case_dir = 'spec/fixtures/github.com/mineworks/license_auto_test_case'
-  [test_case_dir, sub_dir].join('/')
+  if sub_dir.nil?
+    test_case_dir
+  else
+    [test_case_dir, sub_dir].join('/')
+  end
+
 end

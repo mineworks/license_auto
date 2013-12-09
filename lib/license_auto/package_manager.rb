@@ -30,7 +30,7 @@ module LicenseAuto
     def dependency_file_pattern; end
 
     # return Boolean
-    def check_sys_tool_first; end
+    def check_cli; end
 
     def dependency_file_path_names(pattern=dependency_file_pattern)
       if FileTest.directory?(@path)

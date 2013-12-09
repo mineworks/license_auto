@@ -5,6 +5,7 @@ require 'license_auto/package_manager/npm'
 require 'license_auto/package_manager/golang'
 require 'license_auto/package_manager/gradle'
 require 'license_auto/package_manager/maven'
+require 'license_auto/package_manager/git_module'
 
 module LicenseAuto
   class Repo < Hashie::Mash
@@ -19,6 +20,7 @@ module LicenseAuto
       super(hash)
       @server = chose_repo_server
       raise("#{hash} is not a Github Repo") unless @server
+      @repo_dir = nil
     end
 
     def self.package_managers
@@ -79,17 +81,31 @@ module LicenseAuto
     #     ]
     # }
     def find_dependencies
-      repo_dir = @server.clone
+      @repo_dir = @server.clone
       deps = {}
       Repo.package_managers.each {|pm|
         # LicenseAuto.logger.debug(pm)
-        items = pm.new(repo_dir).parse_dependencies
+        items = pm.new(@repo_dir).parse_dependencies
         unless items.empty?
           deps[pm.to_s] = items
         end
       }
       LicenseAuto.logger.debug(JSON.pretty_generate(deps))
       deps
+    end
+
+
+    # @return Array
+    #
+    def find_git_modules
+      if FileTest.directory?(@repo_dir)
+
+      else
+        error = "Cloned repo_dir is nil"
+        LicenseAuto.logger.error(error)
+        nil
+      end
+
     end
 
     # def get_ref()
