@@ -19,7 +19,25 @@ class PacksSaver
       save_ruby
     elsif @lang == 'manifest.yml' or @lang == 'NodeJs' or @lang == 'Erlang'
       save_manifest
+    elsif @lang == 'Gradle'
+      save_gradle
     end
+  end
+
+  def save_gradle
+    @packs.each {|pack|
+      begin
+        $plog.debug(pack)
+        pack_name, pack_version, status = [pack[:group], pack[:name]].join(':'), pack[:version], 10
+        homepage, source_url = nil, pack['uri']
+        license, cmt = nil, nil
+
+        pg_result = api_add_pack(pack_name, pack_version, @lang, homepage, source_url, license, status, cmt)
+        enqueue_result(pg_result)
+      rescue Exception => _
+        $plog.error(_)
+      end
+    }
   end
 
   def save_manifest
