@@ -24,3 +24,8 @@ def fixture(file)
   file = file.gsub(/^http[s]?(:\/\/)/, '')
   File.new(fixture_path + '/' + file)
 end
+
+def test_case_dir(sub_dir)
+  test_case_dir = 'spec/fixtures/github.com/mineworks/license_auto_test_case'
+  [test_case_dir, sub_dir].join('/')
+end
