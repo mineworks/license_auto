@@ -10,7 +10,7 @@ export license_auto_proxy='proxy.foo.com:8080'
 apt-get install -y rabbitmq-server \
     libpq-dev build-essential \
     libxml2 \
-    libxslt
+    libxslt bzip2
 
 rabbitmq-plugins enable rabbitmq_management
 rabbitmqctl stop # 停止Erlang节点

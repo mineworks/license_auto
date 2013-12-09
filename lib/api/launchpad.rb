@@ -3,8 +3,10 @@ require 'anemone'
 require 'rubygems/package'
 require 'zlib'
 require 'xz'
+require 'open3'
 
 require_relative '../../conf/config'
+require_relative '../../extractor_ruby/License_recognition'
 require_relative '../../lib/api/helper'
 
 module API
@@ -93,6 +95,8 @@ module API
       license_url = 'http://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/anacron/vivid/view/head:/COPYING'
     end
 
+
+
     # Entry
     def fetch_license_info_from_local_source()
       # TODO: @Micfan, move it common lib:
@@ -100,8 +104,8 @@ module API
       license_url = nil
       license_text = nil
       source_code_download_url = nil
-
       source_package_page_link = find_source_package_page_link
+
       if source_package_page_link
 
         $plog.debug("source_package_page_link: #{source_package_page_link}")
@@ -110,6 +114,7 @@ module API
         if source_code_download_url
           source_code_path = download_source_code(source_code_download_url)
           if source_code_path
+            reader = nil
             # TODO: move into pattern.rb
             if source_code_path =~ API::FILE_TYPE_PATTERN[:tar_gz]
               reader = Zlib::GzipReader
@@ -117,47 +122,86 @@ module API
               reader = XZ::StreamReader
             elsif source_code_path =~ API::FILE_TYPE_PATTERN[:tar_bz2]
               # TODO: @Dragon, format: bz2 (tar, rar, zip, 7z)
-              reader = File
+              # Bash script demo
+              # tar -tjvf bison_3.0.2.dfsg.orig.tar.bz2 | grep -i 'license\|copying\|readme' | awk '{ print $6 }'
+              # tar -xj --file=bison_3.0.2.dfsg.orig.tar.bz2 bison-3.0.2.dfsg/COPYING
+              # tar -xjO --file=bison_3.0.2.dfsg.orig.tar.bz2 bison-3.0.2.dfsg/COPYING
+              # tar -xjO --file=bison_3.0.2.dfsg.orig.tar.bz2 bison-3.0.2.dfsg/COPYING -C /dev/null
+              cmd_list_content = "tar -tjvf #{source_code_path} | grep -i 'license\\|copying' | awk '{ print $6 }'"
+              Open3.popen3(cmd_list_content) {|i,o,e,t|
+                out = o.readlines
+                error = e.readlines
+                if error.length > 0
+                  # todo: move into exception.rb
+                  raise Exception("decompress error: #{source_code_path}, #{error}")
+                elsif out.length > 0
+                  out.each {|line|
+                    license_file_path = line.gsub(/\n/, '')
+                    if !API::Helper.is_root_file(license_file_path)
+                      next
+                    end
+                    cmd_read_content = "tar -xjO --file=#{source_code_path} #{license_file_path} -C /dev/null"
+                    Open3.popen3(cmd_read_content) {|i,o,e,t|
+                      out2 = o.read
+                      error = e.readlines
+                      if error.length > 0
+                        # todo: report error
+                        raise Exception("cmd_read_content error: #{source_code_path}, #{license_file_path}, #{error}")
+                      elsif out2.length > 0
+                        license_text = out2
+                        license_url = license_file_path
+                        $plog.debug(license_text)
+                        break
+                      end
+                    }
+                  }
+                end
+              }
             else
               $plog.error("source_code_download_url: #{source_code_download_url}, can NOT be uncompressed.")
               return {}
             end
-            tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
-            tar_extract.rewind # The extract has to be rewinded after every iteration
-            tar_extract.each do |entry|
-              # puts entry.directory?
-              # puts entry.file?
-              # puts entry.read
 
-              # Root dir files only
-              if entry.directory? or entry.full_name.split('/').size > 2
-                next
+            if reader
+              tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
+              tar_extract.rewind # The extract has to be rewinded after every iteration
+              tar_extract.each do |entry|
+                # puts entry.directory?
+                # puts entry.file?
+                # puts entry.read
+                # Root dir files only
+                if entry.directory? or !API::Helper.is_root_file(entry.full_name)
+                  next
+                end
+
+                if entry.file? and API::Helper.is_license_file(entry.full_name)
+                  license_url = entry.full_name
+                  license_text = entry.read
+
+                  $plog.debug(entry.full_name)
+                  $plog.debug(license_text)
+
+                  # TODO: parser license info
+                  break
+                end
+
+                # TODO:
+                # if entry.file? and API::Helper.is_readme_file(entry.full_name)
+                #   puts entry.full_name
+                #   # puts entry.read
+                #   # TODO: readme parser license info
+                #   break
+                # end
+
               end
-
-              if entry.file? and API::Helper.is_license_file(entry.full_name)
-                license_url = entry.full_name
-                license_text = entry.read
-
-                $plog.debug(entry.full_name)
-                $plog.debug(license_text)
-
-                # TODO: parser license info
-                license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
-                break
-              end
-
-              # TODO:
-              # if entry.file? and API::Helper.is_readme_file(entry.full_name)
-              #   puts entry.full_name
-              #   # puts entry.read
-              #   # TODO: readme parser license info
-              #   break
-              # end
-
+                tar_extract.close ### to abstract out
             end
-            tar_extract.close ### to abstract out
           end
         end
+      end
+
+      if license_text
+        license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
       end
       {
         license: license,
@@ -182,6 +226,10 @@ if __FILE__ == $0
 
   name = 'wireless-crda'
   version = '1.16'
+
+  # .bz2
+  name = 'bzip2'
+  version = '1.0.6-5'
   a = API::Launchpad.new(distribution, distro_series, name, version)
   license_info = a.fetch_license_info_from_local_source
 
