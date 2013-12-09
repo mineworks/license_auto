@@ -30,21 +30,6 @@ module LicenseAuto
       @server = nil
     end
 
-    def chose_project_server()
-      begin
-        @server = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym).new(self)
-      rescue KeyError => e
-        return nil
-      end
-    end
-
-    def chose_search_engine()
-      # TODO: Website::Google
-      # logger.info("#{self.language} has no adapter. I will google it...")
-      # @search_engine = LicenseAuto::SearchEngine::Google
-      # TODO: Website::Github
-    end
-
     ##
     # Class Entry
 
@@ -61,6 +46,23 @@ module LicenseAuto
       #   # TODO: fill default project_server
       #   @project_server = nil
 
+    end
+
+    private
+
+    def chose_project_server()
+      begin
+        @server = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym).new(self)
+      rescue KeyError => e
+        return nil
+      end
+    end
+
+    def chose_search_engine()
+      # TODO: Website::Google
+      # logger.info("#{self.language} has no adapter. I will google it...")
+      # @search_engine = LicenseAuto::SearchEngine::Google
+      # TODO: Website::Github
     end
 
   end
