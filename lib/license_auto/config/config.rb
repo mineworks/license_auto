@@ -3,7 +3,15 @@ require 'yaml'
 require 'hashie/mash'
 
 # Aka LICENSE_AUTO_CONF
-LUTO_CONF = Hashie::Mash.new(YAML.load_file('/etc/license_auto.conf.yml'))
+LUTO_CONF =
+    begin
+      Hashie::Mash.new(YAML.load_file('/etc/license_auto.conf.yml'))
+    rescue Errno::ENOENT
+      sample_filename_path = File.expand_path('../sample.config.yml', __FILE__)
+      puts "Using config: #{sample_filename_path}"
+      Hashie::Mash.new(YAML.load_file(sample_filename_path))
+    end
+
 
 # LicenseAuto logger level
 LUTO_LOG_LEVEL =

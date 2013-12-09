@@ -21,6 +21,7 @@ module LicenseAuto
       Repo.package_managers.each {|pm|
         deps[pm.to_s.to_sym] = pm.new(repo_dir).parse_dependencies
       }
+      LicenseAuto.logger.debug(JSON.pretty_generate(deps))
       deps
     end
 
