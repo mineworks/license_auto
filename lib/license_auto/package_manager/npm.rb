@@ -20,7 +20,7 @@ module LicenseAuto
 
       package_json_files = dependency_file_path_names
       if package_json_files.empty?
-        LicenseAuto.logger.info("#{dependency_file_pattern} file not exisit")
+        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exisit")
         return []
       else
         package_json_files.map {|dep_file|
