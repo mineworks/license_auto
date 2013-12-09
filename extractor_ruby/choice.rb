@@ -83,7 +83,7 @@ module ExtractRuby
           source_url = s.source.options['uri']
           _status = @status_init
           _lang = source_url
-          _cmt = 'Private git uri, source code not found'
+          _cmt = nil
 
           if source_url =~ API::SOURCE_URL_PATTERN[:github]
             g = API::Github.new(source_url)
@@ -91,7 +91,7 @@ module ExtractRuby
             _lang = 'https://github.com'
             if g.list_contents('').size == 0
               _status = @status_private_source
-              _cmt = nil
+              _cmt = 'Private git uri, source code not found'
             end
           end
           pack = {

@@ -84,25 +84,21 @@ module Cloner
       org_url = "#{sub_host}/#{sub_repo_owner}"
 
       if api_get_whitelist_orgs(org_url).ntuples > 0
-        $plog.debug("submodule in whitelist_orgs: #{url}")
+        $plog.debug("whitelist_orgs: #{url}")
 
-        if api_get_repo_by_url(url).ntuples == 0
-          new_added, sub_repo = add_repo(sub_repo_name, url, parent_repo_id=parent_repo_id)
-          sub_repo_id = sub_repo['id'].to_i
-          $plog.debug("sub_repo_id: #{sub_repo_id}, new_added: #{new_added}")
+        new_added, sub_repo = add_repo(sub_repo_name, url, parent_repo_id=parent_repo_id)
+        sub_repo_id = sub_repo['id'].to_i
+        $plog.debug("sub_repo_id: #{sub_repo_id}, new_added: #{new_added}")
+        case_items = api_query_product_repo(release_id, parent_repo_id)
+        if case_items.ntuples > 0
+          api_add_product_repo(release_id, parent_repo_id, sub_repo_id)
+        end
 
-          case_items = api_query_product_repo(release_id, parent_repo_id)
-          $plog.debug("case_items.ntuples: #{case_items.ntuples}")
-          if case_items.ntuples > 0
-            api_add_product_repo(release_id, parent_repo_id, sub_repo_id)
-          end
-
-          if new_added
-            mq_publish_repo(release_id, sub_repo_id)
-          end
+        if new_added
+          mq_publish_repo(release_id, sub_repo_id)
         end
       else
-        $plog.debug("submodule not in whitelist_orgs: #{url}")
+        $plog.debug("whitelist_orgs not: #{url}")
         pack_name = sub_repo_name
         last_commit = g.last_commits
         pack_version = last_commit ? last_commit['sha'] : nil
@@ -144,8 +140,8 @@ module Cloner
       pattern = /url\s=\s(?<url>.+)(\.git)?$/
       contents.each {|line|
         matched = pattern.match(line)
-        $plog.debug("matched: #{matched}, submodule line: #{line}")
         if matched
+          $plog.debug("matched: #{matched}, submodule line: #{line}")
           gitmodules.push(matched[:url].gsub(/\.git$/, ''))
         end
       }
