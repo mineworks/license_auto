@@ -129,8 +129,11 @@ def worker(body)
         packer = packer.merge(license_info)
         packer = PackUpdate.judge_pack_status(packer)
         if packer[:status] < 40 and packer[:status] >= 30
-          license_info = fetch_license_info_by_source(packer)
-          packer = packer.merge(license_info)
+          source_license_info = fetch_license_info_by_source(packer)
+          packer = packer.merge(source_license_info)
+          if packer[:license].nil?
+            packer[:license] = license_info[:license]
+          end
           packer = PackUpdate.judge_pack_status(packer)
         end
       end

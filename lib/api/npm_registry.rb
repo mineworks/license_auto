@@ -117,10 +117,16 @@ module API
         homepage = pack_info['homepage']
         repository = pack_info['repository']
         if repository
+          url = repository['url']
           if repository['type'] == 'git'
-            source_url = repository['url'].gsub(/(git:\/\/|git\+ssh:\/\/git\@)/, 'http://').gsub(/\.git$/, '')
+            source_url =
+                if url =~ /^git/
+                  url.gsub(/(git:\/\/|git\+ssh:\/\/git\@)/, 'http://').gsub(/\.git$/, '')
+                elsif url =~ /^http/
+                  url.gsub(/tree.*$/, '')
+                end
           elsif repository['type'] =~ 'http'
-            source_url = repository['url']
+            source_url = repository['url'].gsub(/tree.*$/, '')
           else
             $plog.info("repository special type: #{repository}")
           end
@@ -160,3 +166,4 @@ if __FILE__ == $0
   # vs = n.get_available_versions(sem_ver)
   # p vs
 end
+
