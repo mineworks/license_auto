@@ -52,30 +52,3 @@ def log_usage_example()
 end
 
 LICENSE_WEBSITE_URL = 'http://localhost:3000'
-
-pg_conn_hash = {
-    host: 'license_auto_dev',
-    port: '5432',
-    dbname: 'license_auto',
-    user: 'postgres',
-    password: 'admin'
-}
-$conn = PG::Connection.open(pg_conn_hash)
-
-gem_conn_hash = {
-    host: 'license_auto_dev',
-    port: '5432',
-    dbname: 'gemData',
-    user: 'postgres',
-    password: 'admin'
-}
-$gemconn = PG::Connection.open(gem_conn_hash)
-
-$rmq = API::RabbitMQ.new(ENV['license_auto_rabbit_mq'])
-
-# ActiveRecord::Base.establish_connection(
-#     :adapter => "postgresql",
-#     :username => "username",
-#     :password => "password",
-#     :database => "database"
-# )

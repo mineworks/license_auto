@@ -1,8 +1,13 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bunny"
-require 'json'
+require File.expand_path('../config/environment', __FILE__)
+
+if ENV['RACK_ENV'] == 'development'
+end
+
+
+
 require_relative '../lib/cloner'
 require_relative '../lib/db'
 require_relative '../lib/recorder'
