@@ -1,7 +1,10 @@
 require 'httparty'
 require 'anemone'
+require 'rubygems/package'
+require 'zlib'
 
 require_relative '../../conf/config'
+require_relative '../../lib/api/helper'
 
 module API
   class Launchpad
@@ -75,7 +78,7 @@ module API
     end
 
     # Entry
-    def fetch_license_info_from_local_source(license_files_path)
+    def fetch_license_info_from_local_source()
       # TODO: @Micfan, move it common lib:
       source_package_page_link = find_source_package_page_link
       if source_package_page_link
@@ -83,7 +86,34 @@ module API
         if source_code_download_url
           source_code_path = download_source_code(source_code_download_url)
           if source_code_path
-            # TODO: @Micfan, find license file, ...
+            if source_code_path =~ /tar\.gz$/
+              reader = Zlib::GzipReader
+            else
+              # TODO: format: tar, gx (rar, zip, 7z)
+              return nil
+            end
+            tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
+            tar_extract.rewind # The extract has to be rewinded after every iteration
+            tar_extract.each do |entry|
+
+              # Only indent the root dir license file
+              if entry.file? and API::Helper.is_license_file(entry.full_name)
+                puts entry.full_name
+                puts entry.read
+              end
+
+              if entry.file? and API::Helper.is_readme_file(entry.full_name)
+                puts entry.full_name
+                puts entry.read
+                # TODO: readme
+              end
+
+              # TODO: 2 dir
+              # puts entry.directory?
+              # puts entry.file?
+              # puts entry.read
+            end
+            tar_extract.close
           else
             # nil
           end
@@ -104,12 +134,12 @@ if __FILE__ == $0
   name = 'anacron'
   version = '2.3-20ubuntu1'
   a = API::Launchpad.new(distribution, distro_series, name, version)
-  link = a.find_source_package_page_link
-  p a.find_source_code_download_url(link)
-  url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
+  license_info = a.fetch_license_info_from_local_source
+
+  # url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
   # source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
   # a.find_source_code_download_url(url)
-  # a.download_source_code(source_code_url)
+
 
 # ii  anacron                             2.3-20ubuntu1                    amd64        cron-like program that doesn't go by time
 # ii  apparmor                            2.8.95~2430-0ubuntu5.3           amd64        User-space parser utility for AppArmor
