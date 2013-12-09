@@ -5,6 +5,7 @@ group :default do
   gem "json"
   gem "gems"
   gem "github_api"
+  # gem "octokit", "~> 4.0"
   gem 'tf-idf-similarity', '~> 0.1.5'
 
   gem "git"
