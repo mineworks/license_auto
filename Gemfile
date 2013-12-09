@@ -1,12 +1,14 @@
 source "https://ruby.taobao.org"
 
 group :default do
+  gem "license_auto", "0.1.0"
   gem "json"
   gem "git"
   gem "log4r"
 
   gem "httparty"
   gem 'rest-client'
+  gem "pg"
 
   gem "anemone"
 

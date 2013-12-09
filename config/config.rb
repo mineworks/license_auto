@@ -1,6 +1,4 @@
 require 'log4r'
-require 'pg'
-require_relative '../lib/api/mq'
 
 $debug = true
 

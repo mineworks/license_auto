@@ -2,7 +2,7 @@ require 'minitest/spec'
 require 'minitest/autorun'
 
 require_relative '../lib/cloner'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../lib/parser/golang_parser'
 
 describe 'GolangTest' do

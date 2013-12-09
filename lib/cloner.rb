@@ -1,7 +1,7 @@
 require 'git'
 require 'fileutils'
 require 'json'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../lib/api/pattern'
 require_relative '../lib/api/github'
 

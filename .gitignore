@@ -1,3 +1,5 @@
+*.patch
+*.diff
 node_modules/
 auto.log
 *~

@@ -2,7 +2,6 @@
 require "base64"
 require 'httparty'
 require 'json'
-require_relative '../../extractor_ruby/License_recognition'
 require_relative '../misc'
 require_relative '../api/pattern'
 require_relative './helper'
