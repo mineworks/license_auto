@@ -14,13 +14,14 @@ module LicenseAuto
     attr_reader :license_content
 
     def initialize(filename, content)
+      @content = content.encode('UTF-8', :invalid => :replace, :undef => :replace)
       impl = formator(filename)
       @license_content =
           if impl.nil?
             LicenseAuto.info("Unknown readme format: #{filename}, returned full-text instead")
-            content
+            @content
           else
-             impl.cut_license(content)
+             impl.cut_license(@content)
           end
     end
 

@@ -10,8 +10,8 @@ module LicenseAuto
     SIM_RATIO = 0.85
 
     def initialize(license_content)
-      @license_content = license_content
-      # LicenseAuto.logger.debug(license_content)
+      @license_content = license_content.encode('UTF-8', :invalid => :replace, :undef => :replace)
+      LicenseAuto.logger.debug(@license_content)
       @license_template_documents =
           LICENSE_SORTED_FREQUENCY.reject {|template_name|
             abs_filename_path(template_name).nil?
@@ -20,7 +20,7 @@ module LicenseAuto
             TfIdfSimilarity::Document.new(File.read(abs_file))
           }.compact
       @license_template_documents.push(
-          TfIdfSimilarity::Document.new(license_content)
+          TfIdfSimilarity::Document.new(@license_content)
       )
       model = TfIdfSimilarity::TfIdfModel.new(@license_template_documents)
       @matrix = model.similarity_matrix
