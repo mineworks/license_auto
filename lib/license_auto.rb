@@ -2,6 +2,10 @@ module LicenseAuto
 
 end
 
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'license_auto'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require './config/application'
 # require './config/boot'
 
