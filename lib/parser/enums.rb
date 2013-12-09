@@ -1,4 +1,6 @@
-# go version go1.4.2 darwin/amd64
+##
+# Golang(v1.4.2 darwin/amd64) system libraries
+
 GOLANG_STD_PACKAGES = [
 'cmd/addr2line',
 'cmd/cgo',
