@@ -3,7 +3,6 @@ require 'bundler'
 
 require_relative './Obtain_path'
 require_relative './Ruby_extractor'
-require_relative './Read_local_data'
 require_relative './utils'
 require_relative '../conf/config'
 require_relative '../lib/api/pattern'
@@ -140,6 +139,7 @@ module ExtractRuby
     end
 
     def select_rubygems_db
+      # FIXME: db connection
       require_relative '../lib/api/gem_data'
       rubygems_result = []
       ruby_gems = API::GemData.new

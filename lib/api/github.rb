@@ -35,6 +35,7 @@ class Github
   end
 
   def self.get_http_option
+    # TODO: config file
     auth = {:username => ENV['github_username'], :password => ENV['github_password']}
     http_option = {
       :basic_auth => auth

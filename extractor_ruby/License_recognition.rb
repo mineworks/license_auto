@@ -1,5 +1,4 @@
-
-
+# TODO: move to units.rb
 class License_recognition
   def initialize(path = '')
     @license_text = ''
