@@ -92,6 +92,21 @@ class GithubCom < Website
       end
     }.compact
 
+    notice_files = notice_files.map {|obj|
+      notice_content = get_blobs(obj['sha'])
+      LicenseAuto.logger.debug("notice_content:\n#{notice_content}\n")
+
+      if notice_content.nil?
+        next
+      else
+        LicenseAuto::NoticeWrapper.new(
+            html_url: obj['html_url'],
+            download_url: obj['download_url'],
+            text: notice_content
+        )
+      end
+    }.compact
+
     pack_wrapper = LicenseAuto::PackWrapper.new(
         homepage: nil,
         project_url: nil,

@@ -41,4 +41,14 @@ module LicenseAuto
     property :text
 
   end
+
+  class NoticeWrapper < Hashie::Dash
+    include Hashie::Extensions::Mash
+
+    property :pack_id
+
+    property :html_url
+    property :download_url
+    property :text
+  end
 end

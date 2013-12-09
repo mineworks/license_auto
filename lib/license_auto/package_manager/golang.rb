@@ -32,7 +32,7 @@ module LicenseAuto
         deps.each {|dep|
           remote, latest_sha = fetch_remote_latest_sha(dep)
           dep_array.push({
-              name: dep,
+              name: dep.split('/').last,
               version: latest_sha,
               remote: remote
           })
@@ -57,7 +57,14 @@ module LicenseAuto
       github_matched = matcher.match_github_resource
       if github_matched
         github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
-        latest_sha = github.latest_commit.sha
+        latest_commit = github.latest_commit
+        latest_sha =
+          if latest_commit.class == Array
+            # Eg. ["message", "Moved Permanently"]:Array
+            latest_commit[1]
+          else
+            latest_commit.sha
+          end
         url = github.url
         # LicenseAuto.logger.debug(latest_sha)
         [url, latest_sha]
@@ -84,7 +91,7 @@ module LicenseAuto
         # LicenseAuto.logger.debug("#{dep}, #{bool}")
         # bool
       }.map {|dep|
-        host, owner, repo, _subdir = dep.split('/')
+        host, owner, repo, _subdir = dep.gsub(/\/$/, '').split('/')
         [host, owner, repo].join('/')
       })
     end

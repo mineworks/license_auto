@@ -124,7 +124,14 @@ module LicenseAuto
                   LicenseAuto.logger.fatal("Maven server: #{self.server} should be supported!")
                 end
             elsif self.server
-              PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
+              # PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
+              matcher = Matcher::SourceURL.new(self.server)
+              github_matched = matcher.match_github_resource
+              if github_matched
+                GithubCom.new(self, github_matched[:owner], github_matched[:repo])
+              else
+                PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
+              end
             end
       rescue KeyError => e
         LicenseAuto.logger.fatal("#{e}")
