@@ -130,6 +130,7 @@ end
 if __FILE__ == $0
   # p = '/tmp/license_website/github.com/java-decompiler/jd-gui/build'
   p = '/tmp/license_website/github.com/java-decompiler/jd-gui'
+  p = '/Users/mic/vm/uaa'
   g = GradleParser.new(p)
   all_projects_deps = g.start
   $plog.debug("#{all_projects_deps}")

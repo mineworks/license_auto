@@ -39,6 +39,15 @@ select distinct on (name, version, lang) pack.* from pack
   where t.release_id = 10
   and pack.license = 'Apache2.0')
 
---
-udpate 'https://rubygems.org'
+-- Kill procpid
+SELECT
+    pg_terminate_backend(procpid)
+FROM
+    pg_stat_activity
+WHERE
+    -- don't kill my own connection!
+    procpid <> pg_backend_pid()
+    -- don't kill the connections to other databases
+    AND datname = 'database_name'
+    ;
 

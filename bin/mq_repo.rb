@@ -39,6 +39,7 @@ def worker(body)
       return
     end
 
+    # TODO: @Frank, refactor to use config file and load at runtime
     packs = GolangParser.start(clone_path)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)
     saver.save
@@ -62,6 +63,7 @@ def worker(body)
   rescue Git::GitExecuteError => e
     $plog.fatal(e)
     api_setup_case_status(repo_id, 21, e.to_s)
+  # TODO: ignore
   rescue OpenSSL::SSL::SSLError => e
     $plog.fatal(e)
     api_setup_case_status(repo_id, 22, e.to_s)
