@@ -113,8 +113,16 @@ def worker(body)
         packer = PackUpdate.judge_pack_status(packer)
       elsif lang =~ API::OS_PATTERN[:centos]
           # *.rpm, $yum
-      elsif lang == 'Java'
-        # TODO: 3 website, License: pom.xml, http://search.maven.org/#api
+      elsif lang == 'Gradle'
+        gropu_id, name_id = pack['name'].split(':')
+        m = API::MavenCentralRepository.new(gropu_id, name_id, pack['version'])
+        license_info = m.get_license_info
+        packer = packer.merge(license_info)
+        if license_info[:licenses].size > 0
+          # TODO: multi license
+          packer = packer.merge(license_info[:licenses][0])
+        end
+        packer = PackUpdate.judge_pack_status(packer)
       elsif lang == 'NodeJs'
         registry = API::NpmRegistry.new(pack['name'], pack['version'])
         license_info = registry.get_license_info
