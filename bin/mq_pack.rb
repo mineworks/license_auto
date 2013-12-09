@@ -98,6 +98,7 @@ def worker(body)
       :homepage => pack['homepage'],
       :license => pack['license'],
       :license_text => pack['license_text'],
+      # TODO： this status should rethink
       :status => 30
     }
     packer = fetch_license_info_by_source(packer)

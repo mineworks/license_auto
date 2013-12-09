@@ -58,10 +58,11 @@ class PacksSaver
         $plog.debug(pack)
         pack_name, pack_version, status = pack[:pack_name], pack[:pack_version], pack[:status]
         homepage, source_url = pack[:homepage], pack[:source_url]
-        license, cmt = pack[:license], pack[:cmt]
+        # lang is a website 实际上
+        license, cmt, lang = pack[:license], pack[:cmt], pack[:language]
         license = license_name_format(license)
 
-        pg_result = api_add_pack(pack_name, pack_version, 'Ruby', homepage, source_url, license, status, cmt)
+        pg_result = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
         enqueue_result(pg_result)
       rescue Exception => _
         $plog.error(_)
