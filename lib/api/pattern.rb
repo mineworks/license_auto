@@ -13,4 +13,8 @@ module API
     :tar_xz => /tar\.xz$/,
     :tar_bz2 => /tar\.bz2$/
   }
+  OS_PATTERN = {
+    :ubuntu => /^(?<distribution>(Ubuntu))-(?<distro_series>(Trusty))/i,
+    :centos => /^(?<distribution>(CentOS))-(?<distro_series>(7\.x))/i,
+  }
 end
