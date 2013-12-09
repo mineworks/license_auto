@@ -39,12 +39,17 @@ end
 
 def api_clear_relations(release_id, repo_id)
   r = $conn.exec_params("
-        delete from product_repo_pack
+    delete from product_repo_pack
+      where id in (
+        select r.id from product_repo_pack r
+          join pack on pack.id = r.pack_id
           where product_repo_id in (
-            select id from product_repo where
+           select id from product_repo where
               release_id = $1
               and repo_id = $2
-          )", [release_id, repo_id])
+          )
+          and pack.status < 41
+      )", [release_id, repo_id])
   $plog.warn("You are rerunning the repo's deps, the history relation table data of this repo was deleted")
 end
 
@@ -97,11 +102,11 @@ def api_add_product_repo_pack(repo_id, pack_id, release_id)
   r[0]
 end
 
-def api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
+def api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt, project_url=nil)
   # "select * from select add_pack('goose', 'unknown', 'Golang', null, null, null, null, null) as t(pack_id integer, new bool)"
   # $plog.info("status: #{status}")
-  r = $conn.exec_params("select * from add_pack($1, $2, $3, $4, $5, $6, $7, $8) as t(pack_id integer, is_newbie bool)",
-                        [pack_name, pack_version, lang, homepage, source_url, license, status, cmt])
+  r = $conn.exec_params("select * from add_pack($1, $2, $3, $4, $5, $6, $7, $8, $9) as t(pack_id integer, is_newbie bool)",
+                        [pack_name, pack_version, lang, homepage, source_url, license, status, cmt, project_url])
   ret = nil
   if r.ntuples == 1
     ret = r[0]
@@ -163,9 +168,9 @@ def api_update_pack_info(pack_id, pack)
   # r = $conn.exec_params("select update_pack($1,$2,$3,$4,$5,$6,$7,$8,$9)",[pack_id,pack['version'],pack['homepage'],pack['source_url'],pack['license_url'],pack['license'],pack['unclear_license'],pack['license_text'],pack['status']])
 
 
-  r = $conn.exec_params("select update_pack($1,$2,$3,$4,$5,$6,$7,$8,$9)",
+  r = $conn.exec_params("select update_pack($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
                         [pack_id, pack[:version], pack[:homepage], pack[:source_url], pack[:license_url],
-                         pack[:license], pack[:unclear_license], pack[:license_text], pack[:status]])
+                         pack[:license], pack[:unclear_license], pack[:license_text], pack[:status], pack[:project_url]])
   if(r[0] == -1)
     return false
   else
