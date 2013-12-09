@@ -1,6 +1,7 @@
 require_relative 'api/github'
 require_relative 'api/git_kernel_org'
 require_relative 'api/google_source_com'
+require_relative 'api/go_pkg_in'
 require_relative 'api/excel_export'
 require_relative 'api/bitbucket'
 require_relative 'api/mq'
