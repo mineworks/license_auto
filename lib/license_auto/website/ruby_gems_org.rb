@@ -3,11 +3,13 @@ require 'rubygems/remote_fetcher'
 require 'rubygems/spec_fetcher'
 require 'rubygems/dependency'
 
+require 'license_auto/website/github'
+
 
 class RubyGemsOrg < Website
 
 
-  GIT_HASH_LENGTH = 40
+
 
   def initialize(package)
     super(package)
@@ -28,53 +30,13 @@ class RubyGemsOrg < Website
 
     github_matched = source_code_matcher.match_github_resource
     if github_matched
-      github = Github.new(user: github_matched[:owner], repo: github_matched[:repo])
-      possible_ref = nil
-      if @package.version.size >= GIT_HASH_LENGTH
-                        # Golang version is a Git SHA
-        possible_ref = @package.version
-      else
-        matcher = LicenseAuto::Matcher::FilepathName.new(@package.version)
-        github.repos.tags do |tag|
-          puts tag.name
-
-          matched = matcher.match_the_ref(tag.name)
-          if matched
-            possible_ref = tag.name
-            break
-          end
-        end
-      end
-      # TODO: @Cissy, uncomment it, get the default branch name
-      # possible_ref = github.default_branch if possible_ref.nil?
-
-      contents = github.repos.contents.get(path: '/', ref: possible_ref)
-
-
-      # puts contents.inspect
-      license_files = []
-      readme_files = []
-      contents.each {|obj|
-        if obj.type == 'file'
-          filename_matcher = LicenseAuto::Matcher::FilepathName.new(obj.name)
-          license_files.push(obj) if filename_matcher.match_license_file
-          readme_files.push(obj) if filename_matcher.match_readme_file
-          notice_files.push(obj) if filename_matcher.match_notice_file
-        end
-      }
-
-      if license_files.any?
-        return LicenseAuto::LicenseInfo.new(license_files)
-      end
-
+      license_info = LicenseAuto::github_get_license_info(github_matched[:owner], github_matched[:repo], @package.version)
     end
 
     # bitbucket_matched = source_code_matcher.match_bitbucket_resource()
     # if github_matched
     #   # TODO: bitbucket_matched
     # end
-
-
   end
 
   def get_gem_info()
