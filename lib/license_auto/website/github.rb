@@ -1,3 +1,5 @@
+require 'github_api'
+
 module LicenseAuto
 
   ##
