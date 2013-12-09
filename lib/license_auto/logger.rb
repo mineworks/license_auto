@@ -6,16 +6,16 @@ module LicenseAuto
     return @logger if @logger
     @logger = Log4r::Logger.new("license_auto")
     @logger.trace = true
-    @logger.level = LOG_LEVEL
+    @logger.level = LUTO_LOG_LEVEL
 
     @logger.add(Log4r::Outputter.stderr)
     @logger.add(Log4r::Outputter.stdout)
 
     stdout_output = Log4r::StdoutOutputter.new('stdout')
     file_output = Log4r::FileOutputter.new("file_output",
-                                           :filename => "/tmp/license_auto.log",
+                                           :filename => LUTO_CONF.logger.file,
                                            :trunc => false,
-                                           :level => LOG_LEVEL)
+                                           :level => LUTO_LOG_LEVEL)
     formatter = Log4r::PatternFormatter.new(:pattern => "%l %d %p - %M  %t")
     stdout_output.formatter = formatter
     file_output.formatter = formatter
