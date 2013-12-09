@@ -77,7 +77,7 @@ class Github
     $plog.info("api_url: #{api_url}")
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
-      refs = JSON.parse(response.body)
+      refs = JSON.parse(response.licenses)
     elsif response.code == 403
       $plog.error("!!! Github 403 Forbidden: #{response}")
     elsif response.code == 404
@@ -95,7 +95,7 @@ class Github
     $plog.info("api_url: #{api_url}")
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
-      commits = JSON.parse(response.body)
+      commits = JSON.parse(response.licenses)
     elsif response.code == 403
       $plog.error("!!! Github 403 Forbidden: #{response}")
     elsif response.code == 404
@@ -120,7 +120,7 @@ class Github
     api_url = "https://api.github.com/repos/#{@owner}/#{@repo}"
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
-      contents = JSON.parse(response.body)
+      contents = JSON.parse(response.licenses)
       # p contents
     elsif response.code == 403
       $plog.error('!!! Github 403 Forbidden.')
@@ -156,7 +156,7 @@ class Github
     if response.code == 200
       raw_url = response.request.last_uri.to_s
       $plog.debug(raw_url)
-      content = response.body
+      content = response.licenses
     end
 
     return raw_url, content
@@ -173,7 +173,7 @@ class Github
     $plog.info("list_contents: api_url: #{api_url}")
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
-      contents = JSON.parse(response.body)
+      contents = JSON.parse(response.licenses)
     elsif response.code == 403
       $plog.error('!!! Github 403 Forbidden.')
     else
@@ -233,7 +233,7 @@ class Github
     $plog.info("api_get_a_repositorys_license: api_url: #{api_url}")
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
-      contents = JSON.parse(response.body)
+      contents = JSON.parse(response.licenses)
       license, license_url = contents['license']['name'], contents['download_url']
 
       if contents['encoding'] == 'base64'
@@ -267,7 +267,7 @@ class Github
       $plog.info("License file 链接: #{download_url}")
       response = HTTParty.get(download_url, options=@http_option)
       if response.code == 200
-        license_text = response.body
+        license_text = response.licenses
         license_url = download_url
 
         $plog.info("license_text: #{license_text}")
@@ -299,7 +299,7 @@ class Github
         $plog.info("readme file 链接: #{download_url}")
         response = HTTParty.get(download_url, options=@http_option)
         if response.code == 200
-          readme_text = response.body # type : String
+          readme_text = response.licenses # type : String
           readme_url = download_url
           $plog.info("readme_text: #{readme_text}")
           start_flag = nil
@@ -348,7 +348,7 @@ class Github
         $plog.info("License file 链接: #{download_url}")
         response = HTTParty.get(download_url, options=@http_option)
         if response.code == 200
-          items.push(response.body)
+          items.push(response.licenses)
         end
       end
       if items.size > 0

@@ -24,7 +24,7 @@ module API
       $plog.debug(url)
       response = HTTParty.get(url)
       if response.code == 200
-        query_set = JSON.parse(response.body)
+        query_set = JSON.parse(response.licenses)
       else
         raise "CentralRepository select error: #{response}"
       end
@@ -37,7 +37,7 @@ module API
       $plog.debug("api_url: #{url}")
       response = HTTParty.get(url)
       if response.code == 200
-        query_set = JSON.parse(response.body)
+        query_set = JSON.parse(response.licenses)
       else
         raise "CentralRepository select error: #{response}"
       end
@@ -58,7 +58,7 @@ module API
       response = HTTParty.get(pom_url, options=opts)
       if response.code == 200
         $plog.debug("pom_url: #{pom_url}")
-        pom = response.body
+        pom = response.licenses
       else
         $plog.error("CentralRepository get_package_pom error: pom_url: #{pom_url}, #{response}")
       end

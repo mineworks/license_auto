@@ -125,7 +125,7 @@ def api_get_complete_ratio(release_id, repo_id)
                             :repo_id => repo_id
                           })
   if response.code == 200
-    ratio = response.body.to_f
+    ratio = response.licenses.to_f
     $plog.debug("complete_ratio: #{ratio}")
     if ratio >= 0.95
       release_name = nil

@@ -8,6 +8,7 @@ group :default do
 
   gem "gems"
   gem "github_api"
+  # gem "license_finder"
 
   gem "httparty"
   gem "nokogiri"
