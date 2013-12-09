@@ -1,2 +1,0 @@
-class Yum
-end

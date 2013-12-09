@@ -2,7 +2,3 @@ language: ruby
 rvm:
  - "2.0"
  - "2.2"
-
-script:
- - bundle exec rake build
- - bundle exec rspec spec

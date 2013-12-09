@@ -1,2 +1,0 @@
-class Npm
-end
