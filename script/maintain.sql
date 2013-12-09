@@ -31,3 +31,14 @@ update pack as a
 from pack_manual as b
 where a.id = b.id;
 
+-- Apache2.0 enqueue
+update pack set status = 10 where id in (
+select distinct on (name, version, lang) pack.* from pack
+  join product_repo_pack c on c.pack_id = pack.id
+  join product_repo t on t.id = c.product_repo_id
+  where t.release_id = 10
+  and pack.license = 'Apache2.0')
+
+--
+udpate 'https://rubygems.org'
+

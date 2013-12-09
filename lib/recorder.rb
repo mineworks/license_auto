@@ -39,7 +39,6 @@ class PacksSaver
   end
 
   def save_ruby
-    # 格式化DB自定义license格式
     def license_name_format(origin_license)
       if origin_license.nil?
         return nil
@@ -55,12 +54,12 @@ class PacksSaver
 
     @packs.each {|pack|
       begin
-        $plog.debug(pack)
+        pack[:license] = license_name_format(pack[:license])
+        # $plog.debug(pack)
         pack_name, pack_version, status = pack[:pack_name], pack[:pack_version], pack[:status]
         homepage, source_url = pack[:homepage], pack[:source_url]
-        # lang is a website 实际上
+        # lang is a website in act
         license, cmt, lang = pack[:license], pack[:cmt], pack[:language]
-        license = license_name_format(license)
 
         pg_result = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
         enqueue_result(pg_result)
