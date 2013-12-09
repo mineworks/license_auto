@@ -305,6 +305,8 @@ class Github
             #p "readme license info:"
             readme_license =  readme_text[start_flag,end_flag - start_flag]
             license = License_recognition.new.similarity(readme_license, STD_LICENSE_DIR)
+            license_text = readme_license
+            license_url = download_url
             break
           else
           end
