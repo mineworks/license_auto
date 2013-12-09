@@ -83,7 +83,7 @@ def api_get_pack_by_id(pack_id)
 end
 
 def api_get_std_license_name()
-  r = $conn.exec_params("select * from get_std_license_name() as t(id integer, name character varying, license_text text)")
+  r = $conn.exec_params("select * from std_license")
 end
 
 def api_setup_pack_status(pack_id, status, cmt)
