@@ -99,7 +99,11 @@ class PacksSaver
         if pack_url.index('github.com')
           g = API::Github.new(pack_url)
           last = g.last_commits
-          pack_version = last['sha'] unless last.nil?
+          if last != nil
+            pack_version = last['sha']
+          else
+            $plog.info("Package url version is unknown: #{pack_url}") 
+          end
         end
         if pack_url.index('bitbucket.org')
           b = API::Bitbucket.new(pack_url)
