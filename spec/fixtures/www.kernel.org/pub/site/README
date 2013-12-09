@@ -1,0 +1,5 @@
+This directory contains files related to the operation of the
+kernel.org file itself.
+
+The file sample_mirror_script.pl is a sample script for mirroring
+kernel.org via rsync.

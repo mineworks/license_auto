@@ -6,6 +6,7 @@ describe LicenseAuto::Package do
     stub_request(:get, bundler_yaml).
         to_return(:status => 200, :body => fixture(bundler_yaml), :headers => {})
 
+    # TODO: Can this two mocked stub be included from github_helper?
     tags_url = "https://api.github.com/repos/bundler/bundler/tags"
     stub_request(:get, tags_url).
         to_return(:status => 200, :body => fixture(tags_url), :headers => {})

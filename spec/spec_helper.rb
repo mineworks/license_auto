@@ -5,7 +5,8 @@ require 'webmock/rspec'
 require 'license_auto'
 
 
-# stub_request(:any, "api.github.com")
+# Disable WebMock (all adapters)
+# WebMock.disable!
 
 def stub_get(url)
   stub_request(:get, url)
