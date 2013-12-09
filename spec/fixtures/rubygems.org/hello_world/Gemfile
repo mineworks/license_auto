@@ -20,13 +20,15 @@ group :default do
   gem "ruby-xz"
 end
 
+
+
 group :test do
   gem "rspec"
   gem 'webmock'
   gem "rubocop"
   # TODO: simplecov, generate HTML
   gem 'simplecov'
-  # gem 'mina-puma', :git => 'https://github.com/sandelius/mina-puma.git'
+  gem 'mina-puma', :git => 'https://github.com/sandelius/mina-puma.git'
 end
 
 group :development do

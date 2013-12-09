@@ -1,7 +1,7 @@
 require 'hashie/mash'
 
 require 'license_auto/website/ruby_gems_org'
-require 'license_auto/website/gem_fury'
+require 'license_auto/website/gemfury_com'
 require 'license_auto/website/github_com'
 
 
@@ -32,7 +32,7 @@ module LicenseAuto
 
     ALL_SERVERS = [
         RubyGemsOrg,
-        GemFury,
+        GemfuryCom,
         GithubCom,
     ]
 

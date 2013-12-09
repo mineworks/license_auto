@@ -28,10 +28,10 @@ module LicenseAuto
     # @return Array[Regexp]
     def dependency_file_pattern; end
 
-    def dependency_file_path_names
+    def dependency_file_path_names(pattern=dependency_file_pattern)
       if FileTest.directory?(@path)
         Find.find(@path).select do |filename|
-          FileTest.file?(filename) && filename =~ dependency_file_pattern
+          FileTest.file?(filename) && filename =~ pattern
         end
       else
         LicenseAuto.logger.fatal("The repo path: #{@path} does not exist!")

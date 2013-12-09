@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/sandelius/mina-puma.git
+  revision: 387ceb8e94ffee3aedaf7a2acb7fc3ed907522ab
+  specs:
+    mina-puma (0.2.0)
+      mina
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,6 +45,9 @@ GEM
     jwt (1.5.1)
     log4r (1.1.10)
     mime-types (2.99.1)
+    mina (0.3.8)
+      open4 (~> 1.3.4)
+      rake
     mini_portile2 (2.0.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
@@ -51,6 +61,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    open4 (1.3.4)
     parser (2.3.0.6)
       ast (~> 2.2)
     powerpack (0.1.1)
@@ -116,6 +127,7 @@ DEPENDENCIES
   httparty
   json
   log4r
+  mina-puma!
   nokogiri
   rake
   rest-client
