@@ -4,12 +4,16 @@ sudo: required
 dist: trusty
 
 rvm:
- - "2.2"
+  - 2.2
+
+go:
+  - master
 
 before_install:
- - npm install bower
- - npm install semver
+  - npm install --global bower
+  - npm install --global semver
+  - sudo apt-get install golang
 
 script:
- - bundle exec rake build
- - bundle exec rspec spec
+  - bundle exec rake build
+  - bundle exec rspec spec

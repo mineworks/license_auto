@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe LicenseAuto::Package do
   before do
-    bundler_yaml = "https://rubygems.org/api/v1/gems/bundler.yaml"
-    stub_request(:get, bundler_yaml).
-        to_return(:status => 200, :body => fixture(bundler_yaml), :headers => {})
+    bundler_json = "https://rubygems.org/api/v1/gems/bundler.json"
+    stub_request(:get, bundler_json).
+        to_return(:status => 200, :body => fixture(bundler_json), :headers => {})
 
     # TODO: Can this two mocked stub be included from github_helper?
     tags_url = "https://api.github.com/repos/bundler/bundler/tags"
@@ -33,7 +33,7 @@ describe LicenseAuto::Package do
     package = LicenseAuto::Package.new(my_pack)
     expect(package.name).to eq(my_pack['name'])
 
-    license_info = package.get_license_info()
+    license_info = package.get_license_info
     expect(license_info).to be_a(LicenseAuto::LicenseInfoWrapper)
     unless license_info.nil?
       expect(license_info.pack).to be_a(LicenseAuto::PackWrapper)

@@ -56,7 +56,7 @@ describe GithubCom do
     expect(commits.size > 0).to be(true)
 
     latest = github.latest_commit
-    expect(latest.sha).to eq('a4169b08b22af64cccb84fb0f6f96c13b8a69c6c')
+    expect(latest.sha).to eq('0132bc8e225f86c54a841c1828d46ddaf8d44e3c')
   end
 
 end

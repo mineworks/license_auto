@@ -190,12 +190,11 @@ class RubyGemsOrg < Website
   #     "sha" => "a199258c0d2bae09993a6932c49df254fd66428899d1823b8c5285de02e5bc33"
   # }
   def get_latest_version()
-    versions = Gems.versions(@package.name).reject { |v| v['prerelease'] }.first
-    if versions == GEM_NOT_FOUND
+    latest_version = Gems.latest_version(@package.name)
+    # todo:
+    if latest_version == GEM_NOT_FOUND
       raise(GEM_NOT_FOUND)
     end
-
-    versions.reject { |v| v['prerelease'] }.first
   end
 
   def download_gem()
