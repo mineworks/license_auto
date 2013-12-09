@@ -137,7 +137,8 @@ class PackUpdate
   end
 
   def self.judge_pack_status(packer)
-    if is_std_license(packer[:license])
+    # TODO: @Micfan test it
+    if is_std_license(packer[:license]) and ( pack[:license_url] or pack[:license_text])
       packer[:unclear_license] = nil
       packer[:status] = 40
     else
