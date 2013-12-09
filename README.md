@@ -29,7 +29,7 @@
     <td>Gradle, Maven</td>
     <td>build.gradle, pom.xml</td>
     <td>https://repo1.maven.org/maven2</td>
-    <td>0</td>
+    <td>20</td>
   </tr>
   <tr>
     <td>NodeJS</td>

@@ -4,7 +4,6 @@ require 'license_auto/website/npm_registry'
 
 describe LicenseAuto::NpmRegistry do
   let(:pack_name) {'grunt'}
-  let(:body)   { fixture('repos/repos.json') }
 
   before do
     url = "http://registry.npmjs.org/grunt"

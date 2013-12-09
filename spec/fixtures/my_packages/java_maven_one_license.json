@@ -1,0 +1,7 @@
+{
+  "language": "Java",
+  "name": "nekohtml",
+  "group": "net.sourceforge.nekohtml",
+  "version": "1.9.20",
+  "server": "https://repo1.maven.org/maven2"
+}

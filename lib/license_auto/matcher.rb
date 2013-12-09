@@ -25,17 +25,25 @@ module LicenseAuto
       end
 
       def match_github_resource()
-        matched = github_resource.match(@url)
+        github_resource.match(@url)
       end
 
       def match_bitbucket_resource
-        matched = github_resource.match(@url)
+        github_resource.match(@url)
+      end
+
+      def match_maven_default_central
+        maven_default_central_resource.match(@url)
       end
 
       private
 
       ##
       # vcs: Version Control System
+
+      def maven_default_central_resource
+        /repo1\.maven\.org\/maven2/
+      end
 
       # FIXME: @Cissy
       def github_resource
