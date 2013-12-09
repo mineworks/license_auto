@@ -1,32 +1,41 @@
 require 'open-uri'
+require 'find'
+require 'license_auto/logger'
+require 'license_auto/module'
 
 module LicenseAuto
-  class PackageManager
+  class VirtualPackageManager
 
-    attr_reader :raw_contents
-    # Dependency file pattern, Array, SHOULD to be override
-    DEPENDENCY_PATTERN = nil
+    virtual :initialize,
+            :parse_dependencies,
+            :dependency_file_pattern
 
-    # def self.inherited(child_class)
-    #   methods = child_class.instance_methods(false)
-    #   puts methods
-    #   ['initialize', :parse_dependencies].each do |x|
-    #     raise "The class #{child_class} should have a interface: #{x}" unless methods.include?(x)
-    #   end
+    # def self.package_managers
+    #   [Bundler, NPM, Pip, Bower, Maven, Gradle, CocoaPods, Rebar, Nuget]
     # end
 
-    # uri: <./filepath/name.txt|/some/absolute/file/path/name|http://somesite.com/foo/bar/baz.file>
-    #
-    def initialize(uri)
-      @raw_contents =
-          open(uri) do |f|
-            f.read
-          end
-      @dependencies = parse_dependencies
+    # @uri:
+    #   ./filepath/name.txt
+    #   /some/absolute/file/path/name
+    #   http://somesite.com/foo/bar/baz.file
+    def initialize(path)
+      @path = path
     end
 
-    def parse_dependencies
-      []
+    # @return Array[Dependency]
+    def parse_dependencies; end
+
+    # @return Array[Regexp]
+    def dependency_file_pattern; end
+
+    def dependency_file_path_names
+      if FileTest.directory?(@path)
+        Find.find(@path).select do |filename|
+          FileTest.file?(filename) && filename =~ dependency_file_pattern
+        end
+      else
+        LicenseAuto.logger.fatal("The repo path: #{@path} does not exist!")
+      end
     end
   end
 end

@@ -1,5 +1,7 @@
 require 'hashie/mash'
 require 'license_auto/website/github_com'
+require 'license_auto/package_manager/bundler'
+require 'license_finder'
 
 module LicenseAuto
   class Repo < Hashie::Mash
@@ -10,16 +12,16 @@ module LicenseAuto
       raise("#{hash} is not a Github Repo") unless @server
     end
 
-    def find_dependencies
-      langs = @server.list_languages
-      if langs.has_key?(:Go)
-        # TODO:
-        repo_dir = @server.clone
-      end
+    def self.package_managers
+      [Bundler]
     end
 
-    def find_gems
-
+    def find_dependencies
+      repo_dir = @server.clone
+      deps = {}
+      Repo.package_managers.each {|pm|
+        deps[pm.to_sym] = pm.new(repo_dir).parse_dependencies
+      }
     end
 
     private
