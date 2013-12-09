@@ -1,14 +1,17 @@
-require 'httparty'
-require 'nokogiri'
-require_relative '../lib/misc'
+##
+# This file can get PostgreSQL DB dumped data of https://rubygems.org
+# But it's easier to get JSON data from the website API than from the local created database.
 
-# TODO: config a crontab after official site updated; or input password by hand.
-class RubygemsOrgDB
+require './lib/misc'
+
+
+class RubyGemsOrgDB
   def initialize
-    # @gem_conn_hash = gem_conn_hash
     @download_prefix = 'https://s3-us-west-2.amazonaws.com/rubygems-dumps/'
-    http_proxy = Misc.get_http_proxy
+
     @http_option = {}
+    # TODO: LicenseAuto::Base.config({http_proxy})
+    http_proxy = Misc.get_http_proxy
     if http_proxy
       @http_option[:http_proxyaddr] = http_proxy[:addr]
       @http_option[:http_proxyport] = http_proxy[:port]
@@ -40,11 +43,6 @@ class RubygemsOrgDB
   def download(url)
     file_pathname = nil
     return file_pathname
-  end
-
-  # Entry
-  def upgrade_gemdata_db
-    
   end
 
 end

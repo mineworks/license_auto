@@ -55,6 +55,7 @@ DEPENDENCIES
   httparty
   json
   log4r
+  nokogiri
   pg
   rest-client
   rspec
