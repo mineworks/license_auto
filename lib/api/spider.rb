@@ -14,13 +14,13 @@ module API
         body = response.body
         # TODO: author name valid
         pattern = /(http[s]?:\/\/(github\.com|bitbucket\.org)\/|git@(github\.com|bitbucket\.org):)(?<author>.+?)\/#{@pack_name}/
-      
         match_result = pattern.match(body)
-        author = match_result['author']
-        # p author
-        if author != nil
-          source_url = "https://github.com/#{author}/#{@pack_name}"
-          return source_url
+        if match_result
+          author = match_result['author']
+          if author != nil
+            source_url = "https://github.com/#{author}/#{@pack_name}"
+            return source_url
+          end
         end
       else
         # TODO: 404
@@ -32,7 +32,7 @@ module API
 end ### API
 
 if __FILE__ == $0
-  url = 'http://johnnunemaker.com/httparty/'
+  url = "http://www.rubyonrails.org"
   pack_name = 'httparty'
   s = API::Spider.new(url, pack_name)
   source_url = s.find_source_url
