@@ -70,16 +70,23 @@ class GithubCom < Website
   end
 
   def clone
-    clone_url = repo_info.fetch('clone_url')
+    LicenseAuto.logger.debug(repo_info)
+    clone_url = repo_info.body.fetch('clone_url')
     trimmed_url = clone_url.gsub(/^http[s]?:\/\//, '')
-    clone_dir = "#{LICENSE_AUTO_CACHE}#{trimmed_url}"
-    FileUtils::rm_rf(clone_dir) if Dir.exists?(clone_dir)
+    clone_dir = "#{LUTO_CACHE_DIR}/#{trimmed_url}"
 
-    clone_opts = {
-        :depth => 1 # Only last commit history for fast
-    }
-    cloned_repo = Git.clone(repo, path, clone_opts)
-    # path = cloned_repo.dir.path
+    if Dir.exists?(clone_dir)
+      # FileUtils::rm_rf(clone_dir)
+      git = Git.open(clone_dir, :log => LicenseAuto.logger)
+      local_branch = git.branches.local[0].full
+      # TODO: switch to :ref
+      git.pull(remote='origin', branch=local_branch)
+    else
+      clone_opts = {
+          :depth => 1 # Only last commit history for fast
+      }
+      cloned_repo = Git.clone(clone_url, clone_dir, clone_opts)
+    end
     clone_dir
   end
 
