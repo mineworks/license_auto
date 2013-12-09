@@ -72,8 +72,8 @@ def api_get_pack_by_id(pack_id)
   pack
 end
 
-def api_get_std_license_name()
-  r = $conn.exec_params("select * from std_license")
+def api_get_std_license_name(where='where 1 = 1')
+  r = $conn.exec("select * from std_license #{where}")
 end
 
 def api_setup_pack_status(pack_id, status, cmt)
@@ -81,9 +81,9 @@ def api_setup_pack_status(pack_id, status, cmt)
   r = $conn.exec_params("update pack set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt[0..79], pack_id])
 end
 
-def api_setup_repo_status(repo_id, status, cmt)
+def api_setup_case_status(repo_id, status, cmt)
   $plog.debug(cmt)
-  r = $conn.exec_params("update repo set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt[0..79], repo_id])
+  r = $conn.exec_params("update product_repo set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt[0..79], repo_id])
 end
 
 

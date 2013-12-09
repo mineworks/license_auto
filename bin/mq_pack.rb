@@ -13,7 +13,7 @@ def fetch_license_info_by_source(packer, status=nil)
     # TODO: @Micfan, simple it
     source_url = packer[:source_url]
     homepage = packer[:homepage]
-    github_pattern = /http[s]?:\/\/github\.com/
+    github_pattern = API::SOURCE_URL_PATTERN[:github]
     if source_url =~ github_pattern
       github_url = source_url
     elsif homepage =~ github_pattern
@@ -21,6 +21,8 @@ def fetch_license_info_by_source(packer, status=nil)
     else
       github_url = nil
     end
+
+    # $plog.debug("github_url: #{github_url}")
 
     bitbucket_url = nil
     bitbucket_pattern = /http[s]?:\/\/bitbucket\.org/
@@ -47,13 +49,9 @@ def fetch_license_info_by_source(packer, status=nil)
 
     if status
       packer[:status] = status
-    elsif license_info.values.index(nil)
-      packer[:status] = 30
     else
-      packer[:status] = 40
+      packer = PackUpdate.judge_pack_status(packer)
     end
-
-    # TODO: check_std_license in Ruby program, do not in db process
 
   return packer
 end
@@ -101,7 +99,7 @@ def worker(body)
         $plog.info("packer: #{packer}")
         if packer[:source_url] == nil and packer[:homepage] != nil
           spider_source_url = API::Spider.new(packer[:homepage], pack['name']).find_source_url
-          $plog.fatal("spider_source_url: #{spider_source_url}")
+          $plog.debug("spider_source_url: #{spider_source_url}")
           if spider_source_url
             packer[:source_url] = spider_source_url
             packer = fetch_license_info_by_source(packer, status=31)
@@ -110,15 +108,6 @@ def worker(body)
         $plog.error("!!! Unresolved pack: #{pack}")
       end
     end
-    #test
-    #packer = Hash.new()
-    #packer["version"] = '1.1.0'
-    #packer["homepage"] = nil
-    #packer["source_url"] = nil
-    #packer["license_url"] = nil
-    #packer["license"] = nil
-    #packer["license_text"] = nil
-    #test
 
     updater = PackUpdate.new(pack_id, packer)
     flag = updater.update()
@@ -176,9 +165,9 @@ if __FILE__ == $0
   #   worker(body)
   # }
 
-  pack_id = 193
-  body = '{"pack_id":' + "#{pack_id}}"
-  worker(body)
+  # pack_id = 846
+  # body = '{"pack_id":' + "#{pack_id}}"
+  # worker(body)
 
-  #main
+  main
 end
