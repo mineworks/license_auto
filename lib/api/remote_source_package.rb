@@ -107,7 +107,7 @@ module API
               error = e.readlines
               if error.length > 0
                 # todo: move into exception.rb
-                raise Exception("decompress error: #{source_code_path}, #{error}")
+                raise "decompress error: #{source_code_path}, #{error}"
               elsif out.length > 0
                 out.each {|line|
                   license_file_path = line.gsub(/\n/, '')
