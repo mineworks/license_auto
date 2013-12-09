@@ -19,12 +19,12 @@ module LicenseAuto
     end
 
     def parse_dependencies
-      content = list_content
-      if content.nil?
+      contents = list_contents
+      if contents.nil?
         LicenseAuto.logger.info("Golang dependencies not exist")
         return []
       else
-        deps = filter_deps(content)
+        deps = filter_deps(contents)
         LicenseAuto.logger.debug(deps)
         [
           {
@@ -57,22 +57,27 @@ module LicenseAuto
       end
     end
 
-    def filter_deps(listed_content)
-
+    def filter_deps(listed_contents)
       dep_keys = ['Deps', 'Imports', 'TestImports', 'XTestImports']
-      deps = dep_keys.map {|key|
-        listed_content[key]
-      }.flatten.compact
+      deps = Set.new()
 
-      deps = Set.new(deps)
-      deps.reject {|dep|
+      listed_contents.each {|content|
+        deps_ = dep_keys.map {|key|
+          content[key]
+        }.flatten.compact
+
+        deps_ = Set.new(deps_)
+        deps = deps.merge(deps_)
+      }
+
+      filtered_deps = Set.new(deps.reject {|dep|
         bool = GOLANG_STD_LIBS.include?(dep)
         # LicenseAuto.logger.debug("#{dep}, #{bool}")
-        bool
+        # bool
       }.map {|dep|
         host, owner, repo, _subdir = dep.split('/')
         [host, owner, repo].join('/')
-      }
+      })
     end
 
     def uniform_url
@@ -126,11 +131,22 @@ module LicenseAuto
     #             }
     #         ]
     #     }
-    def list_content
+    def list_contents
+      # contents = []
       Dir.chdir(@path) do
         cmd = 'go list -json ./...'
         stdout_str, stderr_str, status = Open3.capture3(cmd)
-        Hashie::Mash.new(JSON.parse(stdout_str)) if stdout_str.length > 0
+        # LicenseAuto.logger.debug('Yo Yo Yo')
+        # LicenseAuto.logger.debug(stdout_str)
+        # LicenseAuto.logger.debug('Check Now')
+        if stdout_str.length > 0
+          # out = stdout_str.gsub(/}\n{/, "}\n\n{").split(/\n\n/)
+          out = stdout_str.gsub(/}\n{/, "}\n\n{").split(/\n\n/)
+          out.map {|content_str|
+            content_str = content_str.gsub(/\n/, '').gsub(/\t/, '')
+            Hashie::Mash.new(JSON.parse(content_str))
+          }
+        end
       end
     end
 

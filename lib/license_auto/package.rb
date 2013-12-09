@@ -6,6 +6,7 @@ require 'license_auto/website/gemfury_com'
 require 'license_auto/website/github_com'
 require 'license_auto/website/npm_registry'
 require 'license_auto/website/maven_central_repository'
+require 'license_auto/website/bower_herokuapp_com'
 
 
 module LicenseAuto
@@ -30,7 +31,8 @@ module LicenseAuto
     PACKAGE_SERVERS = {
         Ruby: RubyGemsOrg,
         NodeJS: NpmRegistry,
-        GitModule: GithubCom
+        GitModule: GithubCom,
+        # Bower: BowerHerokuappCom
         # TODO: add many server, eg. http://gopkg.in
     }
 
