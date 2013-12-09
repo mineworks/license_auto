@@ -42,11 +42,17 @@ def fetch_license_info_by_source(packer, status=nil)
       # 1. find a version tag, if version tag not exists, go to default branch
       # 2. if license file not found in a version tag, go to default branch
       extractor = API::Github.new(github_url, db_ref=packer[:version])
-      license_info = extractor.get_license_info
+      license_info = extractor.api_get_a_repositorys_license
+      if license_info[:license_url] == nil
+        license_info = extractor.get_license_info
+      end
       if license_info[:license_url] == nil
         default_branch, switched = extractor.switch_to_default_branch
         if switched
-          license_info = extractor.get_license_info
+          license_info = extractor.api_get_a_repositorys_license
+          if license_info[:license_url] == nil
+            license_info = extractor.get_license_info
+          end
         end
       end
 
