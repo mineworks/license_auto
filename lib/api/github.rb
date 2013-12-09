@@ -273,11 +273,11 @@ class Github
     if license == nil
       license_contents[:readme].each do |c|
         $plog.debug(" README file name: #{c['name']}")
-        if File.extname(c['name']) == '.rdoc'
-          regular_start = /^==[ ]*(copying|license){1}:*/i
+        if File.extname(c['name']) =~ /\.(rdoc|txt|text)$/i
+          regular_start = /^==\s*(copying|license){1}:*/i
           regular_end   = /^==/
-        elsif File.extname(c['name']) == '.md'
-          regular_start = /^#+[ ]*(copying|license){1}:*/i
+        elsif File.extname(c['name']) =~ /\.(md|markdown)/i
+          regular_start = /^#+\s*(copying|license){1}:*/i
           regular_end   = /^#+/
         else
           next
