@@ -102,7 +102,7 @@ class PacksSaver
           if last != nil
             pack_version = last['sha']
           else
-            $plog.info("Package url version is unknown: #{pack_url}") 
+            $plog.info("Package url version is unknown: #{pack_url}")
           end
         end
         if pack_url.index('bitbucket.org')
