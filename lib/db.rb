@@ -1,4 +1,6 @@
+require 'httparty'
 require_relative '../conf/config'
+require_relative '../lib/message'
 
 def add_product(product_name)
   r = $conn.exec_params("select * from product where name = $1", [product_name])
@@ -75,6 +77,31 @@ def api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, s
     ret = r[0]
   end
   ret
+end
+
+def api_get_complete_ratio(release_id, repo_id)
+  # TODO: port
+  ratio = 0.0
+  api_path = '/api/v1/repo/complete_ratio'
+  api_url = "#{LICENSE_WEBSITE_URL}#{api_path}"
+  response = HTTParty.get(api_url,
+                          :query => {
+                            :release_id => release_id,
+                            :repo_id => repo_id
+                          })
+  if response.code == 200
+    ratio = response.body.to_f
+    $plog.debug("complete_ratio: #{ratio}")
+    if ratio >= 0.95
+      release_name = nil
+      repo_source_url = nil
+      content = "Your release: #{release_name}, repo: #{repo_source_url} has completed, check it please."
+      Message.send(content)
+    end
+  else
+    $plog.error("#{response}")
+  end
+  ratio
 end
 
 def api_get_pack_by_id(pack_id)
@@ -201,5 +228,6 @@ def api_get_manifest_download_url(pack_id)
 end
 
 if __FILE__ == $0
-  p api_get_repo_manifest_file_list(80).values[0]
+  # p api_get_repo_manifest_file_list(80).values[0]
+  api_get_complete_ratio(1, 2)
 end
