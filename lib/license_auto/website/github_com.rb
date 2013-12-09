@@ -30,10 +30,10 @@ class GithubCom < Website
     @server =
       begin
         eval('WebMock')
-        LicenseAuto.logger.debug("LicenseAuto under running mode")
+        LicenseAuto.logger.debug("LicenseAuto under RSpec mode")
         Github.new(user: user, repo: repo)
       rescue NameError => e
-        LicenseAuto.logger.debug("LicenseAuto under RSpec mode")
+        LicenseAuto.logger.debug("LicenseAuto under running mode")
         basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
         Github.new(user: user, repo: repo, basic_auth: basic_auth)
       end
@@ -91,7 +91,6 @@ class GithubCom < Website
       end
     }.compact!
 
-    LicenseAuto.logger.debug(license_files)
     LicenseAuto::LicenseInfoWrapper.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 

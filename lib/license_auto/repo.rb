@@ -23,7 +23,7 @@ module LicenseAuto
 
     # @return:
     # {
-    #     :"LicenseAuto::Bundler": [
+    #     "LicenseAuto::Bundler": [
     #         {
     #             "dep_file": "/tmp/license_auto/cache/github.com/mineworks/license_auto.git/Gemfile.lock",
     #             "deps": [
@@ -53,7 +53,7 @@ module LicenseAuto
         # LicenseAuto.logger.debug(pm)
         items = pm.new(repo_dir).parse_dependencies
         unless items.empty?
-          deps[pm.to_s.to_sym] = items
+          deps[pm.to_s] = items
         end
       }
       LicenseAuto.logger.debug(JSON.pretty_generate(deps))

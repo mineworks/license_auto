@@ -9,6 +9,7 @@ require 'license_auto/website'
 require 'license_auto/matcher'
 require 'license_auto/package'
 require 'license_auto/repo'
+require 'license_auto/license/similarity'
 require 'license_auto/license_info_wrapper'
 require 'license_auto/exceptions'
 
