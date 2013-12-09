@@ -9,6 +9,7 @@ group :default do
   gem "httparty"
   gem 'rest-client'
   gem "pg"
+  gem "hashie"
 
   gem "anemone"
 
