@@ -219,7 +219,11 @@ class Github
       $plog.error("!!! response.code: #{response.code}, response.body: #{response.body}")
     end
 
-    return license, license_url, license_text
+    {
+      license: license,
+      license_url: license_url,
+      license_text: license_text
+    }
   end
 
   def get_license_info()
