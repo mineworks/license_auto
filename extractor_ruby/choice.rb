@@ -18,14 +18,14 @@ module ExtractRuby
 
   class RubyExtractotr < Ex
 
-    attr_reader :two_dependencies
+    # attr_reader :two_dependencies
     attr_reader :package_list
 
     def initialize pool_num = 10
       @package_list       = Array.new()       # [name, version, status] package list , not exist "\n"
       @failure_list       = Array.new()       # parse failure list , exist "\n"
       @license_list       = Array.new()       # success List
-      @two_dependencies   = Array.new()       # gemfile.lock two dependencies
+      # @two_dependencies   = Array.new()       # gemfile.lock two dependencies
       #@pool              = Thread.pool(pool_num)
       @parse_error_st    	= 33
       @rubygems_not_found = 30               # rubygemsDB not found
@@ -63,28 +63,46 @@ module ExtractRuby
     # description : use bundler extract ruby package from gemfile.lcok
     # repo_path   : local repo path , type : String
     # st_true     : Correct extraction 10
+    # s.source.options['tag']
     def parse_bundler(repo_path, st_true = 10)
       path = Obtain_path.new(repo_path, "gem", ".lock").get_data
       if path.size == 0
         p 'gemfile.lock is null,ruby package is null'
         return -1
       end
-
       path.each do |ph|
         data = File.readlines(ph)
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
         lockfile.specs.each do |s| # if no package then .each == 0
-          s.dependencies.each{|rows|
-            tmp = Array.new
-            tmp.concat([rows.name])
-            #print rows.name
-            rows.requirement.requirements.each{|row|
-              tmp.concat [[row[0], row[1].version]]
+          #@package_list.push [s.name, s.version.to_s, st_true]
+          ps = Hash.new
+          ps['name']    = s.name
+          ps['version'] = s.version.to_s
+          ps['st']      = st_true
+          str = ''
+          if s.source.options['uri'] != nil #['tag'] ['revision']
+            ps['uri'] = s.source.options['uri']
+          elsif s.source.options['remotes'] != nil
+            s.source.options['remotes'].each{ |row|
+              str += row + ','
             }
-            tmp.concat [rows.type]
-            @two_dependencies << tmp
-          }
-          @package_list.push [s.name, s.version.to_s, st_true]
+            str = str[0 .. -2]
+            ps['remotes'] = str
+          end
+          p  ps
+          @package_list << ps
+          # two dependencies
+          # s.dependencies.each{|rows|
+          #   tmp = Array.new
+          #   tmp.concat([rows.name])
+          #   #print rows.name
+          #   rows.requirement.requirements.each{|row|
+          #     tmp.concat [[row[0], row[1].version]]
+          #   }
+          #   tmp.concat [rows.type]
+          #   @two_dependencies << tmp
+          # }
+
         end
       end
     end # def parse_bundler
@@ -105,28 +123,34 @@ module ExtractRuby
             :cmt => nil,
             :language => nil
         }
-        if 10 == row[2]
-          result = ruby_gems.get_gemdata(row[0],row[1])
+        if row['uri'] != nil
+          pack_hash[:language]     = row['uri']
+          pack_hash[:pack_name]    = row['name']
+          pack_hash[:pack_version] = row['version']
+          pack_hash[:source_url]   = row['uri']
+          rubygems_result << pack_hash
+          next
+        elsif row['remotes'] != nil
+          pack_hash[:language] = row['remotes']
+        end
+        if 10 == row['st']
+          result = ruby_gems.get_gemdata(row['name'],row['version'])
           if result != nil
             pack_hash[:pack_name]    = result[:name]
             pack_hash[:pack_version] = result[:version]
             pack_hash[:homepage]     = result[:homepage]
             pack_hash[:source_url]   = result[:source_url]
             pack_hash[:license]      = result[:license]
-            pack_hash[:status]       = row[2]
+            pack_hash[:status]       = row['st']
             pack_hash[:cmt]          = nil
           elsif nil == result
-            pack_hash[:pack_name]    = row[0]
-            if "" == row[1]
+            pack_hash[:pack_name]    = row['name']
+            if "" == row['version']
               pack_hash[:pack_version] = nil
             else
-              pack_hash[:pack_version] = row[1]
+              pack_hash[:pack_version] = row['version']
             end
-            pack_hash[:homepage]    = nil
-            pack_hash[:source_url]   = nil
-            pack_hash[:license]      = nil
             pack_hash[:status]       = @rubygems_not_found
-            pack_hash[:cmt]          = nil
           end
         end
 
@@ -179,10 +203,11 @@ if __FILE__ == $0
   url = '/home/li/luowq/test_repo/go-buildpack'
   ruby = ExtractRuby::RubyExtractotr.new;
   ruby.parse_bundler(url)
-  #ruby.select_rubygems_db.each{|value| p value }
   ruby.package_list.each{|value| p value}
   p "!!!!!!!!!!!!!!!!!!!!!!!!"
-  ruby.two_dependencies.each{|value| p value}
+  ruby.select_rubygems_db.each{|value| p value }
+  #
+  #p "!!!!!!!!!!!!!!!!!!!!!!!!"
   #ruby.web_crawl
 end
 
