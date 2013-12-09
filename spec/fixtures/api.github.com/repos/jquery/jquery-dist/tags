@@ -1,0 +1,272 @@
+[
+  {
+    "name": "3.0.0-rc1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/3.0.0-rc1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/3.0.0-rc1",
+    "commit": {
+      "sha": "e503a93188dc4b5b42e2340f805f2d90b404bc50",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/e503a93188dc4b5b42e2340f805f2d90b404bc50"
+    }
+  },
+  {
+    "name": "3.0.0-beta1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/3.0.0-beta1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/3.0.0-beta1",
+    "commit": {
+      "sha": "2ef761afd9addf78193f5191ece03bb20c9182c2",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/2ef761afd9addf78193f5191ece03bb20c9182c2"
+    }
+  },
+  {
+    "name": "3.0.0-alpha1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/3.0.0-alpha1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/3.0.0-alpha1",
+    "commit": {
+      "sha": "2c92869b752bb8e0fe74c3183f40f3f58b7b906d",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/2c92869b752bb8e0fe74c3183f40f3f58b7b906d"
+    }
+  },
+  {
+    "name": "3.0.0-alpha1+compat",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/3.0.0-alpha1+compat",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/3.0.0-alpha1+compat",
+    "commit": {
+      "sha": "ef64d82ec3d1717478979cba986d896aa0dda617",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/ef64d82ec3d1717478979cba986d896aa0dda617"
+    }
+  },
+  {
+    "name": "2.2.4",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.2.4",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.2.4",
+    "commit": {
+      "sha": "c0185ab7c75aab88762c5aae780b9d83b80eda72",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/c0185ab7c75aab88762c5aae780b9d83b80eda72"
+    }
+  },
+  {
+    "name": "2.2.3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.2.3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.2.3",
+    "commit": {
+      "sha": "af22a351b2ea5801ffb1695abb3bb34d5bed9198",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/af22a351b2ea5801ffb1695abb3bb34d5bed9198"
+    }
+  },
+  {
+    "name": "2.2.2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.2.2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.2.2",
+    "commit": {
+      "sha": "086d381cd2f3b4b8b0af85ecb2c9593a61e5b4bd",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/086d381cd2f3b4b8b0af85ecb2c9593a61e5b4bd"
+    }
+  },
+  {
+    "name": "2.2.1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.2.1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.2.1",
+    "commit": {
+      "sha": "788eaba2f83e7b7445c7a83a50c81c0704423874",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/788eaba2f83e7b7445c7a83a50c81c0704423874"
+    }
+  },
+  {
+    "name": "2.2.0",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.2.0",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.2.0",
+    "commit": {
+      "sha": "6fc01e29bdad0964f62ef56d01297039cdcadbe5",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/6fc01e29bdad0964f62ef56d01297039cdcadbe5"
+    }
+  },
+  {
+    "name": "2.1.4",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.4",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.4",
+    "commit": {
+      "sha": "7751e69b615c6eca6f783a81e292a55725af6b85",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/7751e69b615c6eca6f783a81e292a55725af6b85"
+    }
+  },
+  {
+    "name": "2.1.3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.3",
+    "commit": {
+      "sha": "8f2a9d9272d6ed7f32d3a484740ab342c02541e0",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/8f2a9d9272d6ed7f32d3a484740ab342c02541e0"
+    }
+  },
+  {
+    "name": "2.1.2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.2",
+    "commit": {
+      "sha": "a04f5ff9795fd6292117563623db44cf3f875868",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/a04f5ff9795fd6292117563623db44cf3f875868"
+    }
+  },
+  {
+    "name": "2.1.1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.1",
+    "commit": {
+      "sha": "4dec426aa2a6cbabb1b064319ba7c272d594a688",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/4dec426aa2a6cbabb1b064319ba7c272d594a688"
+    }
+  },
+  {
+    "name": "2.1.1-rc2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.1-rc2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.1-rc2",
+    "commit": {
+      "sha": "c2fdcaaacd4d7f8479b2196525330c1738e30cd3",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/c2fdcaaacd4d7f8479b2196525330c1738e30cd3"
+    }
+  },
+  {
+    "name": "2.1.1-rc1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.1-rc1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.1-rc1",
+    "commit": {
+      "sha": "6ba4c8def1f9b0d03c5e8de1d64a78ae36646fb6",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/6ba4c8def1f9b0d03c5e8de1d64a78ae36646fb6"
+    }
+  },
+  {
+    "name": "2.1.1-beta1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.1-beta1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.1-beta1",
+    "commit": {
+      "sha": "130f395eb8906e16db8506571f125a6beb28327a",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/130f395eb8906e16db8506571f125a6beb28327a"
+    }
+  },
+  {
+    "name": "2.1.0",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.0",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.0",
+    "commit": {
+      "sha": "9434e03193c45d51bbd063a0edd1a07a6178d33f",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/9434e03193c45d51bbd063a0edd1a07a6178d33f"
+    }
+  },
+  {
+    "name": "2.1.0-rc1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.0-rc1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.0-rc1",
+    "commit": {
+      "sha": "dea4e5fc6c47a27865de65ec6feef3429dbf13b9",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/dea4e5fc6c47a27865de65ec6feef3429dbf13b9"
+    }
+  },
+  {
+    "name": "2.1.0-beta3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.0-beta3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.0-beta3",
+    "commit": {
+      "sha": "dfb03b41baa583ec79bd28c110278ce0268b4704",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/dfb03b41baa583ec79bd28c110278ce0268b4704"
+    }
+  },
+  {
+    "name": "2.1.0-beta2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.0-beta2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.0-beta2",
+    "commit": {
+      "sha": "adf904ccfaf3b34134ac2bbcec0db83e43d43be8",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/adf904ccfaf3b34134ac2bbcec0db83e43d43be8"
+    }
+  },
+  {
+    "name": "2.1.0-beta1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.1.0-beta1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.1.0-beta1",
+    "commit": {
+      "sha": "1185427c4c35ea57e3634ca735422e23d2e55751",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/1185427c4c35ea57e3634ca735422e23d2e55751"
+    }
+  },
+  {
+    "name": "2.0.3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.3",
+    "commit": {
+      "sha": "f852e631ba85af7da4ad7594785e122504e7b233",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/f852e631ba85af7da4ad7594785e122504e7b233"
+    }
+  },
+  {
+    "name": "2.0.2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.2",
+    "commit": {
+      "sha": "617d181a45cff58586888550955a9c7fe2eb8b41",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/617d181a45cff58586888550955a9c7fe2eb8b41"
+    }
+  },
+  {
+    "name": "2.0.1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.1",
+    "commit": {
+      "sha": "873bfd84860f946ddca86d4ac87e422abf19ec1d",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/873bfd84860f946ddca86d4ac87e422abf19ec1d"
+    }
+  },
+  {
+    "name": "2.0.0",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.0",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.0",
+    "commit": {
+      "sha": "a55c5eeb709b584f58a1f3d8d0bc9f1432cd998a",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/a55c5eeb709b584f58a1f3d8d0bc9f1432cd998a"
+    }
+  },
+  {
+    "name": "2.0.0b2",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.0b2",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.0b2",
+    "commit": {
+      "sha": "4cbc235c0d6c9ef5e11c4fc243275e38e9044cb4",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/4cbc235c0d6c9ef5e11c4fc243275e38e9044cb4"
+    }
+  },
+  {
+    "name": "2.0.0b1",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.0b1",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.0b1",
+    "commit": {
+      "sha": "2cc06af007ad2f85b52ee757296d235fcf93337a",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/2cc06af007ad2f85b52ee757296d235fcf93337a"
+    }
+  },
+  {
+    "name": "2.0.0-beta3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/2.0.0-beta3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/2.0.0-beta3",
+    "commit": {
+      "sha": "baa50b5e1709dc66354c647e14ac819338cdf5b9",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/baa50b5e1709dc66354c647e14ac819338cdf5b9"
+    }
+  },
+  {
+    "name": "1.12.4",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/1.12.4",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/1.12.4",
+    "commit": {
+      "sha": "5e89585e0121e72ff47de177c5ef604f3089a53d",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/5e89585e0121e72ff47de177c5ef604f3089a53d"
+    }
+  },
+  {
+    "name": "1.12.3",
+    "zipball_url": "https://api.github.com/repos/jquery/jquery-dist/zipball/1.12.3",
+    "tarball_url": "https://api.github.com/repos/jquery/jquery-dist/tarball/1.12.3",
+    "commit": {
+      "sha": "3a43d7e563314bf32970b773dd31ecf2b90813dd",
+      "url": "https://api.github.com/repos/jquery/jquery-dist/commits/3a43d7e563314bf32970b773dd31ecf2b90813dd"
+    }
+  }
+]

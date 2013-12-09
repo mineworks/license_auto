@@ -1,0 +1,7 @@
+{
+  "language": "Bower",
+  "name": "jquery",
+  "group": "",
+  "version": "2.2.0",
+  "server": "http://bower.herokuapp.com/packages"
+}

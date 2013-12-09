@@ -32,7 +32,7 @@ module LicenseAuto
         Ruby: RubyGemsOrg,
         NodeJS: NpmRegistry,
         GitModule: GithubCom,
-        # Bower: BowerHerokuappCom
+        Bower: BowerHerokuappCom
         # TODO: add many server, eg. http://gopkg.in
     }
 

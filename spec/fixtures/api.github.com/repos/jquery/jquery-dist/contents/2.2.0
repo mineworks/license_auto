@@ -1,0 +1,114 @@
+[
+  {
+    "name": "AUTHORS.txt",
+    "path": "AUTHORS.txt",
+    "sha": "feb0a43fc72dbb79aae2f4e2b480abd3d2eb5ef3",
+    "size": 10258,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/AUTHORS.txt?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/blob/2.2.0/AUTHORS.txt",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/feb0a43fc72dbb79aae2f4e2b480abd3d2eb5ef3",
+    "download_url": "https://raw.githubusercontent.com/jquery/jquery-dist/2.2.0/AUTHORS.txt",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/AUTHORS.txt?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/feb0a43fc72dbb79aae2f4e2b480abd3d2eb5ef3",
+      "html": "https://github.com/jquery/jquery-dist/blob/2.2.0/AUTHORS.txt"
+    }
+  },
+  {
+    "name": "LICENSE.txt",
+    "path": "LICENSE.txt",
+    "sha": "5312a4c864d220d496ae0b6fd11834a08396fb89",
+    "size": 1606,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/LICENSE.txt?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/blob/2.2.0/LICENSE.txt",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/5312a4c864d220d496ae0b6fd11834a08396fb89",
+    "download_url": "https://raw.githubusercontent.com/jquery/jquery-dist/2.2.0/LICENSE.txt",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/LICENSE.txt?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/5312a4c864d220d496ae0b6fd11834a08396fb89",
+      "html": "https://github.com/jquery/jquery-dist/blob/2.2.0/LICENSE.txt"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "a00f666f32bdc7561df36a4b54476237cdc5e3bf",
+    "size": 172,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/README.md?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/blob/2.2.0/README.md",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/a00f666f32bdc7561df36a4b54476237cdc5e3bf",
+    "download_url": "https://raw.githubusercontent.com/jquery/jquery-dist/2.2.0/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/README.md?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/a00f666f32bdc7561df36a4b54476237cdc5e3bf",
+      "html": "https://github.com/jquery/jquery-dist/blob/2.2.0/README.md"
+    }
+  },
+  {
+    "name": "bower.json",
+    "path": "bower.json",
+    "sha": "95798d5ada6dc0bb3d3d1799a2fdfbe489ed3e18",
+    "size": 190,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/bower.json?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/blob/2.2.0/bower.json",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/95798d5ada6dc0bb3d3d1799a2fdfbe489ed3e18",
+    "download_url": "https://raw.githubusercontent.com/jquery/jquery-dist/2.2.0/bower.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/bower.json?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/95798d5ada6dc0bb3d3d1799a2fdfbe489ed3e18",
+      "html": "https://github.com/jquery/jquery-dist/blob/2.2.0/bower.json"
+    }
+  },
+  {
+    "name": "dist",
+    "path": "dist",
+    "sha": "bc2b73548559cd2ba370e25b4646f96f28fa3ad9",
+    "size": 0,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/dist?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/tree/2.2.0/dist",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/trees/bc2b73548559cd2ba370e25b4646f96f28fa3ad9",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/dist?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/trees/bc2b73548559cd2ba370e25b4646f96f28fa3ad9",
+      "html": "https://github.com/jquery/jquery-dist/tree/2.2.0/dist"
+    }
+  },
+  {
+    "name": "package.json",
+    "path": "package.json",
+    "sha": "c0fbc68c86b581d676f91e2c185a3c0a35ce1494",
+    "size": 1880,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/package.json?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/blob/2.2.0/package.json",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/c0fbc68c86b581d676f91e2c185a3c0a35ce1494",
+    "download_url": "https://raw.githubusercontent.com/jquery/jquery-dist/2.2.0/package.json",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/package.json?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/blobs/c0fbc68c86b581d676f91e2c185a3c0a35ce1494",
+      "html": "https://github.com/jquery/jquery-dist/blob/2.2.0/package.json"
+    }
+  },
+  {
+    "name": "src",
+    "path": "src",
+    "sha": "7e584db09a10f598316777e3f6bcfa3a79b1f576",
+    "size": 0,
+    "url": "https://api.github.com/repos/jquery/jquery-dist/contents/src?ref=2.2.0",
+    "html_url": "https://github.com/jquery/jquery-dist/tree/2.2.0/src",
+    "git_url": "https://api.github.com/repos/jquery/jquery-dist/git/trees/7e584db09a10f598316777e3f6bcfa3a79b1f576",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/jquery/jquery-dist/contents/src?ref=2.2.0",
+      "git": "https://api.github.com/repos/jquery/jquery-dist/git/trees/7e584db09a10f598316777e3f6bcfa3a79b1f576",
+      "html": "https://github.com/jquery/jquery-dist/tree/2.2.0/src"
+    }
+  }
+]
