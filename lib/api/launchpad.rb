@@ -48,7 +48,7 @@ module API
         anemone.on_every_page do |page|
           xpath = "//div[@id='source-files']/table/tbody/tr/td/a[contains(@href, '.orig.')]"
           page.doc.xpath(xpath).each {|text|
-            full_href = text.css('/@href')
+            full_href = text.attr('href')
             if full_href
               source_code_download_url = full_href
               break
@@ -56,7 +56,7 @@ module API
           }
         end
       end
-      return source_code_download_url.map(&:value)[0]
+      return source_code_download_url
     end
 
     # TODO: @Micfan, fetch file from Launchpad.net API
@@ -104,12 +104,12 @@ if __FILE__ == $0
   name = 'anacron'
   version = '2.3-20ubuntu1'
   a = API::Launchpad.new(distribution, distro_series, name, version)
-  # p a.find_source_package_page_link
+  link = a.find_source_package_page_link
+  p a.find_source_code_download_url(link)
   url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
-  source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
-  p a.find_source_code_download_url(url)
-
-  #a.download_source_code(source_code_url)
+  # source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
+  # a.find_source_code_download_url(url)
+  # a.download_source_code(source_code_url)
 
 # ii  anacron                             2.3-20ubuntu1                    amd64        cron-like program that doesn't go by time
 # ii  apparmor                            2.8.95~2430-0ubuntu5.3           amd64        User-space parser utility for AppArmor
