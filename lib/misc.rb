@@ -1,6 +1,5 @@
 require 'httparty'
 require_relative '../conf/config'
-require_relative './api'
 
 module Misc
 
@@ -14,6 +13,7 @@ module Misc
 
       priv = -1
       if response.code == 404
+        require_relative './api'
         g = API::Github.new(source_url)
         commits = g.list_commits
         if commits != nil
