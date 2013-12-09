@@ -144,7 +144,14 @@ module API
               # puts entry.read
               # Root dir files only
               if entry.directory? or !API::Helper.is_root_file(entry.full_name)
-                next
+                # python-defaults-2.7.5/debian/copyright
+                if API::Helper.is_debian_copyright_file(entry.full_name)
+                  license_url = entry.full_name
+                  license_text = entry.read
+                  break
+                else
+                  next
+                end
               end
 
               if entry.file? and API::Helper.is_license_file(entry.full_name)
@@ -297,10 +304,10 @@ if __FILE__ == $0
   version = '1.16'
 
   # .bz2
-  name = 'bzip2'
-  version = '1.0.6-5'
-  # a = API::Launchpad.new(distribution, distro_series, name, version)
-  a = API::ManifestPackage.new('https://pivotal-buildpacks.s3.amazonaws.com/python/binaries/cflinuxfs2/libmemcache.tar.gz')
+  name = 'libpython-stdlib'
+  version = '2.7.5-5ubuntu3'
+  a = API::Launchpad.new(distribution, distro_series, name, version)
+  # a = API::ManifestPackage.new('https://pivotal-buildpacks.s3.amazonaws.com/python/binaries/cflinuxfs2/libmemcache.tar.gz')
   license_info = a.fetch_license_info_from_local_source
   p license_info
 

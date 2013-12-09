@@ -18,7 +18,8 @@ module API
     :license_file => /(licen[sc]e|copying)+/i,
     :readme_file => /readme/i,
     :components_yml => /components\.yml/,
-    :notice_file => /(notice|copyright)/i
+    :notice_file => /(notice|copyright)/i,
+    :debian_copyright_file => /^[^\/]+\/debian\/copyright$/
   }
   FILE_TYPE_PATTERN = {
     :tar_gz => /(tar\.gz|\.tgz)$/,
