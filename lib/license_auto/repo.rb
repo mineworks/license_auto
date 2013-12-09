@@ -20,7 +20,7 @@ module LicenseAuto
     def initialize(hash)
       super(hash)
 
-      if name == localfile and name == ref
+      if localfile == true #local repo
         @repo_dir = clone_url
         @server = []
       else
