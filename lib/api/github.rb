@@ -1,4 +1,5 @@
 # encoding: utf-8
+require "base64"
 require 'httparty'
 require 'json'
 require_relative '../../extractor_ruby/License_recognition'
@@ -191,6 +192,34 @@ class Github
       end
     end
     license_contents
+  end
+
+  # DOC: https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
+  def api_get_a_repositorys_license
+    license = license_url = license_text = nil
+    api_url = "https://api.github.com/repos/#{@owner}/#{@repo}/license"
+    if @ref
+      api_url += "?ref=#{@ref}"
+    end
+
+    $plog.info("api_get_a_repositorys_license: api_url: #{api_url}")
+    response = HTTParty.get(api_url, options=@http_option)
+    if response.code == 200
+      contents = JSON.parse(response.body)
+      license, license_url = contents['license']['name'], contents['download_url']
+
+      if contents['encoding'] == 'base64'
+        license_text = Base64.decode64(contents['content'])
+      else
+        license_text = 'DECODING ERROR!'
+      end
+    elsif response.code == 403
+      $plog.error('!!! Github 403 Forbidden.')
+    else
+      $plog.error("!!! response.code: #{response.code}, response.body: #{response.body}")
+    end
+
+    return license, license_url, license_text
   end
 
   def get_license_info()
