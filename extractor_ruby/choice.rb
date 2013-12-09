@@ -22,14 +22,14 @@ module ExtractRuby
     # attr_reader :two_dependencies
     attr_reader :package_list
 
-    def initialize pool_num = 10
+    def initialize
       @package_list       = Array.new()       # [name, version, status] package list , not exist "\n"
       @failure_list       = Array.new()       # parse failure list , exist "\n"
       @license_list       = Array.new()       # success List
       # @two_dependencies   = Array.new()       # gemfile.lock two dependencies
-      #@pool              = Thread.pool(pool_num)
       @parse_error_st    	= 33
       @rubygems_not_found = 30               # rubygemsDB not found
+      @st_true            = 10               # Correct extraction 10
 
     end
 
@@ -47,23 +47,21 @@ module ExtractRuby
     # repo_path   : local repo path , type : String
     # st_true     : Correct extraction 10
     # s.source.options['tag']
-    def parse_bundler(repo_path, st_true = 10)
+    def parse_bundler(repo_path)
       path = Obtain_path.new(repo_path, "gem", ".lock").get_data
       if path.size == 0
         $plog.info('gemfile.lock files not found,ruby packages not found ')
         return -1
       end
       path.each do |ph|
-
-	$plog.debug("Gemfile.lock file pathname: #{ph}")
-
+	      $plog.debug("Gemfile.lock file pathname: #{ph}")
         data = File.readlines(ph)
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
         lockfile.specs.each do |s|
           ps = {
             'name'    => s.name,
             'version' => s.version.to_s,
-            'st'      => st_true
+            'st'      => @st_true
           }
           if s.source.options['uri'] != nil #['tag'] ['revision']
             ps['uri'] = s.source.options['uri']
@@ -121,7 +119,6 @@ module ExtractRuby
             pack_hash[:source_url]   = result[:source_url]
             pack_hash[:license]      = result[:license]
             pack_hash[:status]       = row['st']
-            pack_hash[:cmt]          = nil
           elsif nil == result
             pack_hash[:pack_name]    = row['name']
             if "" == row['version']
@@ -165,7 +162,6 @@ module ExtractRuby
        # @pool.process{
        #   @license_list << rubygems(package)
        # }
-
       end
       #@pool.shutdown
       if @package_list.size != @license_list.size
