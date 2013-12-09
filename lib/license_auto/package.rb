@@ -1,23 +1,24 @@
 require 'hashie/mash'
 
-##
-# package:
-# Hash {
-#     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
-#     name: 'bundler',
-#     group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
-#     version: '1.11.2',               # Optional: Assign nil if check the latest
-#     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
-# }
-
 module LicenseAuto
+
+  ##
+  # Package: {
+  #     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
+  #     name: 'bundler',
+  #     group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
+  #     version: '1.11.2',               # Optional: Assign nil if check the latest
+  #     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
+  # }
 
   class Package < Hashie::Mash
     extend LicenseAuto
 
     ##
-    # Default project website server of all kinds of languages
+    # Default project website server of all kinds of languages.
+    #
     # Key: language name
+    #
     # Value: default project server
 
     LANGUAGES_PROJECT_SERVER = {
@@ -41,7 +42,7 @@ module LicenseAuto
     end
 
     ##
-    # Entry
+    # Class Entry
 
     def get_license_info()
       chose_adapter_by_language()

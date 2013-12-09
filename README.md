@@ -2,6 +2,7 @@
  
 ![Progress](http://progressed.io/bar/5?title=progress)
 [![Code Climate](https://codeclimate.com/github/mineworks/license_auto/badges/gpa.svg)](https://codeclimate.com/github/mineworks/license_auto)
+[![Build Status](https://travis-ci.org/mineworks/license_auto.svg?branch=master)](https://travis-ci.org/mineworks/license_auto)
 
 [license_auto](https://github.com/mineworks/license_auto) is a Ruby Gem for Open Source License collection job inspired by [LicenseFinder](https://github.com/pivotal/LicenseFinder)
 
@@ -88,7 +89,6 @@ gem install license_auto
 * Optional: Config Github Auth
 ``` ruby
 require 'license_auto'
-# TODO: other parameters
 params = {
     github_username: 'Alice'
     github_password: '123456',
