@@ -8,6 +8,7 @@ require_relative '../lib/db'
 require_relative '../lib/recorder'
 require_relative '../lib/api'
 require_relative '../conf/config'
+require_relative '../lib/api'
 
 def fetch_license_info_by_source(packer, status=nil)
     # TODO: @Micfan, simple it
@@ -91,7 +92,15 @@ def worker(body)
     }
     packer = fetch_license_info_by_source(packer)
     if packer[:status] < 40 and packer[:source_url] == nil
-      if lang == 'Java'
+      if lang == 'StemCell-Ubuntu-Trusty'
+        ubuntu_lang_pattern = /^StemCell-(?<distribution>(Ubuntu))-(?<distro_series>(Trusty))/i
+        lang_group = ubuntu_lang_pattern.match(lang)
+        # lauch = API::Launchpad.new(lang_group[:distribution], lang_group[:distro_series], pack['name'], pack['version'])
+        launchpad = API::Launchpad.new(lang_group[:distribution], lang_group[:distro_series], pack['name'], pack['version'])
+        packer = launchpad.fetch_license_info_by_source
+      elsif lang == 'StemCell-CentOS-7.x'
+          # TODO: .rpm, $yum
+      elsif lang == 'Java'
         # TODO: 3 website
       elsif lang == 'NodeJs'
         # TODO:
