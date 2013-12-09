@@ -1,4 +1,5 @@
 require  'find'
+require 'json'
 require 'httparty'
 require_relative '../conf/config'
 
@@ -26,6 +27,36 @@ module Misc
       $plog.debug("priv: #{priv}")
 
       update = $conn.exec_params("update repo set priv = $1 where source_url = $2", [priv, source_url])
+    }
+  end
+
+  # TODO:
+  def Misc.check_git_submodules(where)
+    require_relative './api'
+    third_party = []
+    pg_result = $conn.exec("select * from repo #{where}")
+
+    pg_result.each {|r|
+      $plog.debug("source_url: #{source_url}")
+
+      g = API::Github.new(source_url)
+
+      modules = g.get_gitmodules
+      if modules
+        third_party.push(modules)
+        $plog.debug("modules: #{mmodules}")
+      end
+      # update = $conn.exec_params("update repo set priv = $1 where source_url = $2", [priv, source_url])
+    }
+  end
+
+  def Misc.enqueue_packs(where)
+    pg_result = $conn.exec("select * from pack #{where}")
+    queue_name = 'license_auto.pack'
+    $plog.debug("enqueue packs no: #{pg_result.ntuples}")
+    pg_result.each {|p|
+      pack_id = p['id'].to_i
+      $rmq.publish(queue_name, {:pack_id => pack_id}.to_json, check_exist=true)
     }
   end
 
@@ -70,17 +101,15 @@ module Misc
     end
   end
 
-
-
 end
 
 if __FILE__ == $0
-  where = ' where 1=1 '
+  # where = ' where 1=1 '
   # Misc.check_private_repo(where)
-  f = '/Users/mic/vm/newhire'
-  d = Misc::DirUtils.new(f)
-  p = /package\.json$/
-  p d.filter_filename(p)
 
+  where = ' where status < 30 '
+  Misc.enqueue_packs(where)
+  # Misc.check_private_repo(where)
+  # third_party = Misc.check_git_submodules(where)
 
 end
