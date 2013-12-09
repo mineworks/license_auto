@@ -18,6 +18,7 @@ def worker(body)
     case_item = JSON.parse(body)
 
     repo_id = case_item['repo_id'].to_i
+    release_id = case_item['release_id'].to_i
     repo_url = api_get_repo_source_url(repo_id)
     clone_path = Cloner::clone_repo(repo_url)
 
@@ -28,9 +29,6 @@ def worker(body)
       api_setup_case_status(repo_id, 20, cmt)
       return
     end
-
-    # TODO: @Micfan
-    release_id = 1
 
     packs = GolangParser.start(clone_path)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)
