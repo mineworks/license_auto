@@ -135,7 +135,7 @@ class PackUpdate
     
     #@pack['status'] = @status
     
-    flag = api_update_pack_info(@pack_id,@pack)
+    flag = api_update_pack_info(@pack_id, @pack)
 
     return flag
         

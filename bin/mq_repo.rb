@@ -59,14 +59,14 @@ def main()
   q    = ch.queue("license_auto.repo", :durable => true)
 
   ch.prefetch(1)
-  $plog.info(" [*] Waiting for messages. To exit press CTRL+C")
+  $plog.info(" [*] MQ-repo: Waiting for messages. To exit press CTRL+C")
 
   begin
     q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
-      $plog.info(" [x] Received '#{body}'")
+      $plog.info(" [x] MQ-repo: Received '#{body}'")
       worker(body)
       sleep 1.0
-      $plog.info(" [x] Done")
+      $plog.info(" [x] MQ-repo: Done")
       ch.ack(delivery_info.delivery_tag)
     end
   rescue Interrupt => _

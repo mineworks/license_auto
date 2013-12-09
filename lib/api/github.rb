@@ -42,7 +42,7 @@ class Github
       # version number
       all_refs = list_all_tags
       # TODO: - + *
-      version_pattern = /[vV]?#{db_ref.gsub(/\./, '\.').gsub(/\//, '\/')}/i
+      version_pattern = /[vV]?#{db_ref.gsub(/\./, '\.').gsub(/\//, '\/')}$/i
       all_refs.each {|r|
         ref = r['ref']
         ref_name = ref.split('/').last

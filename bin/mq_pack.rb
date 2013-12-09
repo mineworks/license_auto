@@ -150,15 +150,15 @@ def main()
   q    = ch.queue("license_auto.pack", :durable => true)
 
   ch.prefetch(1)
-  puts " [*] Waiting for messages. To exit press CTRL+C"
+  puts " [*] MQ-pack: Waiting for messages. To exit press CTRL+C"
 
   begin
     q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
-      puts " [x] Received '#{body}'"
+      puts " [x] MQ-pack:  Received '#{body}'"
       # My work
       worker(body)
       sleep 1.0
-      puts " [x] Done"
+      puts " [x] MQ-pack: Done"
       ch.ack(delivery_info.delivery_tag)
     end
   rescue Interrupt => _
