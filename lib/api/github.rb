@@ -20,17 +20,21 @@ class Github
     @owner = regex_group[:owner]
     @repo = regex_group[:repo]
 
+    @http_option = Github.get_http_option
+    @ref = _match_a_ref(db_ref)
+  end
+
+  def self.get_http_option
     auth = {:username => ENV['github_username'], :password => ENV['github_password']}
-    @http_option = {
+    http_option = {
       :basic_auth => auth
     }
     http_proxy = Misc.get_http_proxy
     if http_proxy
-      @http_option[:http_proxyaddr] = http_proxy[:addr]
-      @http_option[:http_proxyport] = http_proxy[:port]
+      http_option[:http_proxyaddr] = http_proxy[:addr]
+      http_option[:http_proxyport] = http_proxy[:port]
     end
-
-    @ref = _match_a_ref(db_ref)
+    http_option
   end
 
   def _match_a_ref(db_ref)
@@ -134,6 +138,23 @@ class Github
     else
       nil
     end
+  end
+
+  def self.convert_htmlpage_to_raw_url(html_page)
+    raw_url = nil
+    content = nil
+    api_url = "#{html_page}?raw=true"
+
+    response = HTTParty.get(api_url, options=get_http_option)
+    # response = HTTParty.get(api_url, follow_redirects: true)
+    # $plog.debug(response.code)
+    if response.code == 200
+      raw_url = response.request.last_uri.to_s
+      $plog.debug(raw_url)
+      content = response.body
+    end
+
+    return raw_url, content
   end
 
   # DOC: https://developer.github.com/v3/repos/contents/#get-contents
@@ -259,11 +280,16 @@ class Github
   end
 end
 
-end ### API
+end
 
 if __FILE__ == $0
   url = 'https://github.com/geemus/netrc'
   g = API::Github.new(url, '0.7')
   br = g.get_default_branch
   p br
+
+  html = 'https://github.com/cowboy/grunt/blob/master/LICENSE-MIT'
+  raw_url = API::Github.convert_htmlpage_to_raw_url(html)
+  p raw_url
+
 end
