@@ -35,7 +35,10 @@ module Cloner
           g.pull(remote='origin', branch=local_branch)
         end
       else
-        local_repo = Git.clone(repo, path)
+        opts = {
+          :recursive => true
+        }
+        local_repo = Git.clone(repo, path, opts)
         clone_path = local_repo.dir.path
         return clone_path
       end
