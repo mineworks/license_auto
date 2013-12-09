@@ -1,6 +1,7 @@
 require_relative 'api/github'
 require_relative 'api/git_kernel_org'
 require_relative 'api/google_source_com'
+require_relative 'api/code_google_com'
 require_relative 'api/go_pkg_in'
 require_relative 'api/excel_export'
 require_relative 'api/bitbucket'
@@ -24,6 +25,8 @@ module API
         @vcs = API::Bitbucket.new(url)
       elsif url =~ API::SOURCE_URL_PATTERN[:google_source_com]
         @vcs = API::GoogleSourceCom.new(url)
+      elsif url =~ API::SOURCE_URL_PATTERN[:code_google_com]
+        @vcs = API::CodeGoogleCom.new(url)
       elsif url =~ API::SOURCE_URL_PATTERN[:go_pkg_in]
         @vcs = API::GoPkgIn.new(url)
       else
