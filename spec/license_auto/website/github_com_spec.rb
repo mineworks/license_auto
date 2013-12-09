@@ -19,15 +19,22 @@ describe GithubCom do
     stub_request(:get, "https://api.github.com/repos/bundler/bundler/contents/?ref=v1.11.2").
         to_return(:status => 200, :body => fixture(contents_path), :headers => {})
 
+    languages_path = "https://api.github.com/repos/bundler/bundler/languages"
+    stub_request(:get, languages_path).
+        to_return(:status => 200, :body => fixture(languages_path), :headers => {})
   end
 
   it 'Get Github LicenseInfo' do
-
     github = GithubCom.new(my_pack, user, repo)
     license_info = github.get_license_info
+    expect(license_info.licenses.size > 0).to be(true)
+    # puts license_info.licenses
+  end
 
-    puts license_info.licenses
-
+  it 'List Github Repo languages' do
+    github = GithubCom.new(my_pack, user, repo)
+    languages = github.list_languages
+    expect(languages.size > 0).to be(true)
   end
 
 end
