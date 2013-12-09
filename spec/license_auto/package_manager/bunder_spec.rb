@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'license_auto/package_manager/bundler'
 
 describe LicenseAuto::Bundler do
-  let(:repo_dir) { '.'}
+  let(:repo_dir) { 'spec/fixtures/rubygems.org/hello_world'}
   it 'can be initialed' do
     pm = LicenseAuto::Bundler.new(repo_dir)
     expect(pm).to be_instance_of(LicenseAuto::Bundler)

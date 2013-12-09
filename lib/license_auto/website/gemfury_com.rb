@@ -4,7 +4,7 @@
 #
 # [Install RubyGems with a Gemfile](https://gemfury.com/help/install-gems#_ga=1.159224378.125260097.1457687192)
 
-class GemFury
+class GemfuryCom
   # TODO:
 
 end
