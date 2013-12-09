@@ -5,5 +5,5 @@ rvm:
  - "2.2"
 
 script:
-# - rake install
+ - rake install
  - bundle exec rspec spec
