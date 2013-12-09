@@ -1,11 +1,13 @@
 require 'gems'
 require 'hashie'
 
-require 'license_auto/website/github'
+require 'license_auto/website/github_com'
 
 
 class RubyGemsOrg < Website
 
+  HOST = 'rubygems.org'
+  LANGUAGE = 'Ruby'
 
   GEM_NOT_FOUND = "This rubygem could not be found."
 
@@ -32,7 +34,9 @@ class RubyGemsOrg < Website
 
     github_matched = source_code_matcher.match_github_resource
     if github_matched
-      license_info = LicenseAuto::github_get_license_info(github_matched[:owner], github_matched[:repo], @package.version)
+      license_info = GithubCom.new(@package, github_matched[:owner], github_matched[:repo]).get_license_info
+    elsif false
+
     end
 
     # bitbucket_matched = source_code_matcher.match_bitbucket_resource()
