@@ -34,7 +34,7 @@ def worker(body)
     saver.save
 
     extractor = ExtractRuby::RubyExtractotr.new
-    extractor.parse_gemfile_lock(clone_path)
+    extractor.parse_bundler(clone_path)
 
     ruby_packs = extractor.select_rubygems_db
     saver = PacksSaver.new(repo_id, ruby_packs, 'Ruby', release_id)
@@ -76,7 +76,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"repo_id":22}'
+  # body = '{"repo_id":5}'
   # worker(body)
   main
 
