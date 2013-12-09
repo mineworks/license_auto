@@ -87,29 +87,20 @@ gem install license_auto
 ## Configure
 ```
 sudo cp license_auto/config/sample.config.yml etc/license_auto.conf.yml
+cp license_auto/config/gitconfig ~/.gitconfig
 ```
 
 ## Examples
-
-* Optional: Config Github Auth
-``` ruby
-require 'license_auto'
-params = {
-    github_username: 'Alice'
-    github_password: '123456',
-    http_proxy: 'http://proxyuser:proxypwd@proxy.server.com:8080'
-}
-LicenseAuto::Base.config(params)
-```
 
 * Get dependencies of a repository
 ``` ruby
 require 'license_auto'
 my_repo = {
-  repo_url: 'https://github.com/mineworks/license_auto.git'
+  clone_url: 'https://github.com/mineworks/license_auto.git',
+  ret: 'master'
 }
-repo = LicenseAuto::Package.new(my_repo)
-dependencies = repo.get_dependencies()
+repo = LicenseAuto::Repo.new(my_repo)
+dependencies = repo.find_dependencies()
 ```
 
 * Get License Info of a package
