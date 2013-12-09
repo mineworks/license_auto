@@ -42,8 +42,6 @@ class GithubCom < Website
       end
     }
 
-    LicenseAuto.logger.warn('Hello mic')
-
     LicenseAuto::LicenseInfo.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 
@@ -66,8 +64,9 @@ class GithubCom < Website
   end
 
   def list_languages
-    LicenseAuto.logger.debug('this is list languaegs')
-    @server.repos.languages
+    langs = @server.repos.languages
+    LicenseAuto.logger.debug("All languaegs: #{langs}")
+    langs
   end
 
   def clone
