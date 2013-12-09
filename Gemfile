@@ -13,5 +13,5 @@ gem "bunny"
 gem "thread"
 gem "anemone"
 gem "writeexcel"
-# gem "zopen"
+gem 'bzip2-ruby', :git => 'https://github.com/chewi/bzip2-ruby.git'
 gem "ruby-xz"

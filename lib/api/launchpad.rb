@@ -2,7 +2,6 @@ require 'httparty'
 require 'anemone'
 require 'rubygems/package'
 require 'zlib'
-# require 'zopen'
 require 'xz'
 
 require_relative '../../conf/config'
@@ -185,10 +184,6 @@ if __FILE__ == $0
   version = '1.16'
   a = API::Launchpad.new(distribution, distro_series, name, version)
   license_info = a.fetch_license_info_from_local_source
-
-  # url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
-  # source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
-  # a.find_source_code_download_url(url)
 
 
 # ii  anacron                             2.3-20ubuntu1                    amd64        cron-like program that doesn't go by time

@@ -92,16 +92,16 @@ def worker(body)
     }
     packer = fetch_license_info_by_source(packer)
     if packer[:status] < 40 and packer[:source_url] == nil
-      if lang == 'StemCell-Ubuntu-Trusty'
-        ubuntu_lang_pattern = /^StemCell-(?<distribution>(Ubuntu))-(?<distro_series>(Trusty))/i
+      if lang =~ API::OS_PATTERN[:ubuntu]
+        ubuntu_lang_pattern = API::OS_PATTERN[:ubuntu]
         lang_group = ubuntu_lang_pattern.match(lang)
         launchpad = API::Launchpad.new(lang_group[:distribution].downcase, lang_group[:distro_series].downcase,
                                        pack['name'].split(':').first, pack['version'])
         license_info = launchpad.fetch_license_info_from_local_source
         packer = packer.merge(license_info)
         packer = PackUpdate.judge_pack_status(packer)
-      elsif lang == 'StemCell-CentOS-7.x'
-          # TODO: .rpm, $yum
+      elsif lang =~ API::OS_PATTERN[:centos]
+          # *.rpm, $yum
       elsif lang == 'Java'
         # TODO: 3 website
       elsif lang == 'NodeJs'
