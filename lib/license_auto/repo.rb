@@ -19,9 +19,16 @@ module LicenseAuto
     #     }
     def initialize(hash)
       super(hash)
-      @server = chose_repo_server
-      raise("#{hash} is not a Github Repo") unless @server
-      @repo_dir = nil
+
+      if name == localfile and name == ref
+        @repo_dir = clone_url
+        @server = []
+      else
+        @server = chose_repo_server
+        raise("#{hash} is not a Github Repo") unless @server
+        @repo_dir = nil
+      end
+
     end
 
     def self.package_managers
@@ -83,7 +90,10 @@ module LicenseAuto
     #     ]
     # }
     def find_dependencies
-      @repo_dir = @server.clone
+      if @repo_dir == nil
+        @repo_dir = @server.clone
+      end
+
       deps = {}
       Repo.package_managers.each {|pm|
         # LicenseAuto.logger.debug(pm)
