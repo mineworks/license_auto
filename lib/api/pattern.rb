@@ -10,7 +10,8 @@ module API
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,
-    :readme_file => /readme/i
+    :readme_file => /readme/i,
+    :components_yml => /components\.yml/
   }
   FILE_TYPE_PATTERN = {
     :tar_gz => /(tar\.gz|\.tgz)$/,
