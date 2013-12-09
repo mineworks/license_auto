@@ -1,20 +1,22 @@
-source "https://rubygems.org"
+source "https://ruby.taobao.org"
 
-gem "thor"
-gem "git"
-gem "httparty"
-gem "log4r"
-gem "minitest"
+group :default do
+  gem "json"
+  gem "git"
+  gem "log4r"
 
-# sudo ARCHFLAGS="-arch x86_64" gem install pg
-# sudo apt-get install libpq-dev build-essential
-gem "pg"
-gem "bunny"
-gem "thread"
-gem "anemone"
-gem "writeexcel"
+  gem "httparty"
+  gem 'rest-client'
 
-# This package should install by bundler as bellow:
-# gem 'bzip2-ruby', :git => 'https://github.com/chewi/bzip2-ruby.git'
+  gem "anemone"
 
-gem "ruby-xz"
+  # This package should install by bundler as bellow:
+  # gem 'bzip2-ruby', :git => 'https://github.com/chewi/bzip2-ruby.git'
+  gem "ruby-xz"
+end
+
+group :test do
+  gem "minitest"
+end
+
+
