@@ -10,7 +10,10 @@ export license_auto_proxy='proxy.foo.com:8080'
 apt-get install -y rabbitmq-server \
     libpq-dev build-essential \
     libxml2 \
-    libxslt bzip2
+    libxslt bzip2 cmake
+
+# If mac osx
+# brew install icu4c
 
 rabbitmq-plugins enable rabbitmq_management
 rabbitmqctl stop # 停止Erlang节点
