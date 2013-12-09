@@ -32,7 +32,7 @@ class Similarity
     if FileTest.file?(abs_filename_path)
       abs_filename_path
     else
-      LicenseAuto.logger.warn("License file not exist: #{abs_filename_path} !")
+      LicenseAuto.logger.info("License file not exist: #{abs_filename_path} !")
       nil
     end
   end

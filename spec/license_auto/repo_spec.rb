@@ -13,7 +13,8 @@ describe LicenseAuto::Repo do
     repo = LicenseAuto::Repo.new(license_auto_repo)
     dependencies = repo.find_dependencies
     expect(dependencies.empty?).to be(false)
-    LicenseAuto.logger.debug(JSON.pretty_generate(dependencies))
+    expect(dependencies[:"LicenseAuto::Bundler"].empty?).to be(false)
+    expect(dependencies[:"LicenseAuto::Bundler"].first.fetch(:deps).empty?).to be(false)
   end
 
   # TODO:
