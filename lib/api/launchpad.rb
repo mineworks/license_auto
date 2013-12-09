@@ -11,6 +11,7 @@ require_relative '../../lib/api/helper'
 module API
   class Launchpad
     # DOC: https://launchpad.net/+apidoc/1.0.html
+    # The source code's license is no relation with which CPU architecture
     def initialize(distribution, distro_series, binary_package_name, binary_package_version, architecture='amd64')
       @site_url = 'https://launchpad.net'
       @distribution = distribution
@@ -23,13 +24,16 @@ module API
       @source_path = nil
     end
 
+    def binary_package_link()
+      binary_package_url = "#{@site_url}/#{@distribution}/#{@distro_series}/#{@architecture}/#{@binary_package_name}/#{@binary_package_version}"
+    end
+
     def find_source_package_page_link()
       source_package_link = nil
-      binary_package_url = "#{@site_url}/#{@distribution}/#{@distro_series}/#{@architecture}/#{@binary_package_name}/#{@binary_package_version}"
 
       # TODO: @Micfan, abstract it out
       opts = {:discard_page_bodies => true, :depth_limit => 0}
-      Anemone.crawl(binary_package_url, opts) do |anemone|
+      Anemone.crawl(binary_package_link, opts) do |anemone|
         anemone.on_every_page do |page|
           xpath = "//dd[@id='source']/a[1]"
           page.doc.xpath(xpath).each {|text|
@@ -52,14 +56,19 @@ module API
       Anemone.crawl(source_package_link, opts) do |anemone|
         anemone.on_every_page do |page|
           xpath = "//div[@id='source-files']/table/tbody/tr/td/a[contains(@href, '.orig.')]"
-
-          # TODO: wireless-crda, 1.16 no 'orig.tar.gz' package
-          page.doc.xpath(xpath).each {|text|
-            full_href = text.attr('href')
-            if full_href
-              source_code_download_url = full_href
-              break
-            end
+          target_links = page.doc.xpath(xpath)
+          if target_links.size == 0
+            # Eg. https://launchpad.net/ubuntu/+source/wireless-crda/1.16
+            xpath = "//div[@id='source-files']/table/tbody/tr/td/a[not(contains(@href, '.dsc'))]"
+            target_links = page.doc.xpath(xpath)
+          end
+          # puts target_links
+          target_links.each {|text|
+              full_href = text.attr('href')
+              if full_href
+                source_code_download_url = full_href
+                break
+              end
           }
         end
       end
@@ -68,11 +77,8 @@ module API
 
     # TODO: @Micfan, fetch file from Launchpad.net API
     def download_source_code(source_code_url)
-      # TODO: @Micfan, uncompress
-      # TODO: configure a temp path to download and uncompress
-
       source_code_filename = source_code_url.split('/').last
-      source_code_path = "#{AUTO_ROOT}/#{source_code_filename}"
+      source_code_path = "#{LAUNCHPAD_SOURCE_DIR}/#{source_code_filename}"
       File.open(source_code_path, 'wb') do |f|
         f.binmode
         f.write(HTTParty.get(source_code_url).parsed_response)
@@ -90,6 +96,7 @@ module API
       # TODO: @Micfan, move it common lib:
       source_package_page_link = find_source_package_page_link
       if source_package_page_link
+        puts source_package_page_link
         source_code_download_url = find_source_code_download_url(source_package_page_link)
         if source_code_download_url
           source_code_path = download_source_code(source_code_download_url)
@@ -155,6 +162,9 @@ if __FILE__ == $0
 
   name = 'sg3-utils'
   version = '1.36-1ubuntu1'
+
+  name = 'wireless-crda'
+  version = '1.16'
   a = API::Launchpad.new(distribution, distro_series, name, version)
   license_info = a.fetch_license_info_from_local_source
 
