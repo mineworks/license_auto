@@ -6,11 +6,15 @@ $debug = true
 
 AUTO_ROOT = '/tmp/license_website'
 LAUNCHPAD_SOURCE_DIR = "#{AUTO_ROOT}/lp"
+MANIFEST_SOURCE_DIR = "#{AUTO_ROOT}/manifest"
 if !File.exist?(AUTO_ROOT)
   Dir.mkdir(AUTO_ROOT)
 end
 if !File.exist?(LAUNCHPAD_SOURCE_DIR)
   Dir.mkdir(LAUNCHPAD_SOURCE_DIR)
+end
+if !File.exists?(MANIFEST_SOURCE_DIR)
+  Dir.mkdir(MANIFEST_SOURCE_DIR)
 end
 
 STD_LICENSE_DIR = "./extractor_ruby/Package_license"

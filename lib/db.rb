@@ -44,6 +44,10 @@ def api_get_case_by_id(case_id)
   repo_id
 end
 
+def api_get_repo_manifest_file_list(repo_id)
+  r = $conn.exec_params("select ymls from repo where id = $1", [repo_id])
+end
+
 def api_add_product_repo_pack(repo_id, pack_id, release_id)
   rid = nil
   r = $conn.exec_params("select add_product_repo_pack($1, $2, $3)", [repo_id, pack_id, release_id])
@@ -179,4 +183,8 @@ def api_get_template_result_by_product_repo_id(id)
     list = r
   end
   list
+end
+
+if __FILE__ == $0
+  p api_get_repo_manifest_file_list(80).values[0]
 end

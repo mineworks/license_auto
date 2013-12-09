@@ -7,6 +7,7 @@ require 'openssl'
 
 require_relative '../extractor_ruby/choice.rb'
 require_relative '../lib/parser/golang_parser'
+require_relative '../lib/parser/manifest_parser'
 require_relative '../lib/cloner'
 require_relative '../lib/db'
 require_relative '../lib/recorder'
@@ -27,18 +28,21 @@ def worker(body)
       api_setup_case_status(repo_id, 20, cmt)
       return
     end
-    packs = GolangParser.start(clone_path)
+
     # TODO: @Micfan
     release_id = 1
+
+    packs = GolangParser.start(clone_path)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)
     saver.save
 
     extractor = ExtractRuby::RubyExtractotr.new
     extractor.parse_gemfile_lock(clone_path)
-
     ruby_packs = extractor.select_rubygems_db
-    saver = PacksSaver.new(repo_id, ruby_packs, 'Ruby', release_id)
-    saver.save
+    saved = PacksSaver.new(repo_id, ruby_packs, 'Ruby', release_id).save
+
+    manifest_packs = ManifestParser.new(clone_path, repo_id).start
+    saved = PacksSaver.new(repo_id, manifest_packs, 'manifest.yml', release_id).save
 
     # TODO: NodeJsParser.start(clone_path)
   rescue Git::GitExecuteError => e
@@ -76,8 +80,8 @@ def main()
 end
 
 if __FILE__ == $0
-  #body = '{"repo_id":77}'
-  #worker(body)
+  # body = '{"repo_id":81}'
+  # worker(body)
   main
 
 end
