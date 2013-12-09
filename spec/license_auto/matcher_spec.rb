@@ -12,17 +12,17 @@ describe LicenseAuto::Matcher::SourceURL do
     html = 'https://github.com/mineworks/license_auto'
     # TODO: git = 'git://github.com/mineworks/license_auto'
 
-    # FIXME: @Cissy
+    # FIXME: @Micfan, regex .git, with help of https://www.debuggex.com/
     https2 = 'https://github.com/angular/angular.js.git'
 
     [https, ssh, html].each {|uri|
       matcher = LicenseAuto::Matcher::SourceURL.new(uri)
-      matched = matcher.match_github_resource()
+      matched = matcher.match_github_resource
 
       expect(matched).to_not eq(nil)
       expect(matched[:owner]).to eq(owner)
       expect(matched[:repo]).to eq(repo)
-      # TODO: uncomment this line
+      # FIXME: @Micfan, regex .git
       # expect(matched[:vcs]).to eq(vcs)
     }
   end
