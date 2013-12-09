@@ -6,8 +6,8 @@ rvm:
 node_js:
  - "5"
 
-before_script:
- - npm install -g semver
+install:
+ - npm install
 
 script:
  - bundle exec rake build

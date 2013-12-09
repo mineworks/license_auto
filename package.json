@@ -1,0 +1,30 @@
+{
+  "name": "license_auto",
+  "version": "0.1.1",
+  "description": "license_auto is a Ruby Gem for Open Source License collection job inspired by LicenseFinder",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "rake spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mineworks/license_auto.git"
+  },
+  "keywords": [
+    "license",
+    "auto",
+    "spider"
+  ],
+  "author": "Michael Fan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mineworks/license_auto/issues"
+  },
+  "homepage": "https://github.com/mineworks/license_auto#readme",
+  "dependencies": {
+    "semver": "^5.1.0"
+  }
+}
