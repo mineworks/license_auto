@@ -23,7 +23,8 @@ def worker(body)
     if clone_path == nil
       cmt = "!!! clone_path is empty. repo_url: #{repo_url}"
       $plog.fatal(cmt)
-      api_setup_repo_status(repo_id, 20, cmt)
+      # TODO: repo -> case_id
+      api_setup_case_status(repo_id, 20, cmt)
       return
     end
     packs = GolangParser.start(clone_path)
@@ -42,10 +43,10 @@ def worker(body)
     # TODO: NodeJsParser.start(clone_path)
   rescue Git::GitExecuteError => e
     $plog.fatal(e)
-    api_setup_repo_status(repo_id, 21, e.to_s)
+    api_setup_case_status(repo_id, 21, e.to_s)
   rescue OpenSSL::SSL::SSLError => e
     $plog.fatal(e)
-    api_setup_repo_status(repo_id, 22, e.to_s)
+    api_setup_case_status(repo_id, 22, e.to_s)
   rescue Exception => _
     $plog.error(_)
   end

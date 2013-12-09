@@ -110,50 +110,32 @@ class PackUpdate
   def initialize(pack_id, pack)
     @pack_id = pack_id
     @pack = pack
-    #@status = 10
   end
 
   def update()
-    
-    #if @pack['version'] == nil or @pack['version'] == ''
-      #@pack['version'] = 'unknown'
-      #@status = 30
-    #else
-      #@status = 40
-    #end
-    if check_std_license(@pack[:license])
-      @pack[:unclear_license] = nil
-      @pack[:status] = 40
+    ok = api_update_pack_info(@pack_id, @pack)
+  end
+
+  def self.judge_pack_status(packer)
+    if is_std_license(packer[:license])
+      packer[:unclear_license] = nil
+      packer[:status] = 40
     else
-      @pack[:unclear_license] = @pack[:license]
-      @pack[:license] = 'UNKNOWN'
-      @pack[:status] = 30
+      packer[:unclear_license] = packer[:license]
+      packer[:license] = 'UNKNOWN'
+      packer[:status] = 30
     end
-    #if @pack['homepage'] == nil and @pack['source_url'] == nil and @pack['license_url'] == nil
-      #@status = 30
-    #end
-    
-    #@pack['status'] = @status
-    
-    flag = api_update_pack_info(@pack_id, @pack)
-
-    return flag
-        
+    return packer
   end
 
-  def check_std_license(license)
-    std_license_list = api_get_std_license_name()
-    num = 0
-    flag = false
-    while num < std_license_list.ntuples() do
-      if(license == std_license_list[num]['name'])
-        flag = true
-        break
-      end
-      num = num + 1
-      next
-    end
-    return flag
+  def self.is_std_license(license)
+    where = "where name = '#{license}'"
+    std_licenses = api_get_std_license_name(where)
+    return std_licenses.ntuples == 1
   end
 
+end
+
+if __FILE__ == $0
+  p PackUpdate.is_std_license('MIT')
 end
