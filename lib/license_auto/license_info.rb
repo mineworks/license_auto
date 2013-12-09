@@ -1,3 +1,5 @@
+require 'hashie/mash'
+
 module LicenseAuto
   class LicenseInfo < Hashie::Mash
     attr_reader :licenses

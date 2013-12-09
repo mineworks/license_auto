@@ -1,15 +1,15 @@
+require 'gems'
 require 'rubygems'
 require 'rubygems/remote_fetcher'
 require 'rubygems/spec_fetcher'
 require 'rubygems/dependency'
 
+require 'hashie'
+
 require 'license_auto/website/github'
 
 
 class RubyGemsOrg < Website
-
-
-
 
   def initialize(package)
     super(package)
@@ -44,10 +44,8 @@ class RubyGemsOrg < Website
     Gems.info(@package.name)
   end
 
+  # TODO: switch to https://github.com/rubygems/gems/issues/32#issuecomment-195180422
   def get_remote_latest_version()
-    # TODO: An alternative, push a gem named `mine_gems`
-    # versions = Gems.versions(@package.name)
-
     fetcher = Gem::SpecFetcher.fetcher
     dependency = Gem::Dependency.new(@package.name, ">= #{@package}")
     remotes, = fetcher.search_for_dependency dependency
