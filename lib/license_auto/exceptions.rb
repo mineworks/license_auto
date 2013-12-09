@@ -20,6 +20,16 @@ module LicenseAuto
     end
   end
 
+  class SourceURLNotFound  < LicenseAutoError
+    def initialize(message=nil, server=nil)
+      @message = message
+      @server = server
+    end
+    def message
+      "Package #{@message} can not be found in server #{@server}"
+    end
+  end
+
   class VirtualMethodError < RuntimeError
     ##
     # Just call to super with some fancy message.

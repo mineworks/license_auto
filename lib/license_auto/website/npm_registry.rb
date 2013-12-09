@@ -53,17 +53,17 @@ module LicenseAuto
       all_versions = package_meta.versions
 
       available_versions = all_versions.select {|version, meta|
-            # Example: node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
-            cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
-            stdout_str, stderr_str, status = Open3.capture3(cmd)
-            if stdout_str == "true\n"
-              # LicenseAuto.logger.debug("available version: #{version}")
-              true
-            else
-              # LicenseAuto.logger.debug("version: #{version}, semver: #{sem_version_range}, #{stdout_str}, #{stderr_str}")
-              false
-            end
-          }
+        # Example: node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
+        cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
+        stdout_str, stderr_str, status = Open3.capture3(cmd)
+        if stdout_str == "true\n"
+          # LicenseAuto.logger.debug("available version: #{version}")
+          true
+        else
+          # LicenseAuto.logger.debug("version: #{version}, semver: #{sem_version_range}, #{stdout_str}, #{stderr_str}")
+          false
+        end
+      }
     end
 
     def chose_latest_available_version(sem_version_range)
@@ -85,80 +85,84 @@ module LicenseAuto
       end
 
       npm_info = get_package_meta
-      LicenseAuto.logger.debug(npm_info)
+      # LicenseAuto.logger.debug(npm_info)
 
       raise LicenseAuto::PackageNotFound if npm_info.nil?
 
       license_info = LicenseAuto::LicenseInfoWrapper.new
 
-      source_code_matcher = LicenseAuto::Matcher::SourceURL.new(npm_info.repository.url || npm_info.homepage_uri)
-      github_matched = source_code_matcher.match_github_resource
-      bitbucket_matched = source_code_matcher.match_bitbucket_resource
-
-      if github_matched
-        license_info = GithubCom.new(@package, github_matched[:owner], github_matched[:repo]).get_license_info
-      elsif bitbucket_matched
-        # TODO bitbucket_matched
-      elsif npm_info.homepage_uri
-        # LicenseAuto.logger.warn("TODO: HomepageSpider")
-        # homepage_spider = HomepageSpider.new(gem_info.homepage_uri, @package.name)
-        # source_code_uri = homepage_spider.get_source_code_uri
-        # if source_code_uri
-        #   LicenseAuto.logger.warn("TODO: call myself recursively")
-        # else
-        #   license_wrapper = homepage_spider.get_license_page
-        #   LicenseAuto.logger.warn("TODO: HomepageSpider")
-        # end
-      elsif not npm_info.licenses.empty?
-        # TODO:
-        LicenseAuto.logger.error(npm_info.licenses)
-        license_files = npm_info.licenses.map {|license|
-          LicenseAuto::LicenseWrapper.new(
-              name: license.type,
-              sim_ratio: 1.0,
-              html_url: nil,
-              download_url: license.url,
-              text: nil
-          )
-        }
-
-        license_info[:licenses] = license_files
-        # LicenseAuto.logger.debug(license_info)
-      elsif not npm_info.license.empty?
-        # TODO: [SPDX license expression syntax version 2.0 string](https://www.npmjs.com/package/spdx)
-        # Example:
-        #     { "license": "ISC" }
-        #     { "license": "(MIT OR Apache-2.0)" }
-        # No license:
-        #     { "license": "UNLICENSED"}
-        # DOC: https://docs.npmjs.com/files/package.json#license
-        # Eg. ["LGPL-2.1", "MIT"]
-        licenses = npm_info.license.gsub(/^\(/, '').gsub(/\)$/, '').gsub(/\b(AND|OR)\b/, ' ').split(' ')
-        license_files = licenses.map {|license_name|
-          LicenseAuto::LicenseWrapper.new(
-              name: license_name,
-              sim_ratio: 1.0,
-              html_url: npm_info.homepage,
-              download_url: npm_info.homepage,
-              text: nil
-          )
-        }
-
-        license_info[:licenses] = license_files
-        LicenseAuto.logger.debug(license_info)
-      end
-
-      source_url = if npm_info.repository.url
-                     uniform_repository_url(npm_info.repository.url)
+      source_url = if npm_info.repository
+                     npm_info.repository.url || npm_info.homepage_uri
                    end
-      pack_wrapper = LicenseAuto::PackWrapper.new(
-          project_url: npm_info.project_uri,
-          homepage: npm_info.homepage,
-          source_url: source_url
-      )
+      if source_url
+        source_code_matcher = LicenseAuto::Matcher::SourceURL.new(source_url)
+        github_matched = source_code_matcher.match_github_resource
+        bitbucket_matched = source_code_matcher.match_bitbucket_resource
 
-      license_info[:pack] = pack_wrapper
-      license_info
+        if github_matched
+          license_info = GithubCom.new(@package, github_matched[:owner], github_matched[:repo]).get_license_info
+        elsif bitbucket_matched
+          # TODO bitbucket_matched
+        elsif npm_info.homepage_uri
+          # LicenseAuto.logger.warn("TODO: HomepageSpider")
+          # homepage_spider = HomepageSpider.new(gem_info.homepage_uri, @package.name)
+          # source_code_uri = homepage_spider.get_source_code_uri
+          # if source_code_uri
+          #   LicenseAuto.logger.warn("TODO: call myself recursively")
+          # else
+          #   license_wrapper = homepage_spider.get_license_page
+          #   LicenseAuto.logger.warn("TODO: HomepageSpider")
+          # end
+        elsif not npm_info.licenses.empty?
+          # TODO:
+          LicenseAuto.logger.error(npm_info.licenses)
+          license_files = npm_info.licenses.map {|license|
+            LicenseAuto::LicenseWrapper.new(
+                name: license.type,
+                sim_ratio: 1.0,
+                html_url: nil,
+                download_url: license.url,
+                text: nil
+            )
+          }
+
+          license_info[:licenses] = license_files
+          # LicenseAuto.logger.debug(license_info)
+        elsif not npm_info.license.empty?
+          # TODO: [SPDX license expression syntax version 2.0 string](https://www.npmjs.com/package/spdx)
+          # Example:
+          #     { "license": "ISC" }
+          #     { "license": "(MIT OR Apache-2.0)" }
+          # No license:
+          #     { "license": "UNLICENSED"}
+          # DOC: https://docs.npmjs.com/files/package.json#license
+          # Eg. ["LGPL-2.1", "MIT"]
+          licenses = npm_info.license.gsub(/^\(/, '').gsub(/\)$/, '').gsub(/\b(AND|OR)\b/, ' ').split(' ')
+          license_files = licenses.map {|license_name|
+            LicenseAuto::LicenseWrapper.new(
+                name: license_name,
+                sim_ratio: 1.0,
+                html_url: npm_info.homepage,
+                download_url: npm_info.homepage,
+                text: nil
+            )
+          }
+
+          license_info[:licenses] = license_files
+          LicenseAuto.logger.debug(license_info)
+        end
+
+        source_url = uniform_repository_url(npm_info.repository.url)
+        pack_wrapper = LicenseAuto::PackWrapper.new(
+            project_url: npm_info.project_uri,
+            homepage: npm_info.homepage,
+            source_url: source_url
+        )
+        license_info[:pack] = pack_wrapper
+        return license_info
+      else
+        raise LicenseAuto::SourceURLNotFound
+      end
     end
 
     def uniform_repository_url(repo_url)
