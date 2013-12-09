@@ -1,0 +1,12 @@
+github:
+  username: 'xxx'
+  passworkd: 'xxx'
+
+http_proxy:
+  host: 'www.example.com'
+  port: 8080
+  username: 'xxx'
+  password: 'xxx'
+
+cache_dir:
+  -
