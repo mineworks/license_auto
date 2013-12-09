@@ -185,6 +185,10 @@ def api_get_template_result_by_product_repo_id(id)
   list
 end
 
+def api_get_manifest_download_url(pack_id)
+  r = $conn.exec_params("select source_url from pack where id = $1", [pack_id])
+end
+
 if __FILE__ == $0
   p api_get_repo_manifest_file_list(80).values[0]
 end
