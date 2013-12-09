@@ -1,6 +1,9 @@
 require 'hashie/mash'
 
 require 'license_auto/website/ruby_gems_org'
+require 'license_auto/website/gem_fury'
+require 'license_auto/website/github_com'
+
 
 module LicenseAuto
 
@@ -10,22 +13,28 @@ module LicenseAuto
   #     name: 'bundler',
   #     group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
   #     version: '1.11.2',               # Optional: Assign nil if check the latest
-  #     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
+  #     server: 'rubygems.org'           # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
   # }
 
   class Package < Hashie::Mash
     extend LicenseAuto
 
     ##
-    # Default project website server of all kinds of languages.
+    # Default project server of all kinds of languages.
     #
     # Key: language name
     #
     # Value: default project server
 
-    LANGUAGES_PROJECT_SERVER = {
+    LANGUAGES_PACKAGE_SERVER = {
         Ruby: RubyGemsOrg
     }
+
+    ALL_SERVERS = [
+        RubyGemsOrg,
+        GemFury,
+        GithubCom,
+    ]
 
     def initialize(hash)
       super(hash)
@@ -35,13 +44,13 @@ module LicenseAuto
     ##
     # Class Entry
 
-    def get_license_info(**args)
+    def get_license_info()
 
       # args = {
       #     fetch_license_text: true
       # }.merge(args)
 
-      @server.get_license_info if chose_project_server
+      @server.get_license_info if chose_package_server
 
       # TODO: uncomment these line, add Google or Yahoo!
       # if @server.nil?
@@ -52,9 +61,15 @@ module LicenseAuto
 
     private
 
-    def chose_project_server()
+    def chose_package_server()
       begin
-        @server = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym).new(self)
+        @server =
+            if self.server?
+              # TODO:
+              LANGUAGES_PACKAGE_SERVER.fetch(self.language.to_sym).new(self)
+            elsif self.language
+              LANGUAGES_PACKAGE_SERVER.fetch(self.language.to_sym).new(self)
+            end
       rescue KeyError => e
         return nil
       end

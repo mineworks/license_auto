@@ -1,16 +1,26 @@
 require 'spec_helper'
 
 describe LicenseAuto::Package do
+  before do
+    bundler_yaml = "https://rubygems.org/api/v1/gems/bundler.yaml"
+    stub_request(:get, bundler_yaml).
+        to_return(:status => 200, :body => fixture(bundler_yaml), :headers => {})
+
+    tags_url = "https://api.github.com/repos/bundler/bundler/tags"
+    stub_request(:get, tags_url).
+        to_return(:status => 200, :body => fixture(tags_url), :headers => {})
+
+    contents_path = "api.github.com/repos/bundler/bundler/contents/v1.11.2"
+    stub_request(:get, "https://api.github.com/repos/bundler/bundler/contents/?ref=v1.11.2").
+        to_return(:status => 200, :body => fixture(contents_path), :headers => {})
+  end
+
+  let(:my_pack) { JSON.parse(File.read(fixture_path + '/' + 'my_packages/ruby_bundler.json'))}
+
   it "get license information of Package" do
-    my_pack = {
-        language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
-        name: 'bundler',
-        group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
-        version: '1.11.2',               # Optional: Assign nil if check the latest
-        project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
-    }
+
     package = LicenseAuto::Package.new(my_pack)
-    expect(package.name).to eq(my_pack[:name])
+    expect(package.name).to eq(my_pack['name'])
 
     license_info = package.get_license_info()
     expect(license_info).to be_a(LicenseAuto::LicenseInfo)
@@ -19,18 +29,13 @@ describe LicenseAuto::Package do
   end
 
   it "raise KeyError when get license information of Package" do
-    my_pack = {
-        language: 'foo',
-        name: 'bundler',
-        group: 'com.google.http-client',
-        version: '1.11.2',
-        project_server: 'rubygems.org'
-    }
+    # my_pack = my_pack.merge({language: 'foo'})
+
     package = LicenseAuto::Package.new(my_pack)
-    expect(package.name).to eq(my_pack[:name])
+    expect(package.name).to eq(my_pack['name'])
 
     begin
-      license_info = package.get_license_info()
+      license_info = package.get_license_info
     rescue Exception => e
       expect(e.class).to eq(KeyError)
     end
