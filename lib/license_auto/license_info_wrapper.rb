@@ -10,6 +10,11 @@ module LicenseAuto
     property :readmes, default: []
     property :notices, default: []
 
+    property :homepage, default: nil
+    property :project_url, default: nil
+    property :source_url, default: nil
+    property :cmt, default: nil
+
   end
 
   class LicenseWrapper < Hashie::Dash
