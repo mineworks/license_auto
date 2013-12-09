@@ -76,21 +76,9 @@ module Cloner
       end
       $plog.debug("gitmodules url: #{url}")
 
-      if url =~ API::SOURCE_URL_PATTERN[:github]
-        g = API::Github.new(url)
-      elsif url =~ API::SOURCE_URL_PATTERN[:git_kernel_org]
-        g = API::GitKernelOrg.new(url)
-      elsif url =~ API::SOURCE_URL_PATTERN[:bitbucket]
-        g = API::Bitbucket.new(url)
-      elsif url =~ API::SOURCE_URL_PATTERN[:google_source_com]
-        g = API::GoogleSourceCom.new(url)
-      elsif url =~ API::SOURCE_URL_PATTERN[:go_pkg_in]
-        g = API::GoPkgIn.new(url)
-        homepage = url
-      else
-        g = nil
-        raise "Unknown repostory: #{url}"
-      end
+      remote = API::RemoteSourceVCS.new(url)
+      homepage = remote.get_homepage
+      g = remote.vcs
 
       sub_host, sub_repo_owner, sub_repo_name = g.host, g.owner, g.repo
       org_url = "#{sub_host}/#{sub_repo_owner}"
