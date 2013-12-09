@@ -6,6 +6,9 @@ group :default do
   gem "git"
   gem "log4r"
 
+  gem "gems"
+  gem "github_api"
+
   gem "httparty"
   gem "nokogiri"
   gem "anemone"
