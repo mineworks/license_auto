@@ -51,11 +51,11 @@ class GolangParser
           out2.each {|s|
             j = JSON::parse(s)
             # $plog.info("json: #{j}")
-            deps = j['Deps']
-            if deps == nil
+            imports = j['Deps'] + j['Imports'] + j['TestImports']
+            if imports.size == 0
               next
             else
-              deps.each {|d|
+              imports.each {|d|
                 unless GOLANG_STD_PACKAGES.include?(d)
                   unless d.index('.').nil?
                     pack_names.add(d)
@@ -69,6 +69,7 @@ class GolangParser
         end
         exit_status = t.value
         pack_names
+        p pack_names
       }
     end
     return pack_names
