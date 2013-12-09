@@ -99,13 +99,13 @@ module LicenseAuto
     #
     def find_git_modules
       if FileTest.directory?(@repo_dir)
-
+        pm = LicenseAuto::GitModule.new(@repo_dir)
+        pm.parse_dependencies
       else
         error = "Cloned repo_dir is nil"
         LicenseAuto.logger.error(error)
         nil
       end
-
     end
 
     # def get_ref()

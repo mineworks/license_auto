@@ -55,7 +55,7 @@ module LicenseAuto
       lines.map {|line|
         matched = module_pattern.match(line)
         if matched
-          LicenseAuto.logger.debug("matched: #{matched}, .gitmodule spec: #{line}")
+          LicenseAuto.logger.debug("matched: #{matched}, .gitmodule line: #{line}")
           clone_url = matched[:url].gsub(/\.git$/, '')
           {
               name: clone_url,

@@ -103,10 +103,7 @@ module LicenseAuto
     def get_package_pom(group, name, version)
       pom_url = make_pom_url(group, name, version)
       # http://stackoverflow.com/questions/25814210/opensslsslsslerror-ssl-connect-syscall-returned-5-errno-0-state-sslv3-read
-      opts = {
-          :ssl_version => 'TLSv1'
-      }
-      response = HTTParty.get(pom_url, options=opts)
+      response = HTTParty.get(pom_url, :ssl_version => 'TLSv1')
       pom_str =
           if response.code == 200
             LicenseAuto.logger.debug("pom_url: #{pom_url}")
@@ -258,24 +255,4 @@ module LicenseAuto
       [pack_wrapper, license_files]
     end
   end
-end
-
-if __FILE__ == $0
-  'aopalliance:aopalliance:1.0'
-  'cglib:cglib-nodep:3.1'
-  'com.beust:jcommander:1.48'
-  'com.google.guava:guava:18.0'
-  'com.google.inject:guice:no_aop:4.0'
-  'com.jayway.awaitility:awaitility:1.6.3'
-  'javax.inject:javax.inject:1'
-  'junit:junit:4.10'
-  'org.apache.ant:ant:1.7.0'
-  'org.apache.ant:ant-launcher:1.7.0'
-  'org.assertj:assertj-core:3.1.0'
-  'org.beanshell:bsh:2.0b4'
-  'org.hamcrest:hamcrest-core:1.3'
-  'org.hamcrest:hamcrest-library:1.3'
-  'org.objenesis:objenesis:2.1'
-  'org.testng:testng:6.9.6'
-  'org.yaml:snakeyaml:1.15'
 end
