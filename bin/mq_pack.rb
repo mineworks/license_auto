@@ -138,7 +138,9 @@ def worker(body)
       end
     else
       $plog.info("packer: #{packer}")
-      if packer[:source_url] == nil and packer[:homepage] != nil
+      # TODO: def is_github_source_url
+      if (packer[:source_url] =~ API::SOURCE_URL_PATTERN[:github]).nil? and packer[:homepage] != nil
+        $plog.info("Homepage Spider working: #{packer[:homepage]}")
         spider_source_url = API::Spider.new(packer[:homepage], pack['name']).find_source_url
         $plog.debug("spider_source_url: #{spider_source_url}")
         if spider_source_url
