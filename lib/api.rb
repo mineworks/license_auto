@@ -10,6 +10,7 @@ require_relative 'api/mq'
 require_relative 'api/spider'
 require_relative 'api/remote_source_package'
 require_relative 'api/npm_registry'
+require_relative 'api/maven_central_repository'
 
 module API
   class RemoteSourceVCS

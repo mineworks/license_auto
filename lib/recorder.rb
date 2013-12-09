@@ -28,7 +28,9 @@ class PacksSaver
     @packs.each {|pack|
       begin
         $plog.debug(pack)
-        pack_name, pack_version, status = [pack[:group], pack[:name]].join(':'), pack[:version], 10
+        pack_name = [pack[:group], pack[:name]].join(':')
+        pack_version = pack[:version]
+        status = 10
         homepage, source_url = nil, pack['uri']
         license, cmt = nil, nil
 

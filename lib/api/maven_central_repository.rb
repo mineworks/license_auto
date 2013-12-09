@@ -5,7 +5,7 @@ require_relative '../../conf/config'
 
 module API
   # DOC: http://search.maven.org/#api
-  class CentralRepository
+  class MavenCentralRepository
     def initialize(group_id, artifact_id, version)
       @group_id = group_id
       @artifact_id = artifact_id
@@ -174,7 +174,7 @@ if __FILE__ == $0
   begin
     i = 'javax.inject:javax.inject:1'
     g, a, v = i.split(':')
-    c = API::CentralRepository.new(g, a, v)
+    c = API::MavenCentralRepository.new(g, a, v)
 
     license_info = c.get_license_info
     $plog.debug("license_info #{license_info}")
