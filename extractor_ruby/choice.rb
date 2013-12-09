@@ -5,6 +5,7 @@ require_relative './Obtain_path'
 require_relative './Ruby_extractor'
 require_relative './Read_local_data'
 require_relative './utils'
+require_relative '../conf/config'
 #require 'License_recognition'
 
 include Ruby_extractor
@@ -40,24 +41,6 @@ module ExtractRuby
       @failure_list
     end
 
-    # description : parse ruby package(name,version) from gemfile.lcok file
-    #             : old rule,
-    # repo_path   : repo path , type : String
-    # st_true     : Correct extraction
-    # st_error    : Extraction failed, you need to manually
-    def parse_gemfile_lock(repo_path, st_true = 10, st_error = @parse_error_st)
-    	path = Obtain_path.new(repo_path, "gem", ".lock").get_data
-      #@failure_list.concat(path)
-      if path.size == 0
-        p 'gemfile.lock is null,ruby package is null'
-        return -1
-      end
-      path.each do |ph|
-        data = File.readlines(ph)
-        @failure_list.concat(extract_ruby(data, @package_list, st_true, st_error))
-      end
-    end
-
     # https://gist.github.com/flavio/1722530
     # DOC: https://github.com/bundler/bundler/blob/master/lib/bundler/lockfile_parser.rb
     # description : use bundler extract ruby package from gemfile.lcok
@@ -67,10 +50,13 @@ module ExtractRuby
     def parse_bundler(repo_path, st_true = 10)
       path = Obtain_path.new(repo_path, "gem", ".lock").get_data
       if path.size == 0
-        p 'gemfile.lock is null,ruby package is null'
+        $plog.info('gemfile.lock files not found,ruby packages not found ')
         return -1
       end
       path.each do |ph|
+
+	$plog.debug("Gemfile.lock file pathname: #{ph}")
+
         data = File.readlines(ph)
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
         lockfile.specs.each do |s|
@@ -85,6 +71,7 @@ module ExtractRuby
             ps['remotes'] = s.source.options['remotes'].join(',').gsub(/http[s]?:\/\//, '')
           end
           @package_list << ps
+
           # 2nd level dependencies
           # s.dependencies.each{|rows|
           #   tmp = Array.new
@@ -162,7 +149,6 @@ module ExtractRuby
       for i in (0 ... @package_list.size) do
         for j in (i + 1 ... @package_list.size) do
           if @package_list[i] != nil and @package_list[i] == @package_list[j]
-            #p @package_list[j]
             @package_list[j] = nil
           end
         end
