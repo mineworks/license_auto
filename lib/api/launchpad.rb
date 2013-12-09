@@ -1,5 +1,7 @@
-# require 'httparty'
+require 'httparty'
 require 'anemone'
+
+require_relative '../../conf/config'
 
 module API
   class Launchpad
@@ -14,7 +16,6 @@ module API
 
       @source_url = nil
       @source_path = nil
-
     end
 
     def find_source_package_page_link()
@@ -58,10 +59,19 @@ module API
       return source_code_download_url
     end
 
+    # TODO: @Micfan, fetch file from Launchpad.net API
     def download_source_code(source_code_url)
       # TODO: @Micfan, uncompress
       # TODO: configure a temp path to download and uncompress
-      source_code_path = nil
+
+      source_code_filename = source_code_url.split('/').last
+      source_code_path = "#{AUTO_ROOT}/#{source_code_filename}"
+      File.open(source_code_path, 'wb') do |f|
+        f.binmode
+        f.write(HTTParty.get(source_code_url).parsed_response)
+      end
+
+      return source_code_path
     end
 
     # Entry
@@ -96,7 +106,9 @@ if __FILE__ == $0
   a = API::Launchpad.new(distribution, distro_series, name, version)
   # p a.find_source_package_page_link
   url = "https://launchpad.net/ubuntu/+source/anacron/2.3-20ubuntu1"
-  a.find_source_code_download_url(url)
+  source_code_url = 'https://launchpad.net/ubuntu/+archive/primary/+files/anacron_2.3.orig.tar.gz'
+  # a.find_source_code_download_url(url)
+  a.download_source_code(source_code_url)
 
 # ii  anacron                             2.3-20ubuntu1                    amd64        cron-like program that doesn't go by time
 # ii  apparmor                            2.8.95~2430-0ubuntu5.3           amd64        User-space parser utility for AppArmor
