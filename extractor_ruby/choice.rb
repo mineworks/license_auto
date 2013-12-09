@@ -58,8 +58,8 @@ module ExtractRuby
       end
     end
 
-    # # https://gist.github.com/flavio/1722530
-    # https://github.com/bundler/bundler/blob/master/lib/bundler/lockfile_parser.rb
+    # https://gist.github.com/flavio/1722530
+    # DOC: https://github.com/bundler/bundler/blob/master/lib/bundler/lockfile_parser.rb
     # description : use bundler extract ruby package from gemfile.lcok
     # repo_path   : local repo path , type : String
     # st_true     : Correct extraction 10
@@ -73,23 +73,19 @@ module ExtractRuby
       path.each do |ph|
         data = File.readlines(ph)
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
-        lockfile.specs.each do |s| # if no package then .each == 0
-          #@package_list.push [s.name, s.version.to_s, st_true]
-          ps = Hash.new
-          ps['name']    = s.name
-          ps['version'] = s.version.to_s
-          ps['st']      = st_true
-          str = ''
+        lockfile.specs.each do |s|
+          ps = {
+            'name'    => s.name,
+            'version' => s.version.to_s,
+            'st'      => st_true
+          }
           if s.source.options['uri'] != nil #['tag'] ['revision']
             ps['uri'] = s.source.options['uri']
           elsif s.source.options['remotes'] != nil
-            s.source.options['remotes'].each{ |row|
-              str += row + ','
-            }
-            ps['remotes'] = str[0 .. -2]
+            ps['remotes'] = s.source.options['remotes'].join(',').gsub(/http[s]?:\/\//, '')
           end
           @package_list << ps
-          # two dependencies
+          # 2nd level dependencies
           # s.dependencies.each{|rows|
           #   tmp = Array.new
           #   tmp.concat([rows.name])
@@ -100,11 +96,9 @@ module ExtractRuby
           #   tmp.concat [rows.type]
           #   @two_dependencies << tmp
           # }
-
         end
       end
-    end # def parse_bundler
-
+    end
 
     def select_rubygems_db
       require_relative '../lib/api/gem_data'
