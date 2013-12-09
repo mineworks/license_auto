@@ -21,7 +21,7 @@ def worker(body)
     repo_id = case_item['repo_id'].to_i
     release_id = case_item['release_id'].to_i
     repo_url = api_get_repo_source_url(repo_id)
-    clone_path = Cloner::clone_repo(repo_url)
+    clone_path = Cloner::clone_repo(repo_url, release_id, repo_id)
 
     if clone_path == nil
       cmt = "!!! clone_path is empty. repo_url: #{repo_url}"

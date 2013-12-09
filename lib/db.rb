@@ -14,13 +14,13 @@ def add_product(product_name)
   end
 end
 
-def add_repo(repo_name, source_url, priv=-1)
-  result = $conn.exec_params("select * from product where name = $1", [repo_name])
+def add_repo(repo_name, source_url, parent_repo_id=nil, priv=-1)
+  r = $conn.exec_params("select * from product where name = $1", [repo_name])
   if r.ntuples == 1
     return false, r[0]
   else
-    repo = $conn.exec_params("insert into repo (name, source_url, priv) select $1, $2, $3 returning *",
-                             [repo_name, source_url, priv])
+    repo = $conn.exec_params("insert into repo (name, source_url, priv, parent_repo_id) select $1, $2, $3, $4 returning *",
+                             [repo_name, source_url, priv, parent_repo_id])
     if repo.ntuples == 1
       return true, repo[0]
     end
@@ -57,8 +57,34 @@ def api_get_case_by_id(case_id)
   repo_id
 end
 
+def api_query_product_repo(release_id, repo_id)
+  r = $conn.exec_params("
+        select * from product_repo
+          where release_id = $1
+          and repo_id = $2", [release_id, repo_id])
+end
+
 def api_get_repo_manifest_file_list(repo_id)
   r = $conn.exec_params("select ymls from repo where id = $1", [repo_id])
+end
+
+def api_add_product_repo(release_id, parent_repo_id, sub_repo_id)
+  $plog.debug("release_id: #{release_id}, parent_repo_id: #{parent_repo_id}")
+  all_products = $conn.exec_params("
+    select * from product_repo
+      where release_id = $1
+      and repo_id = $2", [release_id, parent_repo_id])
+  all_products.each {|p|
+    product_id = p['product_id']
+    $plog.debug("product_id: #{product_id}")
+    begin
+      r = $conn.exec_params("insert into product_repo (release_id, product_id, repo_id) values ($1, $2, $3)",
+                          [release_id, product_id, sub_repo_id])
+    rescue Exception => e
+      $plog.fatal(e)
+    end
+  }
+
 end
 
 def api_add_product_repo_pack(repo_id, pack_id, release_id)
@@ -225,6 +251,15 @@ end
 
 def api_get_manifest_download_url(pack_id)
   r = $conn.exec_params("select source_url from pack where id = $1", [pack_id])
+end
+
+# org_url: github.com/your_org_or_person_name
+def api_get_whitelist_orgs(org_url)
+  r = $conn.exec_params("select * from whitelist_orgs where url = $1", [org_url])
+end
+
+def api_get_repo_by_url(url)
+  r = $conn.exec_params("select * from repo where source_url = $1", [url])
 end
 
 if __FILE__ == $0

@@ -33,21 +33,22 @@ module Misc
   # TODO:
   def Misc.check_git_submodules(where)
     require_relative './api'
-    third_party = []
-    pg_result = $conn.exec("select * from repo #{where}")
-
-    pg_result.each {|r|
+    # third_party = []
+    # pg_result = $conn.exec("select * from repo #{where}")
+    #
+    # pg_result.each {|r|
+      source_url = 'https://github.com/cloudfoundry-incubator/rep'
       $plog.debug("source_url: #{source_url}")
 
       g = API::Github.new(source_url)
 
       modules = g.get_gitmodules
       if modules
-        third_party.push(modules)
+        # third_party.push(modules)
         $plog.debug("modules: #{mmodules}")
       end
       # update = $conn.exec_params("update repo set priv = $1 where source_url = $2", [priv, source_url])
-    }
+    # }
   end
 
   def Misc.enqueue_packs(where)
@@ -57,6 +58,20 @@ module Misc
     pg_result.each {|p|
       pack_id = p['id'].to_i
       $rmq.publish(queue_name, {:pack_id => pack_id}.to_json, check_exist=true)
+    }
+  end
+
+  def Misc.enqueue_repos(where, release_id)
+    pg_result = $conn.exec("select * from repo #{where}")
+    queue_name = 'license_auto.repo'
+    $plog.debug("enqueue repos no: #{pg_result.ntuples}")
+    pg_result.each {|repo|
+      repo_id = repo['id'].to_i
+      message = {
+        :repo_id => repo_id,
+        :release_id => release_id
+      }
+      $rmq.publish(queue_name, message.to_json, check_exist=true)
     }
   end
 
