@@ -7,6 +7,7 @@ require './config/application'
 
 
 # You SHOULD Require website first
+require './lib/license_auto/website'
 Dir[File.expand_path('../license_auto/website/*.rb', __FILE__)].each do |f|
   require f
 end
