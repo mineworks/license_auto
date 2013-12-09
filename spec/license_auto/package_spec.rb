@@ -18,7 +18,12 @@ describe LicenseAuto::Package do
     blobs_url = "https://api.github.com/repos/bundler/bundler/git/blobs/e356f59f949264bff1600af3476d5e37147957cc"
     stub_request(:get, blobs_url).
         with(:headers => {'Accept'=>'application/vnd.github.v3+json,application/vnd.github.beta+json;q=0.5,application/json;q=0.1', 'Accept-Charset'=>'utf-8', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Github API Ruby Gem 0.13.1'}).
-        to_return(:status => 200, :body => "", :headers => {})
+        to_return(:status => 200, :body => fixture(blobs_url), :headers => {})
+
+    blobs_url2 = "https://api.github.com/repos/bundler/bundler/git/blobs/c46767306718fbbb1320d43f6b5668a950c6b0d7"
+    stub_request(:get, blobs_url2).
+        with(:headers => {'Accept'=>'application/vnd.github.v3+json,application/vnd.github.beta+json;q=0.5,application/json;q=0.1', 'Accept-Charset'=>'utf-8', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Github API Ruby Gem 0.13.1'}).
+        to_return(:status => 200, :body => fixture(blobs_url2), :headers => {})
   end
 
   let(:my_pack) { JSON.parse(File.read(fixture_path + '/' + 'my_packages/ruby_bundler.json'))}

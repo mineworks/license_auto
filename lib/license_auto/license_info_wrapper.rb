@@ -6,7 +6,7 @@ module LicenseAuto
   class LicenseInfoWrapper < Hashie::Dash
     include Hashie::Extensions::Mash
 
-    property :licenses, required: true
+    property :licenses, default: []
     property :readmes, default: []
     property :notices, default: []
 
