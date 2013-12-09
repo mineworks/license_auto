@@ -1,12 +1,39 @@
-def extract_license_text_from_readme(readme)
-  if File.extname(readme['name']) == '.rdoc'
-    regular_start = /^==[ *](copying|copy|license){1}:*/i
-    regular_end   = /^== /
-  elsif File.extname(readme['name']) == '.md'
-    regular_start = /^##[ *](copying|copy|license){1}:*/i
-    regular_end   = /^## /
-  else
-    return nil
+LICENSE_TITLE = 'copying|copy|license'
+
+class Readme
+
+  # RDOC_EXT = /\.rdoc$/
+  # RDOC_PATTERN = //
+  #
+  # RST_EXT = /\.rst/
+  # RST_PATTERN = //
+
+  attr_reader :license_content
+
+  def initialize(filename, content)
+    impl = formator(filename)
+    @license_content = impl.cut_license(content)
   end
 
+  def extensions
+    [Markdown]
+  end
+
+  def formator(filename)
+    extensions.find { |format|
+      format::FILE_EXTENSION.match(filename)
+    }
+  end
+end
+
+class Markdown
+  FILE_EXTENSION = /\.(md|markdown)$/i
+  PATTERN = /(?<text>^##\s*(license|copy|copying)(.*\n*)*)($|(?=\n^##))/i
+
+  def self.cut_license(content)
+    matched = PATTERN.match(content)
+    if matched
+      matched[:text]
+    end
+  end
 end
