@@ -1,11 +1,8 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bunny"
-require 'json'
 require 'openssl'
 
-require_relative '../extractor_ruby/choice.rb'
 require_relative '../lib/parser/golang_parser'
 require_relative '../lib/parser/erlang_parser'
 require_relative '../lib/parser/manifest_parser'

@@ -1,11 +1,15 @@
-## license_auto(v0.1.0.beta) (unreleased)
-[license_auto](https://github.com/mineworks/license_auto) is a Ruby Gem for Open Source License collection job.
+# license_auto(v0.1.0.beta)
+ 
+![Progress](http://progressed.io/bar/5?title=progress)
+[![Code Climate](https://codeclimate.com/github/mineworks/license_auto/badges/gpa.svg)](https://codeclimate.com/github/mineworks/license_auto)
+
+[license_auto](https://github.com/mineworks/license_auto) is a Ruby Gem for Open Source License collection job inspired by [LicenseFinder](https://github.com/pivotal/LicenseFinder)
 
 ### Dependencies Management Detecting Implement Details
 <table>
   <tr>
     <th>Language</th>
-    <th>Dependencies programs</th>
+    <th>DepsMgmt Program</th>
     <th>Dependencies file</th>
     <th>Default project servers</th>
     <th>Progress(%)</th>
@@ -95,7 +99,7 @@ LicenseAuto::Base.config(params)
 
 * Get dependencies of a repository
 ``` ruby
-# TODO:
+require 'license_auto'
 my_repo = {
   repo_url: 'https://github.com/mineworks/license_auto.git'
 }
@@ -105,6 +109,7 @@ dependencies = repo.get_dependencies()
 
 * Get License Info of a package
 ``` ruby
+require 'license_auto'
 my_pack = {
     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
     name: 'bundler',
@@ -118,7 +123,7 @@ license_info = package.get_license_info()
 
 ## Test
 ``` bash
-$ rake spec
+rake spec
 ```
 
 ## TODO
