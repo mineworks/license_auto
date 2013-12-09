@@ -49,6 +49,9 @@ module LicenseAuto
     def get_available_versions(sem_version_range)
       # LicenseAuto.logger.debug("sem_version_range: #{sem_version_range}")
       package_meta = get_package_meta
+      if package_meta == nil
+        return false
+      end
       all_versions = package_meta.versions
 
       all_versions.select {|version, meta|
@@ -67,7 +70,11 @@ module LicenseAuto
 
     def chose_latest_available_version(sem_version_range)
       available_versions = get_available_versions(sem_version_range)
-      chosen = available_versions.keys.last
+      if available_versions != false
+        chosen = available_versions.keys.last
+      else
+        chosen = @package.version
+      end
       LicenseAuto.logger.debug("chosen version: #{chosen} for #{@package.name}")
       chosen
     end
