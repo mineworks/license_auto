@@ -1,4 +1,4 @@
-require 'hashie'
+require 'hashie/mash'
 
 ##
 # package:
@@ -10,22 +10,52 @@ require 'hashie'
 #     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
 # }
 
-class Package < Hash
-  include Hashie::Extensions::MethodAccess
+module LicenseAuto
 
-  attr_reader :language, :name
-  attr_accessor :group, :version, :project_server
+  class Package < Hashie::Mash
+    extend LicenseAuto
 
+    ##
+    # Default project website server of all kinds of languages
+    # Key: language name
+    # Value: default project server
 
+    LANGUAGES_PROJECT_SERVER = {
+        Ruby: RubyGemsOrg
+    }
 
-  def initialize(pack)
-    self.instance = pack
+    def initialize(hash)
+      super(hash)
+      @adaptor = nil
+    end
 
-    #   # TODO: detect latest version
-    #   @version = nil
-    #
-    #   # TODO: fill default project_server
-    #   @project_server = nil
+    def chose_adapter_by_language()
+      begin
+        @adaptor = LANGUAGES_PROJECT_SERVER.fetch(self.language.to_sym)
+      rescue KeyError
+        raise Exception("#{self.language} has no adapter")
+        # TODO: Website::GoogleSearch
+        # @adaptor = LicenseAuto::Website::Google
+        # TODO: Website::GithubSearch
+      end
+    end
+
+    ##
+    # Entry
+
+    def get_license_info()
+      chose_adapter_by_language()
+
+      #   # TODO: detect latest version
+      #   @version = nil
+
+      #   # TODO: fill default project_server
+      #   @project_server = nil
+
+      @adaptor.get_license_info()
+    end
+
   end
+
 
 end
