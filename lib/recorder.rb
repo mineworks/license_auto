@@ -17,7 +17,7 @@ class PacksSaver
       save_golang
     elsif @lang == 'Ruby'
       save_ruby
-    elsif @lang == 'manifest.yml' or @lang == 'NodeJs'
+    elsif @lang == 'manifest.yml' or @lang == 'NodeJs' or @lang == 'Erlang'
       save_manifest
     end
   end

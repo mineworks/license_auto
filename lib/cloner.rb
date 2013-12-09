@@ -63,11 +63,10 @@ module Cloner
 
   def self.process_gitmodules(clone_path, release_id, parent_repo_id)
     gitmodules = find_gitmodules(clone_path)
-$plog.info("Hello, workd: #{gitmodules}")
+    $plog.info("gitmodules: #{gitmodules}")
     gitmodules.each {|url|
       # git@github.com:repo_owner/reop_name
-      # TODO: /^(?<username>.+)@/
-      ssh_pattern = /^git@/
+      ssh_pattern = /^(?<username>.+)@/
       git_pattern = /^git:\/\//
       if url =~ ssh_pattern
         url = url.gsub(/:/, '/').gsub(ssh_pattern, 'https://')
@@ -76,7 +75,18 @@ $plog.info("Hello, workd: #{gitmodules}")
       end
       $plog.debug("gitmodules url: #{url}")
 
-      g = API::Github.new(url)
+      if url =~ API::SOURCE_URL_PATTERN[:github]
+        g = API::Github.new(url)
+      elsif url =~ API::SOURCE_URL_PATTERN[:git_kernel_org]
+        g = API::GitKernelOrg.new(url)
+      elsif url =~ API::SOURCE_URL_PATTERN[:bitbucket]
+        g = API::Bitbucket.new(url)
+      # TODO: WWWGoogleSourceCom
+      else
+        g = nil
+        raise "Unknown repostory: #{url}"
+      end
+
       sub_host, sub_repo_owner, sub_repo_name = g.host, g.owner, g.repo
       org_url = "#{sub_host}/#{sub_repo_owner}"
 
@@ -103,7 +113,7 @@ $plog.info("Hello, workd: #{gitmodules}")
         pack_name = sub_repo_name
         last_commit = g.last_commits
         pack_version = last_commit ? last_commit['sha'] : nil
-        lang = 'github.com'
+        lang = g.host
         source_url = url
         homepage = license = cmt = nil
         status = 10
@@ -134,17 +144,16 @@ $plog.info("Hello, workd: #{gitmodules}")
     gitmodules = []
     filename = '.gitmodules'
     file = "#{clone_path}/#{filename}"
-$plog.info("is this file exits? #file}")
-    if File.exists?(file)
+    submodules_exists = File.exists?(file)
+    $plog.debug("submodules_exists: #{submodules_exists}")
+    if submodules_exists
       contents = File.readlines(file)
-$plog.info("content is: #{contents}")
       pattern = /url\s=\s(?<url>.+)(\.git)?$/
       contents.each {|line|
-        match_result = pattern.match(line)
-$plog.info("match_result: #{match_result}, line: #{line}")
-        if match_result
-$plog.info("hello url: #{match_result[:url]}")
-          gitmodules.push(match_result[:url])
+        matched = pattern.match(line)
+        $plog.debug("matched: #{matched}, submodule line: #{line}")
+        if matched
+          gitmodules.push(matched[:url])
         end
       }
 
