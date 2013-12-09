@@ -227,6 +227,10 @@ class Github
   end
 
   def get_license_info()
+    license_info = api_get_a_repositorys_license
+    if license_info[:license_url] != nil
+      return license_info
+    end
     license = license_url = license_text = nil
     license_contents = filter_license_contents(path='')
     #$plog.debug("license_contents: #{license_contents}")
