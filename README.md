@@ -79,7 +79,7 @@
 * NodeJS v5.7.0+
 * npm v3.6.0
 * Python pip v1.5.6
-* go v1.4.2
+* golang v1.6
 
 ## Install
 ``` bash
