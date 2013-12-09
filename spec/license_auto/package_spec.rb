@@ -35,6 +35,9 @@ describe LicenseAuto::Package do
 
     license_info = package.get_license_info()
     expect(license_info).to be_a(LicenseAuto::LicenseInfoWrapper)
+    unless license_info.nil?
+      expect(license_info.pack).to be_a(LicenseAuto::PackWrapper)
+    end
 
     LicenseAuto.logger.debug(JSON.pretty_generate(license_info))
   end
