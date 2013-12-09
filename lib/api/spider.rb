@@ -13,7 +13,7 @@ module API
       if response.code == 200
         body = response.body
         # TODO: author name valid
-        pattern = /(http[s]?:\/\/(github\.com|bitbucket\.org)\/|git@(github\.com|bitbucket\.org):)(?<author>.+?)\/#{@pack_name}/
+        pattern = /(http[s]?:\/\/(github\.com|bitbucket\.org)\/|git@(github\.com|bitbucket\.org):)(?<author>.+?)\/#{@pack_name}/i
         match_result = pattern.match(body)
         if match_result
           author = match_result['author']
