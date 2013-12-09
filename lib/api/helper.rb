@@ -1,3 +1,4 @@
+require_relative './pattern'
 module API
 
   class Helper
