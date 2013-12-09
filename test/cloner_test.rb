@@ -4,7 +4,7 @@ require 'open3'
 
 
 require 'git'
-require_relative '../conf/config'
+require_relative '../config/config'
 
 
 describe 'ClonerText' do

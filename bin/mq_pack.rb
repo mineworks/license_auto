@@ -12,7 +12,7 @@ require_relative '../lib/cloner'
 require_relative '../lib/db'
 require_relative '../lib/recorder'
 require_relative '../lib/api'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../lib/api'
 
 def fetch_license_info_by_source(packer, status=nil)

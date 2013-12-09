@@ -2,7 +2,7 @@ require 'minitest/spec'
 require 'minitest/autorun'
 
 
-require_relative '../conf/config'
+require_relative '../config/config'
 
 
 describe 'PGFunctionTest' do

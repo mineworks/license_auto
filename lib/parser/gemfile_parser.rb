@@ -4,7 +4,7 @@ require 'bundler'
 require_relative './Obtain_path'
 require_relative './Ruby_extractor'
 require_relative './utils'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../lib/api/pattern'
 #require 'License_recognition'
 

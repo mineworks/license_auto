@@ -1,5 +1,5 @@
 require 'httparty'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../lib/message'
 
 def add_product(product_name)

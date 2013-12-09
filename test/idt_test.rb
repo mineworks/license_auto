@@ -1,6 +1,6 @@
 require 'minitest/spec'
 require 'minitest/autorun'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative '../extractor_ruby/License_recognition'
 
 describe 'License identity Test' do

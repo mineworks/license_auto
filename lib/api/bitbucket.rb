@@ -1,7 +1,7 @@
 require 'json'
 require 'httparty'
 require_relative '../api/pattern'
-require_relative '../../conf/config'
+require_relative '../../config/config'
 
 module API
 

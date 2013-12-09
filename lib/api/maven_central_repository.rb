@@ -1,7 +1,7 @@
 require 'json'
 require 'nokogiri'
 require 'httparty'
-require_relative '../../conf/config'
+require_relative '../../config/config'
 
 module API
   # DOC: http://search.maven.org/#api

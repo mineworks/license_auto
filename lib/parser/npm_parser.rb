@@ -1,6 +1,6 @@
 require 'json'
 require 'open3'
-require_relative '../../conf/config'
+require_relative '../../config/config'
 require_relative '../../lib/misc'
 require_relative '../api/npm_registry'
 require_relative '../api/pattern'

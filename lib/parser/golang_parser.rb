@@ -6,7 +6,7 @@ require 'open3'
 require 'set'
 require_relative '../../lib/cloner'
 require_relative '../../var/data/golang.package.std'
-require_relative '../../conf/config'
+require_relative '../../config/config'
 require_relative '../recorder'
 
 

@@ -11,6 +11,7 @@ GEM
       multi_xml (>= 0.5.2)
     io-like (0.3.0)
     json (1.8.3)
+    license_auto (0.1.0)
     log4r (1.1.10)
     mime-types (2.6.2)
     mini_portile (0.6.2)
@@ -19,6 +20,7 @@ GEM
     netrc (0.7.8)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    pg (0.18.2)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -35,8 +37,10 @@ DEPENDENCIES
   git
   httparty
   json
+  license_auto
   log4r
   minitest
+  pg
   rest-client
   ruby-xz
 
