@@ -10,7 +10,8 @@ export license_auto_proxy='proxy.foo.com:8080'
 apt-get install -y rabbitmq-server \
     libpq-dev build-essential \
     libxml2 \
-    libxslt bzip2 cmake golang
+    libxslt bzip2 cmake golang \
+    rebar gradle
 
 # If mac osx
 # brew install icu4c

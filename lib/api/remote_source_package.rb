@@ -40,10 +40,9 @@ module API
     end
 
     # OVERRIDE required
+    # return: homepage, download_url
     def find_source_package_homepage_and_download_url()
-      homepage = nil
-      download_url = nil
-      return homepage, download_url
+      raise 'Method must be overridden'
     end
 
     def download_source_code(source_code_url)

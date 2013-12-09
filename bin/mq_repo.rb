@@ -7,6 +7,7 @@ require 'openssl'
 
 require_relative '../extractor_ruby/choice.rb'
 require_relative '../lib/parser/golang_parser'
+require_relative '../lib/parser/erlang_parser'
 require_relative '../lib/parser/manifest_parser'
 require_relative '../lib/parser/npm_parser'
 require_relative '../lib/cloner'
@@ -48,6 +49,11 @@ def worker(body)
 
     npm_packs = NpmParser.new(clone_path).start
     saved = PacksSaver.new(repo_id, npm_packs, 'NodeJs', release_id).save
+
+    packs = ErlangParser.new(clone_path).start
+    saver = PacksSaver.new(repo_id, packs, 'Erlang', release_id)
+    saver.save
+
   rescue Git::GitExecuteError => e
     $plog.fatal(e)
     api_setup_case_status(repo_id, 21, e.to_s)
