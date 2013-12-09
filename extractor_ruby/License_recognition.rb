@@ -160,9 +160,13 @@ class License_recognition
       end
     end
 
+    # p @similar_list
+
     if @similar_list.size == 0
       return nil
     elsif @similar_list[0][0] > 0.76
+      return @similar_list[0][1]
+    elsif @similar_list[0][0] > 0.45
       return @similar_list[0][1]
     else
       return nil
