@@ -100,7 +100,7 @@ module LicenseAuto
       if resolve_dependencies
         deps = Set.new
         Dir.chdir(@path) do
-          cmd = 'mvn dependency:list -T 4'
+          cmd = 'mvn dependency:list -T 4 -DincludeScope=runtime'
           out, err, _st = Open3.capture3(cmd)
           # LicenseAuto.logger.debug("#{out}")
           if out.include?("The following files have been resolved:")
