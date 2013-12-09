@@ -18,6 +18,9 @@ module API
     def self.is_notice_file(filename)
       return filename =~ API::FILE_NAME_PATTERN[:notice_file]
     end
+    def self.is_debian_copyright_file(file_pathname)
+      return file_pathname =~ API::FILE_NAME_PATTERN[:debian_copyright_file]
+    end
   end
 
 end
