@@ -10,7 +10,7 @@ require_relative './helper'
 module API
 
 class Github
-  attr_reader :ref
+  attr_reader :ref, :owner, :repo, :host
 
   def initialize(repo_url, db_ref=nil)
     @repo_url = repo_url
@@ -194,6 +194,17 @@ class Github
     license_contents
   end
 
+  def get_gitmodules
+    gitmodules = nil
+    root_contents = list_contents(path)
+    root_contents.each do |c|
+      if c['type'] == 'file' and c['name'] == 'gitmodules'
+        gitmodules = c
+      end
+    end
+    gitmodules
+  end
+
   # DOC: https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
   def api_get_a_repositorys_license
     license = license_url = license_text = nil
@@ -321,12 +332,10 @@ end
 
 if __FILE__ == $0
   url = 'https://github.com/geemus/netrc'
-  g = API::Github.new(url, '0.7')
-  br = g.get_default_branch
-  p br
+  url = ' https://github.com/cloudfoundry/compile-extensions'
+  g = API::Github.new(url)
+  p g.last_commits
 
-  html = 'https://github.com/cowboy/grunt/blob/master/LICENSE-MIT'
-  raw_url = API::Github.convert_htmlpage_to_raw_url(html)
-  p raw_url
+
 
 end
