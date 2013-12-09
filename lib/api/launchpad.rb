@@ -86,6 +86,7 @@ module API
         if source_code_download_url
           source_code_path = download_source_code(source_code_download_url)
           if source_code_path
+            # TODO: move into pattern.rb
             if source_code_path =~ /tar\.gz$/
               reader = Zlib::GzipReader
             else
@@ -94,26 +95,33 @@ module API
             end
             tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
             tar_extract.rewind # The extract has to be rewinded after every iteration
-            tar_extract.each do |entry|
+            # TODO: find a case
+            if tar_extract.size == 1 and tar_extract[0] =~ /\.tar$/
 
-              # Only indent the root dir license file
-              if entry.file? and API::Helper.is_license_file(entry.full_name)
-                puts entry.full_name
-                puts entry.read
+            else
+              ### TODO: abstract
+              tar_extract.each do |entry|
+
+                # Only indent the root dir license file
+                if entry.file? and API::Helper.is_license_file(entry.full_name)
+                  puts entry.full_name
+                  puts entry.read
+                end
+
+                if entry.file? and API::Helper.is_readme_file(entry.full_name)
+                  puts entry.full_name
+                  puts entry.read
+                  # TODO: readme
+                end
+
+                # TODO: 2 dir
+                # puts entry.directory?
+                # puts entry.file?
+                # puts entry.read
               end
-
-              if entry.file? and API::Helper.is_readme_file(entry.full_name)
-                puts entry.full_name
-                puts entry.read
-                # TODO: readme
-              end
-
-              # TODO: 2 dir
-              # puts entry.directory?
-              # puts entry.file?
-              # puts entry.read
+              tar_extract.close ### abstract
             end
-            tar_extract.close
+
           else
             # nil
           end
