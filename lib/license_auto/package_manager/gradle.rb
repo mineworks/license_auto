@@ -29,14 +29,7 @@ module LicenseAuto
 
           {
               dep_file: dep_file,
-              deps: collect_dependencies.map {|dep|
-                group, name, version = dep.split(':')
-                {
-                    name: [group, name].join(':'),
-                    version: version,
-                    remote: nil
-                }
-              }
+              deps: collect_dependencies
           }
         }
       end
@@ -90,7 +83,14 @@ module LicenseAuto
         deps = list_dependencies(project_name)
         root_deps.merge(deps)
       }
-      root_deps
+      root_deps.map {|dep|
+        group, name, version = dep.split(':')
+        {
+            name: [group, name].join(':'),
+            version: version,
+            remote: nil
+        }
+      }
     end
 
     # @return sample:

@@ -3,6 +3,8 @@ require 'license_auto/website/github_com'
 require 'license_auto/package_manager/bundler'
 require 'license_auto/package_manager/npm'
 require 'license_auto/package_manager/golang'
+require 'license_auto/package_manager/gradle'
+require 'license_auto/package_manager/maven'
 
 module LicenseAuto
   class Repo < Hashie::Mash
@@ -23,7 +25,9 @@ module LicenseAuto
       [
           Bundler,
           Npm,
-          Golang
+          Golang,
+          Gradle,
+          Maven
       ]
     end
 
@@ -59,51 +63,6 @@ module LicenseAuto
     #                     "name": "bower",
     #                     "version": "v1.7.9",
     #                     "remote": "https://github.com/bower/bower.git"
-    #                 },
-    #                 {
-    #                     "name": "gulp-ng-config",
-    #                     "version": "1.2.1",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash",
-    #                     "version": "3.10.1",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash._getnative",
-    #                     "version": "3.9.1",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash.isarguments",
-    #                     "version": "3.0.8",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash.isarray",
-    #                     "version": "3.0.4",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "bower",
-    #                     "version": "v1.7.9",
-    #                     "remote": "https://github.com/bower/bower.git"
-    #                 },
-    #                 {
-    #                     "name": "gulp-ng-config",
-    #                     "version": "1.2.1",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash",
-    #                     "version": "3.10.1",
-    #                     "remote": "http://registry.npmjs.org/"
-    #                 },
-    #                 {
-    #                     "name": "lodash._getnative",
-    #                     "version": "3.9.1",
-    #                     "remote": "http://registry.npmjs.org/"
     #                 },
     #                 {
     #                     "name": "lodash.isarguments",
