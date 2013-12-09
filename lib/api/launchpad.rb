@@ -143,7 +143,7 @@ module API
                 $plog.debug(license_text)
 
                 # TODO: parser license info
-                license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
+                license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
                 break
               end
 

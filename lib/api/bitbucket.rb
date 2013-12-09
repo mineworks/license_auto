@@ -1,6 +1,7 @@
 require 'json'
 require 'httparty'
 require_relative '../api/pattern'
+require_relative '../../conf/config'
 
 module API
 
@@ -71,7 +72,7 @@ class Bitbucket
         license_url = api_url
 
         $plog.info("License file 链接: #{license_url}, #{license_text}")
-        license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
+        license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
         if license
           break
         end

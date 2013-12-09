@@ -13,6 +13,8 @@ if !File.exist?(LAUNCHPAD_SOURCE_DIR)
   Dir.mkdir(LAUNCHPAD_SOURCE_DIR)
 end
 
+STD_LICENSE_DIR = "./extractor_ruby/Package_license"
+
 pf = Log4r::PatternFormatter.new(
   :pattern => "%d [%l]: %M",
   :date_format => "%Y/%m/%d %H:%M:%S"
