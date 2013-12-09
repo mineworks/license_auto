@@ -44,8 +44,8 @@ class GolangParser
       Open3.popen3(cmd) {|i,o,e,t|
         out = o.readlines
         error = e.readlines
-        if error.length > 0
-          raise Exception("cmd error: #{error}")
+        if error.length > 0 and error[0] != "warning: \"./...\" matched no packages\n"
+          raise "cmd error: #{error}"
         elsif out.length > 0
           out2 = out.join('').gsub(/}\n{/, "}\n\n{").split(/\n\n/)
           out2.each {|s|
