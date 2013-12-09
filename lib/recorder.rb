@@ -122,7 +122,7 @@ class PackUpdate
       packer[:status] = 40
     else
       packer[:unclear_license] = packer[:license]
-      packer[:license] = 'UNKNOWN'
+      packer[:license] = nil
       packer[:status] = 30
     end
     return packer
