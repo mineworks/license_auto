@@ -3,7 +3,8 @@ require 'httparty'
 require 'json'
 require_relative '../../extractor_ruby/License_recognition'
 require_relative '../misc'
-require_relative '../api/rules'
+require_relative '../api/pattern'
+require_relative './helper'
 
 module API
 
@@ -78,23 +79,14 @@ class Github
   end
 
   def filter_license_contents()
-    def is_license_file(filename)
-      # TODO: add spell error regex
-      return filename =~ /(license|copying|licence)+/i
-    end
-
-    def is_readme_file(filename)
-      return filename =~ /readme/i
-    end
-
     license_contents = {:license => [], :readme => []}
     root_contents = list_contents
     root_contents.each do |c|
       if c['type'] == 'file'
-        if is_license_file(c['name'])
+        if API::Helper.is_license_file(c['name'])
           license_contents[:license].push(c)
         end
-        if is_readme_file(c['name'])
+        if API::Helper.is_readme_file(c['name'])
           license_contents[:readme].push(c)
         end
       end
@@ -105,7 +97,7 @@ class Github
   def get_license_info()
     license = license_url = license_text = nil
     license_contents = filter_license_contents
-    $plog.info("license_contents: #{license_contents}")
+    $plog.debug("license_contents: #{license_contents}")
     license_contents[:license].each do |c|
       download_url = c['download_url']
       $plog.info("License file 链接: #{download_url}")

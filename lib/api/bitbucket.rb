@@ -1,6 +1,6 @@
 require 'json'
 require 'httparty'
-require_relative '../api/rules'
+require_relative '../api/pattern'
 
 module API
 
@@ -43,17 +43,14 @@ class Bitbucket
   end
 
   def filter_license_contents()
-    def is_license_file(filename)
-      # todo: readme parser
-      # TODO: add spell error regex
-      return filename =~ /(license|copying|readme)+/i
-    end
-
-    license_contents = []
+    license_contents = {:license => [], :readme => []}
     root_contents = list_contents
     root_contents['files'].each {|c|
-      if is_license_file(c['path'])
-        license_contents.push(c)
+      if API::Helper.is_license_file(c['path'])
+        license_contents[:license].push(c)
+      end
+      if API::Helper.is_readme_file(c['path'])
+        license_contents[:readme].push(c)
       end
     }
     license_contents
@@ -63,7 +60,7 @@ class Bitbucket
     license = license_url = license_text = nil
     license_contents = filter_license_contents
 
-    license_contents.each {|c|
+    license_contents[:license].each {|c|
       revision = c['revision']
       path = c['path']
       api_url = "https://bitbucket.org/api/1.0/repositories/#{@owner}/#{@repo}/raw/#{revision}/#{path}"
@@ -73,7 +70,7 @@ class Bitbucket
         license_text = response.body
         license_url = api_url
 
-        $plog.info("链接: #{license_url}, #{license_text}")
+        $plog.info("License file 链接: #{license_url}, #{license_text}")
         license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
         if license
           break
@@ -83,6 +80,14 @@ class Bitbucket
       end
 
     }
+
+    if license == nil
+      license_contents[:readme].each do |c|
+        # todo: @Dragon, readme parser
+        # license = parse_license_info_from_readme
+      end
+    end
+
     {
       license: license,
       license_url: license_url,
