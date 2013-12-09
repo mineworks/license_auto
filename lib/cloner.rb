@@ -124,7 +124,7 @@ module Cloner
     file = "#{clone_path}/#{filename}"
     if File.exists?(file)
       contents = File.readlines(file)
-      pattern = /url\s=\s(?<url>.+)/
+      pattern = /url\s=\s(?<url>.+)\.git$/
       contents.each {|line|
         match_result = pattern.match(line)
         if match_result
