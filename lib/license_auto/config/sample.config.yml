@@ -1,6 +1,7 @@
 github:
   username: 'xxx'
   passworkd: 'xxx'
+  2fa_token: 'xxx'
 
 http_proxy:
   host: 'www.example.com'
