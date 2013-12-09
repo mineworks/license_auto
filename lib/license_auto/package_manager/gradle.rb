@@ -68,7 +68,7 @@ module LicenseAuto
             sub_project_pattern = /Project\s\'(:)?(?<project_name>.+)\'/
             matched = sub_project_pattern.match(line)
             if matched
-              projects.push(match_result[:project_name])
+              projects.push(matched[:project_name])
             end
           }
         else
