@@ -74,7 +74,8 @@ end
 
 def api_get_pack_by_id(pack_id)
   pack = nil
-  r = $conn.exec_params("select name, version, source_url, lang, homepage, license, license_text from pack where id = $1",[pack_id])
+  r = $conn.exec_params("select id, name, version, source_url, lang, homepage, license, license_text, status from pack
+                           where id = $1", [pack_id])
   if r.ntuples == 1
     pack = r[0]
   end

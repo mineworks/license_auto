@@ -5,7 +5,6 @@ gem "git"
 gem "httparty"
 gem "log4r"
 gem "minitest"
-# gem "github-linguist"
 
 # sudo ARCHFLAGS="-arch x86_64" gem install pg
 # sudo apt-get install libpq-dev build-essential

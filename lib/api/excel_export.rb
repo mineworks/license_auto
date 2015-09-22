@@ -64,11 +64,13 @@ module API
 
           # TODO: @Micfan, validation excle
           # Create a format for the column license
-          # worksheet.data_validation('D2:D10', {
-          #   :validate => 'list',
-          #   #:source => ['MIT', 'BSD', 'Apache2.0']
-          #   :source => '=Validation!$C$2:$C$16'
-          # })
+          worksheet.data_validation('D2:D21', {
+            :validate => 'integer',
+            :criteria => '>',
+            :value    => 100,
+            # :source => ['MIT', 'BSD', 'Apache2.0']
+            # :source => '=Validation!$C$2:$C$16'
+          })
 
           # Modified dropdown list
           # worksheet.data_validation('G2:G10',

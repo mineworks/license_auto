@@ -21,6 +21,13 @@ def worker(body)
       api_setup_pack_status(pack_id, status, cmt)
       $plog.fatal(cmt)
       return
+    else
+      _status = pack['status'].to_i
+      if _status >= 30
+        cmt = "This package(pack_id=#{pack_id}, status=#{_status}) have no permission to self run"
+        $plog.fatal(cmt)
+        return
+      end
     end
 
     $plog.debug("pack: #{pack}")
@@ -147,7 +154,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"pack_id":5385}'
+  # body = '{"pack_id":7011}'
   # worker(body)
   main
 end
