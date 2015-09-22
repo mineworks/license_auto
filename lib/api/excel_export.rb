@@ -10,8 +10,8 @@ module API
     end
 
     def get_excel_by_product(name, release_name, release_version)
-      #name -> productName
-      #release_name -> 'foo'
+      #name -> "foo"
+      #release_name -> 'pcf'
       #release_version -> '1.5'
       workbook_name = name + '-1.5-scotzilla-script.xls'
 
