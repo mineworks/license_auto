@@ -25,6 +25,8 @@ module ExtractRuby
       @failure_list      = Array.new()       # parse failure list , exist "\n"
       @license_list      = Array.new()       # success List
       #@pool              = Thread.pool(pool_num)
+      @parse_error_st    	= 33
+      @rubygems_not_found = 30
 
     end
 
@@ -41,7 +43,7 @@ module ExtractRuby
     # st_true     : Correct extraction
     # st_error    : Extraction failed, you need to manually
 
-    def parse_gemfile_lock(repo_path, st_true = 10, st_error = 30)
+    def parse_gemfile_lock(repo_path, st_true = 10, st_error = @parse_error_st)
     	path = Obtain_path.new(repo_path, "gem", ".lock").get_data
       #@failure_list.concat(path)
       if path.size == 0
@@ -98,11 +100,11 @@ module ExtractRuby
             pack_hash[:homepage]    = nil
             pack_hash[:source_url]   = nil
             pack_hash[:license]      = nil
-            pack_hash[:status]       = 30
+            pack_hash[:status]       = @rubygems_not_found
             pack_hash[:cmt]          = nil
           end
 
-        elsif 30 == row[2]
+        elsif @parse_error_st == row[2]
           pack_hash[:pack_name]    = row[0]
           if "" == row[1]
             pack_hash[:pack_version] = nil
