@@ -9,6 +9,54 @@ require_relative '../lib/recorder'
 require_relative '../lib/api'
 require_relative '../conf/config'
 
+def fetch_license_info_by_source(packer, status=nil)
+    # TODO: @Micfan, simple it
+    source_url = packer[:source_url]
+    homepage = packer[:homepage]
+    github_pattern = /http[s]?:\/\/github\.com/
+    if source_url =~ github_pattern
+      github_url = source_url
+    elsif homepage =~ github_pattern
+      github_url = homepage
+    else
+      github_url = nil
+    end
+
+    bitbucket_url = nil
+    bitbucket_pattern = /http[s]?:\/\/bitbucket\.org/
+    if source_url =~ bitbucket_pattern
+      bitbucket_url = source_url
+    elsif homepage =~ bitbucket_pattern
+      bitbucket_url = homepage
+    else
+      bitbucket_url = nil
+    end
+
+    license_info = {:license => nil, :license_text => nil, :license_url => nil}
+    if github_url != nil
+      packer[:source_url] = github_url
+      extractor = API::Github.new(github_url, db_ref=packer[:version])
+      license_info = extractor.get_license_info(extractor.ref)
+      packer = packer.merge(license_info)
+    elsif bitbucket_url != nil
+      packer[:source_url] = bitbucket_url
+      extractor = API::Bitbucket.new(bitbucket_url)
+      license_info = extractor.get_license_info
+      packer = packer.merge(license_info)
+    end
+
+    if status
+      packer[:status] = status
+    elsif license_info.values.index(nil)
+      packer[:status] = 30
+    else
+      packer[:status] = 40
+    end
+
+    # TODO: check_std_license in Ruby program, do not in db process
+
+  return packer
+end
 
 def worker(body)
   begin
@@ -34,66 +82,35 @@ def worker(body)
 
     lang = pack['lang']
 
-    source_url = pack['source_url']
-    homepage = pack['homepage']
     packer = {
       :version => pack['version'],
-      :source_url => source_url,
+      :source_url => pack['source_url'],
       :license_url => pack['license_url'],
-      :homepage => homepage,
+      :homepage => pack['homepage'],
       :license => pack['license'],
       :license_text => pack['license_text'],
       :status => 30
     }
 
-    github_pattern = /http[s]?:\/\/github\.com/
-    if source_url =~ github_pattern
-      github_url = source_url
-    elsif homepage =~ github_pattern
-      github_url = homepage
-    else
-      github_url = nil
-    end
+    packer = fetch_license_info_by_source(packer)
 
-    # TODO: @Micfan
-    bitbucket_url = nil
-    bitbucket_pattern = /http[s]?:\/\/bitbucket\.org/
-    if source_url =~ bitbucket_pattern
-      bitbucket_url = source_url
-    elsif homepage =~ bitbucket_pattern
-      bitbucket_url = homepage
-    else
-      bitbucket_url = nil
-    end
-
-    if github_url != nil
-      packer[:source_url] = github_url
-      extractor = API::Github.new(github_url, db_ref=packer[:version])
-      license_info = extractor.get_license_info(extractor.ref)
-      packer = packer.merge(license_info)
-      if license_info.values.index(nil)
-        packer[:status] = 30
+    if packer[:status] < 40 and packer[:source_url] == nil
+      if lang == 'Java'
+        # TODO: 3 website
+      elsif lang == 'NodeJs'
+        # TODO:
       else
-        packer[:status] = 40
+        $plog.info("packer: #{packer}")
+        if packer[:source_url] == nil and packer[:homepage] != nil
+          spider_source_url = API::Spider.new(packer[:homepage], pack['name']).find_source_url
+          $plog.fatal("spider_source_url: #{spider_source_url}")
+          if spider_source_url
+            packer[:source_url] = spider_source_url
+            packer = fetch_license_info_by_source(packer, status=31)
+          end
+        end
+        $plog.error("!!! Unresolved pack: #{pack}")
       end
-    elsif bitbucket_url != nil
-      packer[:source_url] = bitbucket_url
-      extractor = API::Bitbucket.new(bitbucket_url)
-      license_info = extractor.get_license_info
-      packer = packer.merge(license_info)
-      if license_info.values.index(nil)
-        packer[:status] = 30
-      else
-        packer[:status] = 40
-      end
-    elsif lang == 'Ruby'
-      # TODO:
-      #get method for license info
-    elsif lang == 'NodeJs'
-      # TODO:
-      #get method for license info
-    else
-      $plog.error("!!! Unresolved pack: #{pack}")
     end
     #test
     #packer = Hash.new()
@@ -150,7 +167,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"pack_id":7392}'
+  # body = '{"pack_id":7384}'
   # worker(body)
   main
 end
