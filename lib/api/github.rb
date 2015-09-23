@@ -9,8 +9,9 @@ require_relative './helper'
 module API
 
 class Github
-  # TODO: ref
-  def initialize(repo_url)
+  attr_reader :ref
+
+  def initialize(repo_url, db_ref=nil)
     @repo_url = repo_url
 
     regex_group = format_url(repo_url)
@@ -28,12 +29,53 @@ class Github
       @http_option[:http_proxyaddr] = http_proxy[:addr]
       @http_option[:http_proxyport] = http_proxy[:port]
     end
+
+    @ref = _match_a_ref(db_ref)
+  end
+
+  def _match_a_ref(db_ref)
+    _ref = nil
+    # Golang version is a git sha
+    if db_ref == nil or db_ref.size == 40
+      return db_ref
+    else
+      # version number
+      all_refs = list_all_tags
+      # TODO: - + *
+      version_pattern = /[vV]?#{db_ref.gsub(/\./, '\.').gsub(/\//, '\/')}/i
+      all_refs.each {|r|
+        ref = r['ref']
+        ref_name = ref.split('/').last
+        if ref_name =~ version_pattern
+          $plog.debug(ref_name)
+          return ref_name
+        end
+      }
+    end
   end
 
   def format_url(repo_url)
     repo_url = repo_url.gsub(/\.git/, '')
     patten = API::SOURCE_URL_PATTERN[:github]
     result = patten.match(repo_url)
+  end
+
+  # DOC: https://developer.github.com/v3/git/refs/
+  def list_all_tags
+    refs = []
+    api_url = "https://api.github.com/repos/#{@owner}/#{@repo}/git/refs/tags"
+    $plog.info("api_url: #{api_url}")
+    response = HTTParty.get(api_url, options=@http_option)
+    if response.code == 200
+      refs = JSON.parse(response.body)
+    elsif response.code == 403
+      $plog.error("!!! Github 403 Forbidden: #{response}")
+    elsif response.code == 404
+      $plog.error("!!! Github 404 Not found: #{response}")
+    else
+      $plog.error("!!! list_all_references() response: #{response}")
+    end
+    refs
   end
 
   # DOC: https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository
@@ -45,11 +87,11 @@ class Github
     if response.code == 200
       commits = JSON.parse(response.body)
     elsif response.code == 403
-      $plog.error("!!! Github 403 Forbidden: #{response.body}")
+      $plog.error("!!! Github 403 Forbidden: #{response}")
     elsif response.code == 404
-      $plog.error("!!! Github 404 Not found: #{response.body}")
+      $plog.error("!!! Github 404 Not found: #{response}")
     else
-      $plog.error("!!! list_commits: #{response.body}")
+      $plog.error("!!! list_commits() response: #{response}")
     end
     commits
   end
@@ -63,9 +105,14 @@ class Github
     last
   end
 
-  def list_contents(path='')
+  # DOC: https://developer.github.com/v3/repos/contents/#get-contents
+  def list_contents(path='', ref=nil)
     contents = []
     api_url = "https://api.github.com/repos/#{@owner}/#{@repo}/contents/#{path}"
+    if ref
+      api_url += "?ref=#{ref}"
+    end
+
     $plog.info("list_contents: api_url: #{api_url}")
     response = HTTParty.get(api_url, options=@http_option)
     if response.code == 200
@@ -78,9 +125,9 @@ class Github
     contents
   end
 
-  def filter_license_contents()
+  def filter_license_contents(path, ref)
     license_contents = {:license => [], :readme => []}
-    root_contents = list_contents
+    root_contents = list_contents(path, ref)
     root_contents.each do |c|
       if c['type'] == 'file'
         if API::Helper.is_license_file(c['name'])
@@ -94,9 +141,9 @@ class Github
     license_contents
   end
 
-  def get_license_info()
+  def get_license_info(ref=nil)
     license = license_url = license_text = nil
-    license_contents = filter_license_contents
+    license_contents = filter_license_contents(path='', ref)
     $plog.debug("license_contents: #{license_contents}")
     license_contents[:license].each do |c|
       download_url = c['download_url']

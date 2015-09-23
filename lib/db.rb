@@ -87,11 +87,13 @@ def api_get_std_license_name()
 end
 
 def api_setup_pack_status(pack_id, status, cmt)
-  r = $conn.exec_params("update pack set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt, pack_id])
+  $plog.debug(cmt)
+  r = $conn.exec_params("update pack set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt[0..79], pack_id])
 end
 
 def api_setup_repo_status(repo_id, status, cmt)
-  r = $conn.exec_params("update repo set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt, repo_id])
+  $plog.debug(cmt)
+  r = $conn.exec_params("update repo set status = $1, cmt = $2, update_at = now() where id = $3", [status, cmt[0..79], repo_id])
 end
 
 

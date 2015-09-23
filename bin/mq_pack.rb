@@ -25,7 +25,7 @@ def worker(body)
       _status = pack['status'].to_i
       if _status >= 30
         cmt = "This package(pack_id=#{pack_id}, status=#{_status}) have no permission to self run"
-        $plog.fatal(cmt)
+        $plog.info(cmt)
         return
       end
     end
@@ -68,8 +68,8 @@ def worker(body)
 
     if github_url != nil
       packer[:source_url] = github_url
-      extractor = API::Github.new(github_url)
-      license_info = extractor.get_license_info
+      extractor = API::Github.new(github_url, db_ref=packer[:version])
+      license_info = extractor.get_license_info(extractor.ref)
       packer = packer.merge(license_info)
       if license_info.values.index(nil)
         packer[:status] = 30
@@ -147,14 +147,10 @@ def main()
   rescue Interrupt => _
     conn.close
   end
-
-  #test
-  #worker
-  #test
 end
 
 if __FILE__ == $0
-  # body = '{"pack_id":7011}'
+  # body = '{"pack_id":7392}'
   # worker(body)
   main
 end
