@@ -4,7 +4,7 @@ require_relative '../lib/api/mq'
 
 $debug = true
 
-AUTO_ROOT = '/tmp/auto'
+AUTO_ROOT = '/tmp/license_website'
 
 pf = Log4r::PatternFormatter.new(
   :pattern => "%d [%l]: %M",
