@@ -56,7 +56,7 @@ class Github
   end
 
   def format_url(repo_url)
-    repo_url = repo_url.gsub(/\.git/, '')
+    repo_url = repo_url.gsub(/\.git$/, '')
     patten = API::SOURCE_URL_PATTERN[:github]
     result = patten.match(repo_url)
   end
@@ -231,3 +231,14 @@ class Github
 end
 
 end ### API
+
+if __FILE__ == $0
+  def format_url(repo_url)
+    repo_url = repo_url.gsub(/\.git$/, '')
+    patten = API::SOURCE_URL_PATTERN[:github]
+    result = patten.match(repo_url)
+    $plog.debug("result: #{result}")
+    result
+  end
+  format_url('https://github.com/fog/fog-profitbricks')[:host]
+end
