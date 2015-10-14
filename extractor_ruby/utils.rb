@@ -137,7 +137,7 @@ module Utils
       Anemone.crawl(url,:discard_page_bodies => true,:depth_limit => 0) do |anemone|
         anemone.on_every_page do |page|
          return nil  if page.not_found?
-         return yield(page) if block_given?#block_given判断方法后面是否挂了block
+         return yield(page) if block_given?
         end
       end
   end
