@@ -93,3 +93,6 @@ ALTER FUNCTION repo_complete_ratio(integer, integer)
 
 --
 ALTER TABLE license_auto.public.pack ADD project_url varchar(150);
+
+insert into license_auto.public.std_lang (name, url, create_at, update_at) values ('StemCell-Ubuntu-Trusty', 'http://bosh.io/stemcells', now(), now());
+insert into license_auto.public.std_lang (name, url, create_at, update_at) values ('StemCell-CentOS-7.x', 'http://bosh.io/stemcells', now(), now());
