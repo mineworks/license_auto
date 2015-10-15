@@ -95,9 +95,11 @@ def worker(body)
       if lang == 'StemCell-Ubuntu-Trusty'
         ubuntu_lang_pattern = /^StemCell-(?<distribution>(Ubuntu))-(?<distro_series>(Trusty))/i
         lang_group = ubuntu_lang_pattern.match(lang)
-        # lauch = API::Launchpad.new(lang_group[:distribution], lang_group[:distro_series], pack['name'], pack['version'])
-        launchpad = API::Launchpad.new(lang_group[:distribution], lang_group[:distro_series], pack['name'], pack['version'])
-        packer = launchpad.fetch_license_info_by_source
+        launchpad = API::Launchpad.new(lang_group[:distribution].downcase, lang_group[:distro_series].downcase,
+                                       pack['name'].split(':').first, pack['version'])
+        license_info = launchpad.fetch_license_info_from_local_source
+        packer = packer.merge(license_info)
+        packer = PackUpdate.judge_pack_status(packer)
       elsif lang == 'StemCell-CentOS-7.x'
           # TODO: .rpm, $yum
       elsif lang == 'Java'
@@ -151,7 +153,7 @@ def main()
   begin
     q.subscribe(:manual_ack => true, :block => true) do |delivery_info, properties, body|
       puts " [x] MQ-pack:  Received '#{body}'"
-      # My work
+
       worker(body)
       sleep 1.0
       puts " [x] MQ-pack: Done"
@@ -163,20 +165,8 @@ def main()
 end
 
 if __FILE__ == $0
-  # sql= "select distinct on (name)* from pack
-  #   where source_url like '%github%'"
-  # packs = $conn.exec(sql)
-  #
-  # packs.each {|p|
-  #   #$plog.debug(p)
-  #   pack_id = p['id']
-  #   body = '{"pack_id":' + "#{pack_id}}"
-  #   worker(body)
-  # }
-
-  # pack_id = 846
+  # pack_id = 1771
   # body = '{"pack_id":' + "#{pack_id}}"
   # worker(body)
-
   main
 end

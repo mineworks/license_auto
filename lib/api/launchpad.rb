@@ -33,6 +33,9 @@ module API
 
       # TODO: @Micfan, abstract it out
       opts = {:discard_page_bodies => true, :depth_limit => 0}
+
+      $plog.debug("binary_package_link: #{binary_package_link}")
+
       Anemone.crawl(binary_package_link, opts) do |anemone|
         anemone.on_every_page do |page|
           xpath = "//dd[@id='source']/a[1]"
@@ -94,21 +97,31 @@ module API
     # Entry
     def fetch_license_info_from_local_source()
       # TODO: @Micfan, move it common lib:
+      license = nil
+      license_url = nil
+      license_text = nil
+      source_code_download_url = nil
+
       source_package_page_link = find_source_package_page_link
       if source_package_page_link
-        puts source_package_page_link
+
+        $plog.debug("source_package_page_link: #{source_package_page_link}")
+
         source_code_download_url = find_source_code_download_url(source_package_page_link)
         if source_code_download_url
           source_code_path = download_source_code(source_code_download_url)
           if source_code_path
             # TODO: move into pattern.rb
-            if source_code_path =~ /tar\.gz$/
+            if source_code_path =~ API::FILE_TYPE_PATTERN[:tar_gz]
               reader = Zlib::GzipReader
-            elsif source_code_path =~ /tar\.xz$/
+            elsif source_code_path =~ API::FILE_TYPE_PATTERN[:tar_xz]
               reader = XZ::StreamReader
+            elsif source_code_path =~ API::FILE_TYPE_PATTERN[:tar_bz2]
+              # TODO: @Dragon, format: bz2 (tar, rar, zip, 7z)
+              reader = File
             else
-              # TODO: format: tar (bz2, rar, zip, 7z)
-              return nil
+              $plog.error("source_code_download_url: #{source_code_download_url}, can NOT be uncompressed.")
+              return {}
             end
             tar_extract = Gem::Package::TarReader.new(reader.open(source_code_path))
             tar_extract.rewind # The extract has to be rewinded after every iteration
@@ -121,12 +134,16 @@ module API
               if entry.directory? or entry.full_name.split('/').size > 2
                 next
               end
-              # puts entry.full_name
 
               if entry.file? and API::Helper.is_license_file(entry.full_name)
-                puts entry.full_name
-                # puts entry.read
+                license_url = entry.full_name
+                license_text = entry.read
+
+                $plog.debug(entry.full_name)
+                $plog.debug(license_text)
+
                 # TODO: parser license info
+                license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
                 break
               end
 
@@ -139,16 +156,17 @@ module API
               # end
 
             end
-            tar_extract.close ### abstract
-          else
-            # nil
+            tar_extract.close ### to abstract out
           end
-        else
-          # nil
         end
-      else
-        # nil
       end
+      {
+        license: license,
+        license_url: license_url,
+        license_text: license_text,
+        source_url: source_code_download_url,
+        homepage: source_package_page_link
+      }
     end
 
   end
