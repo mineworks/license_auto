@@ -157,7 +157,7 @@ class Github
         $plog.info("license_text: #{license_text}")
 
         # TODO: @Dragon, upgrade it to multi licenses
-        license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
+        license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
         if license
           break
         end
@@ -205,7 +205,7 @@ class Github
           if start_flag != nil
             #p "readme license info:"
             #readme_license =  readme_text[start_flag,end_flag - start_flag]
-            license = License_recognition.new.similarity(readme_license, "./extractor_ruby/Package_license")
+            license = License_recognition.new.similarity(readme_license, STD_LICENSE_DIR)
             break
           else
             #

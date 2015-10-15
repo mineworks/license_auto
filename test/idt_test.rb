@@ -9,7 +9,7 @@ describe 'License identity Test' do
     pg_result = $conn.exec("select * from pack where license_text is not null")
     if pg_result.ntuples > 0
       license_text = pg_result[0]['license_text']
-      license = License_recognition.new.similarity(license_text, "./extractor_ruby/Package_license")
+      license = License_recognition.new.similarity(license_text, STD_LICENSE_DIR)
       $plog.debug("license: #{license}, license_text: #{license_text}")
       license.wont_be_nil
     else
