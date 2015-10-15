@@ -5,9 +5,14 @@ require_relative '../lib/api/mq'
 $debug = true
 
 AUTO_ROOT = '/tmp/license_website'
+LAUNCHPAD_SOURCE_DIR = "#{AUTO_ROOT}/lp"
 if !File.exist?(AUTO_ROOT)
   Dir.mkdir(AUTO_ROOT)
 end
+if !File.exist?(LAUNCHPAD_SOURCE_DIR)
+  Dir.mkdir(LAUNCHPAD_SOURCE_DIR)
+end
+
 pf = Log4r::PatternFormatter.new(
   :pattern => "%d [%l]: %M",
   :date_format => "%Y/%m/%d %H:%M:%S"
