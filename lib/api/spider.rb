@@ -3,13 +3,13 @@ require "httparty"
 module API
 
   class Spider
-    def initialize(url, pack_name)
-      @url = url
+    def initialize(homepage_url, pack_name)
+      @homepage_url = homepage_url
       @pack_name = pack_name
     end
 
     def find_source_url()
-      response = HTTParty.get(@url)
+      response = HTTParty.get(@homepage_url)
       if response.code == 200
         body = response.body
         # TODO: author name valid
