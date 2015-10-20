@@ -169,7 +169,7 @@ class Github
 
     if license == nil
       license_contents[:readme].each do |c|
-        p "file name:" + c['name']
+        $plog.debug(" README file name: #{c['name']}")
         if File.extname(c['name']) == '.rdoc'
           regular_start = /^==[ ]*(copying|license){1}:*/i
           regular_end   = /^==/
@@ -204,7 +204,7 @@ class Github
           # readme licnese text Successfully extracted
           if start_flag != nil
             #p "readme license info:"
-            #readme_license =  readme_text[start_flag,end_flag - start_flag]
+            readme_license =  readme_text[start_flag,end_flag - start_flag]
             license = License_recognition.new.similarity(readme_license, STD_LICENSE_DIR)
             break
           else

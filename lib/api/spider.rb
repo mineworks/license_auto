@@ -1,4 +1,5 @@
 require "httparty"
+require_relative '../../lib/misc'
 
 module API
 
@@ -6,10 +7,16 @@ module API
     def initialize(homepage_url, pack_name)
       @homepage_url = homepage_url
       @pack_name = pack_name
+      http_proxy = Misc.get_http_proxy
+      @http_option = {}
+      if http_proxy
+        @http_option[:http_proxyaddr] = http_proxy[:addr]
+        @http_option[:http_proxyport] = http_proxy[:port]
+      end
     end
 
     def find_source_url()
-      response = HTTParty.get(@homepage_url)
+      response = HTTParty.get(@homepage_url, options=@http_option)
       if response.code == 200
         body = response.body
         # TODO: author name valid
