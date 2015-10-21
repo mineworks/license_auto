@@ -219,7 +219,7 @@ class Github
           start_flag = nil
           end_flag   = nil
           readme_text.each_line("\n") do |line|
-            if line =~ regular_start
+            if line.encode('UTF-8', :invalid => :replace, :undef => :replace) =~ regular_start
               a = readme_text =~ /#{line}/
               start_flag = a + line.size
             elsif nil != start_flag
