@@ -38,8 +38,18 @@ def fetch_license_info_by_source(packer, status=nil)
     license_info = {:license => nil, :license_text => nil, :license_url => nil}
     if github_url != nil
       packer[:source_url] = github_url
+
+      # 1. find a version tag, if version tag not exists, go to default branch
+      # 2. if license file not found in a version tag, go to default branch
       extractor = API::Github.new(github_url, db_ref=packer[:version])
-      license_info = extractor.get_license_info(extractor.ref)
+      license_info = extractor.get_license_info
+      if license_info[:license_url] == nil
+        default_branch, switched = extractor.switch_to_default_branch
+        if switched
+          license_info = extractor.get_license_info
+        end
+      end
+
       packer = packer.merge(license_info)
     elsif bitbucket_url != nil
       packer[:source_url] = bitbucket_url
@@ -165,7 +175,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # pack_id = 1771
+  # pack_id = 19
   # body = '{"pack_id":' + "#{pack_id}}"
   # worker(body)
   main

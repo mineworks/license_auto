@@ -51,7 +51,7 @@ class Github
           return ref_name
         end
       }
-      return nil
+      return get_default_branch()
     end
   end
 
@@ -106,12 +106,42 @@ class Github
     last
   end
 
+  # DOC: https://developer.github.com/v3/repos/#get
+  def get_repo_info()
+    api_url = "https://api.github.com/repos/#{@owner}/#{@repo}"
+    response = HTTParty.get(api_url, options=@http_option)
+    if response.code == 200
+      contents = JSON.parse(response.body)
+      # p contents
+    elsif response.code == 403
+      $plog.error('!!! Github 403 Forbidden.')
+    else
+      $plog.error("!!! response.code: #{response.code}, response.body: #{response.body}")
+    end
+  end
+
+  def switch_to_default_branch
+    default_branch = get_default_branch
+    switched = default_branch != @ref
+    @ref = default_branch
+    return default_branch, switched
+  end
+
+  def get_default_branch
+    repo_info = get_repo_info
+    if repo_info
+      repo_info['default_branch']
+    else
+      nil
+    end
+  end
+
   # DOC: https://developer.github.com/v3/repos/contents/#get-contents
-  def list_contents(path='', ref=nil)
+  def list_contents(path='')
     contents = []
     api_url = "https://api.github.com/repos/#{@owner}/#{@repo}/contents/#{path}"
-    if ref
-      api_url += "?ref=#{ref}"
+    if @ref
+      api_url += "?ref=#{@ref}"
     end
 
     $plog.info("list_contents: api_url: #{api_url}")
@@ -126,9 +156,9 @@ class Github
     contents
   end
 
-  def filter_license_contents(path, ref)
+  def filter_license_contents(path)
     license_contents = {:license => [], :readme => []}
-    root_contents = list_contents(path, ref)
+    root_contents = list_contents(path)
     root_contents.each do |c|
       if c['type'] == 'file'
         if API::Helper.is_license_file(c['name'])
@@ -142,9 +172,9 @@ class Github
     license_contents
   end
 
-  def get_license_info(ref=nil)
+  def get_license_info()
     license = license_url = license_text = nil
-    license_contents = filter_license_contents(path='', ref)
+    license_contents = filter_license_contents(path='')
     #$plog.debug("license_contents: #{license_contents}")
     license_contents[:license].each do |c|
       download_url = c['download_url']
@@ -201,14 +231,13 @@ class Github
           if start_flag.class == Fixnum and end_flag == nil
             end_flag = readme_text.size
           end
-          # readme licnese text Successfully extracted
+
           if start_flag != nil
             #p "readme license info:"
             readme_license =  readme_text[start_flag,end_flag - start_flag]
             license = License_recognition.new.similarity(readme_license, STD_LICENSE_DIR)
             break
           else
-            #
           end
 
           if license
@@ -233,12 +262,8 @@ end
 end ### API
 
 if __FILE__ == $0
-  def format_url(repo_url)
-    repo_url = repo_url.gsub(/\.git$/, '')
-    patten = API::SOURCE_URL_PATTERN[:github]
-    result = patten.match(repo_url)
-    $plog.debug("result: #{result}")
-    result
-  end
-  format_url('https://github.com/fog/fog-profitbricks')[:host]
+  url = 'https://github.com/geemus/netrc'
+  g = API::Github.new(url, '0.7')
+  br = g.get_default_branch
+  p br
 end
