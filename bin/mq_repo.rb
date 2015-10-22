@@ -80,8 +80,8 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"repo_id":81}'
-  # worker(body)
+  #body = '{"repo_id":77}'
+  #worker(body)
   main
 
 end
