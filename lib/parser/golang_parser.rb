@@ -45,19 +45,24 @@ class GolangParser
         out = o.readlines
         error = e.readlines
         if error.length > 0
-          # todo: report error
+          raise Exception("cmd error: #{error}")
         elsif out.length > 0
           out2 = out.join('').gsub(/}\n{/, "}\n\n{").split(/\n\n/)
           out2.each {|s|
             j = JSON::parse(s)
-            deps = j.fetch('Deps')
-            deps.each {|d|
-              unless GOLANG_STD_PACKAGES.include?(d)
-                unless d.index('.').nil?
-                  pack_names.add(d)
+            # $plog.info("json: #{j}")
+            deps = j['Deps']
+            if deps == nil
+              next
+            else
+              deps.each {|d|
+                unless GOLANG_STD_PACKAGES.include?(d)
+                  unless d.index('.').nil?
+                    pack_names.add(d)
+                  end
                 end
-              end
-            }
+              }
+            end
           }
         else
           $plog.error "!!!Opps'"
