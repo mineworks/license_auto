@@ -116,18 +116,28 @@ def worker(body)
         # TODO: 3 website
       elsif lang == 'NodeJs'
         # TODO:
-      else
-        $plog.info("packer: #{packer}")
-        if packer[:source_url] == nil and packer[:homepage] != nil
-          spider_source_url = API::Spider.new(packer[:homepage], pack['name']).find_source_url
-          $plog.debug("spider_source_url: #{spider_source_url}")
-          if spider_source_url
-            packer[:source_url] = spider_source_url
-            packer = fetch_license_info_by_source(packer, status=31)
-          end
-        end
-        $plog.error("!!! Unresolved pack: #{pack}")
       end
+    elsif lang == 'manifest.yml'
+      source_code_download_url = api_get_manifest_download_url(pack_id)[0]['source_url']
+      if source_code_download_url == nil
+        raise "pack_id(#{pack_id}) source_url is null"
+      else
+        manifest = API::ManifestPackage.new(source_code_download_url)
+        license_info = manifest.fetch_license_info_from_local_source
+        packer = packer.merge(license_info)
+        packer = PackUpdate.judge_pack_status(packer)
+      end
+    else
+      $plog.info("packer: #{packer}")
+      if packer[:source_url] == nil and packer[:homepage] != nil
+        spider_source_url = API::Spider.new(packer[:homepage], pack['name']).find_source_url
+        $plog.debug("spider_source_url: #{spider_source_url}")
+        if spider_source_url
+          packer[:source_url] = spider_source_url
+          packer = fetch_license_info_by_source(packer, status=31)
+        end
+      end
+      $plog.error("!!! Unresolved pack: #{pack}")
     end
 
     updater = PackUpdate.new(pack_id, packer)
@@ -175,7 +185,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # pack_id = 19
+  # pack_id = 1796
   # body = '{"pack_id":' + "#{pack_id}}"
   # worker(body)
   main
