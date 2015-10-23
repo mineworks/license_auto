@@ -5,8 +5,8 @@ require_relative '../../lib/db'
 class ManifestParser
   def initialize(repo_filepath, repo_id)
     @repo_filepath = repo_filepath
-    @manifest_file_list = nil
-    ymls = api_get_repo_manifest_file_list(repo_id).values[0]
+    @manifest_file_list = []
+    ymls = api_get_repo_manifest_file_list(repo_id).values[0][0]
     if ymls != nil
       @manifest_file_list = ymls[0].gsub(' ', '').split(',')
     end
