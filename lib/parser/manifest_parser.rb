@@ -32,7 +32,11 @@ class ManifestYAML
   end
 
   def get_dependencies()
-    @contents['dependencies']
+    if @contents['dependencies'] == nil
+      return []
+    else
+      return @contents['dependencies']
+    end
   end
 
   def get_exclude_files()
