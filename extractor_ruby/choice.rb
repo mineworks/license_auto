@@ -1,4 +1,5 @@
 require 'thread/pool'
+require 'bundler'
 
 require_relative './Obtain_path'
 require_relative './Ruby_extractor'
@@ -16,17 +17,18 @@ module ExtractRuby
   end
 
   class RubyExtractotr < Ex
+
+    attr_reader :two_dependencies
+    attr_reader :package_list
+
     def initialize pool_num = 10
-      #@gemfile_lock_path = Array.new();			  # gemfile.lock path , type : Array
-      #@repo_name         = repo              # repo name         , type : String
-      #@search_local_data = Read_local_data.new(local_data_path);
-      @package_list      = Array.new()       # [name, version, status] package list , not exist "\n"
-      #@gemfile_lock      = Array.new()       # gemfile.lock content  ,not exist "\n"
-      @failure_list      = Array.new()       # parse failure list , exist "\n"
-      @license_list      = Array.new()       # success List
+      @package_list       = Array.new()       # [name, version, status] package list , not exist "\n"
+      @failure_list       = Array.new()       # parse failure list , exist "\n"
+      @license_list       = Array.new()       # success List
+      @two_dependencies   = Array.new()       # gemfile.lock two dependencies
       #@pool              = Thread.pool(pool_num)
       @parse_error_st    	= 33
-      @rubygems_not_found = 30
+      @rubygems_not_found = 30               # rubygemsDB not found
 
     end
 
@@ -39,10 +41,10 @@ module ExtractRuby
     end
 
     # description : parse ruby package(name,version) from gemfile.lcok file
+    #             : old rule,
     # repo_path   : repo path , type : String
     # st_true     : Correct extraction
     # st_error    : Extraction failed, you need to manually
-
     def parse_gemfile_lock(repo_path, st_true = 10, st_error = @parse_error_st)
     	path = Obtain_path.new(repo_path, "gem", ".lock").get_data
       #@failure_list.concat(path)
@@ -56,16 +58,43 @@ module ExtractRuby
       end
     end
 
+    # # https://gist.github.com/flavio/1722530
+    # https://github.com/bundler/bundler/blob/master/lib/bundler/lockfile_parser.rb
+    # description : use bundler extract ruby package from gemfile.lcok
+    # repo_path   : local repo path , type : String
+    # st_true     : Correct extraction 10
+    def parse_bundler(repo_path, st_true = 10)
+      path = Obtain_path.new(repo_path, "gem", ".lock").get_data
+      if path.size == 0
+        p 'gemfile.lock is null,ruby package is null'
+        return -1
+      end
+
+      path.each do |ph|
+        data = File.readlines(ph)
+        lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
+        lockfile.specs.each do |s| # if no package then .each == 0
+          s.dependencies.each{|rows|
+            tmp = Array.new
+            tmp.concat([rows.name])
+            #print rows.name
+            rows.requirement.requirements.each{|row|
+              tmp.concat [[row[0], row[1].version]]
+            }
+            tmp.concat [rows.type]
+            @two_dependencies << tmp
+          }
+          @package_list.push [s.name, s.version.to_s, st_true]
+        end
+      end
+    end # def parse_bundler
+
 
     def select_rubygems_db
       require_relative '../lib/api/gem_data'
-      ruby_pack = Array.new
       rubygems_result = Array.new
-
-      ruby_pack.concat(@package_list)
-      ruby_pack.concat(@failure_list)
       ruby_gems = API::GemData.new
-      ruby_pack.each do |row|
+      @package_list.each do |row|
         pack_hash = {
             :pack_name => nil,
             :pack_version => nil,
@@ -73,19 +102,15 @@ module ExtractRuby
             :source_url => nil,
             :license => nil,
             :status => 10,
-            :cmt => nil
+            :cmt => nil,
+            :language => nil
         }
         if 10 == row[2]
           result = ruby_gems.get_gemdata(row[0],row[1])
-          if result == nil and row[1].count('.')  == 1
-            version = row[1] + '.0'
-            result = ruby_gems.get_gemdata(row[0],version)
-          end
-
           if result != nil
             pack_hash[:pack_name]    = result[:name]
             pack_hash[:pack_version] = result[:version]
-            pack_hash[:homepage]    = result[:homepage]
+            pack_hash[:homepage]     = result[:homepage]
             pack_hash[:source_url]   = result[:source_url]
             pack_hash[:license]      = result[:license]
             pack_hash[:status]       = row[2]
@@ -103,19 +128,6 @@ module ExtractRuby
             pack_hash[:status]       = @rubygems_not_found
             pack_hash[:cmt]          = nil
           end
-
-        elsif @parse_error_st == row[2]
-          pack_hash[:pack_name]    = row[0]
-          if "" == row[1]
-            pack_hash[:pack_version] = nil
-          else
-            pack_hash[:pack_version] = row[1]
-          end
-          pack_hash[:homepage]    = nil
-          pack_hash[:source_url]   = nil
-          pack_hash[:license]      = nil
-          pack_hash[:status]       = row[2]
-          pack_hash[:cmt]          = nil
         end
 
         rubygems_result << pack_hash
@@ -123,15 +135,6 @@ module ExtractRuby
 
       return rubygems_result
     end # def select_rubygems_db
-
-    # # description : record gemfile.lcok
-    # def log_package
-    #   log_path = out_path(@repo_name,1)
-    #   write_file(log_path + "/gemfilelist.txt", @package_list,'w',1)
-    #   log_path = out_path(@repo_name,2)
-    #   write_file(log_path + "/failurelist.txt", @failure_list,'w',1)
-    #
-    # end # def log_package
 
     # description : remove duplicate package
     def remove_duplicate
@@ -149,9 +152,6 @@ module ExtractRuby
         end
       end
       @package_list.compact!
-      # output package list
-      # log_path = out_path(@repo_name,1)
-      # write_file(log_path + "/package_list.txt", @package_list,'w',1)
     end # def remove_duplicate
 
     
@@ -169,9 +169,6 @@ module ExtractRuby
       if @package_list.size != @license_list.size
         p "There are unfinished"
       end
-
-      # log_path = out_path(@repo_name,2)
-      # write_file(log_path + "/package_license.csv",@license_list)
     end # def web_crawl
 
   end # class RubyExtractotr
@@ -179,15 +176,14 @@ module ExtractRuby
 end # module ExtractRuby
 
 if __FILE__ == $0
-  url = '/home/li/luowq/test_repo/insights'
-
-  #ruby_path = Obtain_path.new(url,".lock").get_data
-  #p ruby_path
-  #ruby = ExtractRuby::RubyExtractotr.new(ruby_path,"insights",local_data_path)
-
+  url = '/home/li/luowq/test_repo/go-buildpack'
   ruby = ExtractRuby::RubyExtractotr.new;
-  ruby.parse_gemfile_lock(url)
-  ruby.web_crawl
+  ruby.parse_bundler(url)
+  #ruby.select_rubygems_db.each{|value| p value }
+  ruby.package_list.each{|value| p value}
+  p "!!!!!!!!!!!!!!!!!!!!!!!!"
+  ruby.two_dependencies.each{|value| p value}
+  #ruby.web_crawl
 end
 
 
