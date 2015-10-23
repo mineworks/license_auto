@@ -17,8 +17,27 @@ class PacksSaver
       save_golang
     elsif @lang == 'Ruby'
       save_ruby
+    elsif @lang == 'manifest.yml'
+      save_manifest
     end
   end
+
+  def save_manifest
+    @packs.each {|pack|
+      begin
+        $plog.debug(pack)
+        pack_name, pack_version, status = pack['name'], pack['version'], 10
+        homepage, source_url = nil, pack['uri']
+        license, cmt = nil, nil
+
+        pg_result = api_add_pack(pack_name, pack_version, 'manifest.yml', homepage, source_url, license, status, cmt)
+        enqueue_result(pg_result)
+      rescue Exception => _
+        $plog.error(_)
+      end
+    }
+  end
+
   def save_ruby
     # 格式化DB自定义license格式
     def license_name_format(origin_license)
