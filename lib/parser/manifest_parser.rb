@@ -8,7 +8,7 @@ class ManifestParser
     @manifest_file_list = []
     ymls = api_get_repo_manifest_file_list(repo_id).values[0][0]
     if ymls != nil
-      @manifest_file_list = ymls[0].gsub(' ', '').split(',')
+      @manifest_file_list = ymls.gsub(' ', '').split(',')
     end
   end
 
