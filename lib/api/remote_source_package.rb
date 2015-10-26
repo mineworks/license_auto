@@ -88,7 +88,7 @@ module API
               elsif out.length > 0
                 out.each {|line|
                   license_file_path = line.gsub(/\n/, '')
-                  if !API::Helper.is_root_file(license_file_path)
+                  if @root_license_only and !API::Helper.is_root_file(license_file_path)
                     next
                   end
                   cmd_read_content = "tar -xjO --file=#{source_code_path} #{license_file_path} -C /dev/null"
@@ -167,7 +167,8 @@ module API
   class Launchpad < RemoteSourcePackage
     # DOC: https://launchpad.net/+apidoc/1.0.html
     # The source code's license is no relation with which CPU architecture
-    def initialize(distribution, distro_series, binary_package_name, binary_package_version, architecture='amd64')
+    def initialize(distribution, distro_series, binary_package_name, binary_package_version, architecture='amd64',
+                   root_license_only=true)
       @site_url = 'https://launchpad.net'
       @distribution = distribution
       @distro_series = distro_series
@@ -178,6 +179,7 @@ module API
 
       @source_url = nil
       @source_path = nil
+      @root_license_only = root_license_only
     end
 
     def binary_package_link()
@@ -248,8 +250,9 @@ module API
   end
 
   class ManifestPackage < RemoteSourcePackage
-    def initialize(source_code_download_url)
+    def initialize(source_code_download_url, root_license_only=false)
       @download_url = source_code_download_url
+      @root_license_only = root_license_only
     end
 
     def find_source_package_homepage_and_download_url
