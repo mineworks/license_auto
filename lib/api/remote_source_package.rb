@@ -250,7 +250,7 @@ module API
   end
 
   class ManifestPackage < RemoteSourcePackage
-    def initialize(source_code_download_url, root_license_only=false)
+    def initialize(source_code_download_url, root_license_only=true)
       @download_url = source_code_download_url
       @root_license_only = root_license_only
     end
