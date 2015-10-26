@@ -24,6 +24,8 @@ pf = Log4r::PatternFormatter.new(
   :date_format => "%Y/%m/%d %H:%M:%S"
 )
 
+HTTPARTY_DOWNLOAD_TIMEOUT = 480
+
 
 Log4r::StderrOutputter.new('console', :formatter => pf)
 if $debug

@@ -1,0 +1,2 @@
+class NpmParser
+end
