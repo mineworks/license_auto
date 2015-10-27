@@ -86,8 +86,7 @@ module ExtractRuby
             s.source.options['remotes'].each{ |row|
               str += row + ','
             }
-            str = str[0 .. -2]
-            ps['remotes'] = str
+            ps['remotes'] = str[0 .. -2]
           end
           @package_list << ps
           # two dependencies
@@ -200,6 +199,7 @@ end # module ExtractRuby
 
 if __FILE__ == $0
   url = '/home/li/luowq/test_repo/go-buildpack'
+  url = '/home/li/luowq/test_repo/cf-cassandra-release/Gemfile.lock'
   ruby = ExtractRuby::RubyExtractotr.new;
   ruby.parse_bundler(url)
   ruby.package_list.each{|value| p value}
