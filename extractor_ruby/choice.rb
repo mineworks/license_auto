@@ -89,7 +89,6 @@ module ExtractRuby
             str = str[0 .. -2]
             ps['remotes'] = str
           end
-          p  ps
           @package_list << ps
           # two dependencies
           # s.dependencies.each{|rows|
