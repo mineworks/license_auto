@@ -12,6 +12,29 @@ require_relative '../../lib/misc'
 
 module API
 
+  # TODO: replace this impl
+  # Ruby mixin's way
+  #
+  # module Person
+  #   def self.included x
+  #     ms = x.instance_methods(false)
+  #     [:xx, :yy, :zz].each do |xn|
+  #       raise "Please IMPL #{xn} Interface" unless ms.include?(xn)
+  #     end
+  #   end
+  # end
+  #
+  # class Customer
+  #   def xx;end
+  #   def yy;end
+  #   def zz;end
+  #   include Person
+  # end
+  #
+  # c = Customer.new
+  # c.xx
+  # c.yy
+  # c.zz
   class RemoteSourcePackage
     def initialize()
     end

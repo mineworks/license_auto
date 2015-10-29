@@ -54,7 +54,7 @@ module ExtractRuby
         return -1
       end
       path.each do |ph|
-	      $plog.debug("Gemfile.lock file pathname: #{ph}")
+        $plog.debug("Gemfile.lock file pathname: #{ph}")
         data = File.readlines(ph)
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
         lockfile.specs.each do |s|
