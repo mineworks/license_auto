@@ -29,6 +29,8 @@ cp conf/.git-credentials ~/.git-credentials
 git config --global credential.helper 'store --file ~/.git-credentials'
 git config --global http.proxy http://proxy.mycompany:80
 
+npm install -g semver
+
 
 
 

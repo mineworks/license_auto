@@ -2,8 +2,8 @@ module API
 
   SOURCE_URL_PATTERN = {
     :github => /(?<protocol>http[s]?):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/]+)(?<ext>\.git)?/,
-    :bitbucket => /(?<protocol>http[s]?):\/\/(?<host>bitbucket\.org)\/(?<owner>.+)\/(?<repo>.+)(?<ext>\.git)?/
-    # :is_source_url => /(github|bitbucket)/i
+    :bitbucket => /(?<protocol>http[s]?):\/\/(?<host>bitbucket\.org)\/(?<owner>.+)\/(?<repo>.+)(?<ext>\.git)?/,
+    :github_html_page => /(?<protocol>http[s]?):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/]+)\/blob\/(?<branch>.+)\/(?<file_pathname>.+)?/,
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,

@@ -81,8 +81,8 @@ def worker(body)
     else
       _status = pack['status'].to_i
       if _status >= 30
-        cmt = "This package(pack_id=#{pack_id}, status=#{_status}) have no permission to self run"
-        $plog.info(cmt)
+        info = "This package(pack_id=#{pack_id}, status=#{_status}) have no permission to self run"
+        $plog.info(info)
         return
       end
     end
@@ -114,9 +114,17 @@ def worker(body)
       elsif lang =~ API::OS_PATTERN[:centos]
           # *.rpm, $yum
       elsif lang == 'Java'
-        # TODO: 3 website
+        # TODO: 3 website, License: pom.xml, http://search.maven.org/#api
       elsif lang == 'NodeJs'
-        # TODO:
+        registry = API::NpmRegistry.new(pack['name'], pack['version'])
+        license_info = registry.get_license_info
+        packer = packer.merge(license_info)
+        packer = PackUpdate.judge_pack_status(packer)
+        if packer[:status] < 40 and packer[:status] >= 30
+          license_info = fetch_license_info_by_source(packer)
+          packer = packer.merge(license_info)
+          packer = PackUpdate.judge_pack_status(packer)
+        end
       end
     elsif lang == 'manifest.yml'
       source_code_download_url = api_get_manifest_download_url(pack_id)[0]['source_url']
