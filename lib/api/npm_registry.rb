@@ -57,7 +57,7 @@ module API
       available_versions = []
       package_meta = get_package_meta
       all_versions = package_meta['versions']
-
+      $plog.debug("sem_version_range: #{sem_version_range}")
       all_versions.each_key {|version|
         # node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
         cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
@@ -85,7 +85,7 @@ module API
     def chose_one_available_version(sem_version_range)
       available_versions = get_available_versions(sem_version_range)
       # TODO: is it right?
-      $plog.debug("chose version: #{available_versions.last}")
+      $plog.debug("chosed version: #{available_versions.last}")
       available_versions.last
     end
 

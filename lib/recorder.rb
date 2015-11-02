@@ -30,7 +30,7 @@ class PacksSaver
         homepage, source_url = nil, pack['uri']
         license, cmt = nil, nil
 
-        pg_result = api_add_pack(pack_name, pack_version, 'manifest.yml', homepage, source_url, license, status, cmt)
+        pg_result = api_add_pack(pack_name, pack_version, @lang, homepage, source_url, license, status, cmt)
         enqueue_result(pg_result)
       rescue Exception => _
         $plog.error(_)
