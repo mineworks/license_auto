@@ -35,6 +35,17 @@ def api_get_repo_source_url(repo_id)
   source_url
 end
 
+def api_clear_relations(release_id, repo_id)
+  r = $conn.exec_params("
+        delete from product_repo_pack
+          where product_repo_id in (
+            select id from product_repo where
+              release_id = $1
+              and repo_id = $2
+          )", [release_id, repo_id])
+  $plog.info("You are rerunning the repo's deps, the history relation table data of this repo was deleted")
+end
+
 def api_get_case_by_id(case_id)
   repo_id = nil
   r = $conn.exec_params("select product_id, release_id, repo_id from product_repo where id = $1", [case_id])

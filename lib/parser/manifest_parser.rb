@@ -1,6 +1,7 @@
 require 'yaml'
 
 require_relative '../../lib/db'
+require_relative '../api/pattern'
 
 class ManifestParser
   def initialize(repo_filepath, repo_id)
@@ -14,10 +15,22 @@ class ManifestParser
 
   def start
     packs = []
+    $plog.debug("@manifest_file_list: #{@manifest_file_list}")
     @manifest_file_list.each {|file_name|
       manifest_file_namepath = "#{@repo_filepath}/#{file_name}"
-      dependencies = ManifestYAML.new(manifest_file_namepath).get_dependencies
-      packs.concat(dependencies)
+      $plog.debug("manifest_file_namepath: #{manifest_file_namepath}")
+      if File.exists?(manifest_file_namepath)
+        # TODO:
+        if file_name =~ API::FILE_NAME_PATTERN[:components_yml]
+        else
+          # normal 'manifest.yml' file
+          dependencies = ManifestYAML.new(manifest_file_namepath).get_dependencies
+          packs.concat(dependencies)
+        end
+
+      else
+        raise "Parameter error, @manifest_file_list: #{@manifest_file_list}"
+      end
     }
     packs
   end

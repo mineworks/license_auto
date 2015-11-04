@@ -31,6 +31,8 @@ def worker(body)
       return
     end
 
+    api_clear_relations(release_id, repo_id)
+
     packs = GolangParser.start(clone_path)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)
     saver.save
@@ -80,7 +82,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"repo_id":77}'
+  # body = '{"repo_id":2, "release_id": 1}'
   # worker(body)
   main
 
