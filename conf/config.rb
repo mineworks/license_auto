@@ -51,6 +51,8 @@ def log_usage_example()
   $plog.fatal "This is a message with level FATAL"
 end
 
+LICENSE_WEBSITE_URL = 'http://localhost:3000'
+
 pg_conn_hash = {
     host: 'license_auto_dev',
     port: '5432',
