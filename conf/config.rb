@@ -4,7 +4,7 @@ require_relative '../lib/api/mq'
 
 $debug = true
 
-AUTO_ROOT = '/tmp/license_website'
+AUTO_ROOT = '/tmp/license_auto_cache'
 LAUNCHPAD_SOURCE_DIR = "#{AUTO_ROOT}/lp"
 MANIFEST_SOURCE_DIR = "#{AUTO_ROOT}/manifest"
 if !File.exist?(AUTO_ROOT)
