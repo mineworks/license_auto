@@ -82,7 +82,7 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"repo_id":2, "release_id": 1}'
+  # body = '{"repo_id": 78, "release_id": 2}'
   # worker(body)
   main
 
