@@ -51,7 +51,14 @@ class GolangParser
           out2.each {|s|
             j = JSON::parse(s)
             # $plog.info("json: #{j}")
-            imports = j['Deps'] + j['Imports'] + j['TestImports']
+            imports = []
+            section_keys = ['Deps', 'Imports', 'TestImports', 'XTestImports']
+            section_keys.each {|s|
+              if j[s]
+                imports += j[s]
+              end
+            }
+
             if imports.size == 0
               next
             else
