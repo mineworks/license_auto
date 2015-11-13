@@ -65,9 +65,13 @@ module Cloner
     gitmodules = find_gitmodules(clone_path)
     gitmodules.each {|url|
       # git@github.com:repo_owner/reop_name
+      # TODO: /^(?<username>.+)@/
       ssh_pattern = /^git@/
+      git_pattern = /^git:\/\//
       if url =~ ssh_pattern
         url = url.gsub(/:/, '/').gsub(ssh_pattern, 'https://')
+      elsif url =~ git_pattern
+        url = url.gsub(git_pattern, 'http://')
       end
       $plog.debug("gitmodules url: #{url}")
 
