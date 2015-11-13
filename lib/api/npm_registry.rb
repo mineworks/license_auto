@@ -116,12 +116,14 @@ module API
 
         homepage = pack_info['homepage']
         repository = pack_info['repository']
-        if repository['type'] == 'git'
-          source_url = repository['url'].gsub(/(git:\/\/|git\+ssh:\/\/git\@)/, 'http://').gsub(/\.git$/, '')
-        elsif repository['type'] =~ 'http'
-          source_url = repository['url']
-        else
-          $plog.info("repository special type: #{repository}")
+        if repository
+          if repository['type'] == 'git'
+            source_url = repository['url'].gsub(/(git:\/\/|git\+ssh:\/\/git\@)/, 'http://').gsub(/\.git$/, '')
+          elsif repository['type'] =~ 'http'
+            source_url = repository['url']
+          else
+            $plog.info("repository special type: #{repository}")
+          end
         end
 
         if license_text == nil
