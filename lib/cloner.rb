@@ -64,7 +64,8 @@ module Cloner
   def self.process_gitmodules(clone_path, release_id, parent_repo_id)
     gitmodules = find_gitmodules(clone_path)
     gitmodules.each {|url|
-      # sub_repo_id = 0, new_added = false
+      # git@github.com:repo_owner/reop_name
+      url = url.gsub(/:/, '/').gsub(/^git@/, 'https://')
       $plog.debug("gitmodules url: #{url}")
 
       g = API::Github.new(url)
