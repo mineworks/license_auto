@@ -80,7 +80,7 @@ module Cloner
       org_url = "#{sub_host}/#{sub_repo_owner}"
 
       if api_get_whitelist_orgs(org_url).ntuples > 0
-        $plog.debug("git submodule IS in whitelist_orgs: #{url}")
+        $plog.debug("submodule in whitelist_orgs: #{url}")
 
         if api_get_repo_by_url(url).ntuples == 0
           new_added, sub_repo = add_repo(sub_repo_name, url, parent_repo_id=parent_repo_id)
@@ -98,6 +98,7 @@ module Cloner
           end
         end
       else
+        $plog.debug("submodule not in whitelist_orgs: #{url}")
         pack_name = sub_repo_name
         last_commit = g.last_commits
         pack_version = last_commit ? last_commit['sha'] : nil
@@ -105,8 +106,10 @@ module Cloner
         source_url = url
         homepage = license = cmt = nil
         status = 10
-        pack_id, is_newbie = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
-        api_add_product_repo_pack(@repo_id, pack_id, @release_id)
+        add_pack_result = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
+        pack_id, is_newbie = add_pack_result['pack_id'].to_i, (add_pack_result['is_newbie'] == 't')
+        r = api_add_product_repo_pack(parent_repo_id, pack_id, release_id)
+        $plog.debug("r: #{r}")
         if is_newbie
           queue_name = 'license_auto.pack'
           $rmq.publish(queue_name, {:pack_id => pack_id}.to_json, check_exist=true)
@@ -122,7 +125,7 @@ module Cloner
       :repo_id => sub_repo_id
     }
     queue_name = 'license_auto.repo'
-    $plog.info("git submodule found and enqueue MQ -> repo, release_id: #{release_id}, sub_repo_id: #{sub_repo_id}")
+    $plog.info("submodule is Repo, enqueue MQ.repo, release_id: #{release_id}, sub_repo_id: #{sub_repo_id}")
     $rmq.publish(queue_name, message.to_json)
   end
 

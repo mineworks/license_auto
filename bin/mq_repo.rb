@@ -21,6 +21,9 @@ def worker(body)
     repo_id = case_item['repo_id'].to_i
     release_id = case_item['release_id'].to_i
     repo_url = api_get_repo_source_url(repo_id)
+
+    api_clear_relations(release_id, repo_id)
+
     clone_path = Cloner::clone_repo(repo_url, release_id, repo_id)
 
     if clone_path == nil
@@ -30,8 +33,6 @@ def worker(body)
       api_setup_case_status(repo_id, 20, cmt)
       return
     end
-
-    api_clear_relations(release_id, repo_id)
 
     packs = GolangParser.start(clone_path)
     saver = PacksSaver.new(repo_id, packs, 'Golang', release_id)

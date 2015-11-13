@@ -45,7 +45,7 @@ def api_clear_relations(release_id, repo_id)
               release_id = $1
               and repo_id = $2
           )", [release_id, repo_id])
-  $plog.info("You are rerunning the repo's deps, the history relation table data of this repo was deleted")
+  $plog.warn("You are rerunning the repo's deps, the history relation table data of this repo was deleted")
 end
 
 def api_get_case_by_id(case_id)
@@ -88,8 +88,9 @@ def api_add_product_repo(release_id, parent_repo_id, sub_repo_id)
 end
 
 def api_add_product_repo_pack(repo_id, pack_id, release_id)
-  rid = nil
+  # $plog.debug("api_add_product_repo_pack: (repo_id=#{repo_id}, pack_id=#{pack_id}, release_id=#{release_id})")
   r = $conn.exec_params("select add_product_repo_pack($1, $2, $3)", [repo_id, pack_id, release_id])
+  # $plog.debug("SQL: select add_product_repo_pack(#{repo_id}, #{pack_id}, #{release_id})")
   r[0]
 end
 
