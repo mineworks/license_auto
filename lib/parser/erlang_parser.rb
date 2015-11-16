@@ -45,6 +45,7 @@ class ErlangParser
         pack_version = matched[:ref]
         if source_url =~ API::SOURCE_URL_PATTERN[:github]
           pack_name = API::Github.new(source_url).repo
+          source_url = source_url.gsub(/git:\/\//, 'https://')
         else
           pack_name = source_url
         end
