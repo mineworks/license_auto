@@ -1,7 +1,8 @@
 module API
 
   SOURCE_URL_PATTERN = {
-    :github => /(?<protocol>http[s]?):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/]+)(?<ext>\.git)?/,
+    :github => /(?<protocol>(http[s]?|git)):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
+    :git_kernel_org => /(?<protocol>http[s]?):\/\/(?<host>git\.kernel\.org)\/.+\/(?<owner>.+)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
     # DOC: https://docs.npmjs.com/files/package.json#git-urls-as-dependencies
     :npm_urls => /(?<protocol>git):\/\/(?<host>.*\..*)\/(?<owner>.+)\/(?<repo>[^\/#]+(\.git)?)(#(?<ref>.*))?/,
     :bitbucket => /(?<protocol>http[s]?):\/\/(?<host>bitbucket\.org)\/(?<owner>.+)\/(?<repo>.+)(?<ext>\.git)?/,

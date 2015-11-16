@@ -13,9 +13,12 @@ class Github
   attr_reader :ref, :owner, :repo, :host
 
   def initialize(repo_url, db_ref=nil)
+    repo_url = repo_url.gsub(/git:\/\//, 'https://')
     @repo_url = repo_url
 
-    regex_group = format_url(repo_url)
+    repo_url = repo_url.gsub(/\.git$/, '')
+    repo_url_pattern = API::SOURCE_URL_PATTERN[:github]
+    regex_group = repo_url_pattern.match(repo_url)
     @protocol = regex_group[:protocol]
     @host = regex_group[:host]
     @owner = regex_group[:owner]
@@ -58,12 +61,6 @@ class Github
       }
       return get_default_branch()
     end
-  end
-
-  def format_url(repo_url)
-    repo_url = repo_url.gsub(/\.git$/, '')
-    patten = API::SOURCE_URL_PATTERN[:github]
-    result = patten.match(repo_url)
   end
 
   # DOC: https://developer.github.com/v3/git/refs/
