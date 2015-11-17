@@ -176,7 +176,6 @@ def api_get_packs_by_name(name, version, lang)
 end
 
 def api_get_gemdata_by_name(name)
-  pack = nil
   r = $gemconn.exec_params("select rubygems.name, versions.number, linksets.home, linksets.code, versions.licenses 
                               from rubygems, versions, linksets 
                               where rubygems.id = versions.rubygem_id 
@@ -184,24 +183,15 @@ def api_get_gemdata_by_name(name)
                               and rubygems.name = $1 
                               and versions.latest = true 
                               and versions.platform = $2", [name, 'ruby'])
-  if r.ntuples > 0
-    pack = r[0]
-  end
-  pack
 end
 
 def api_get_gemdata_by_name_and_version(name, version)
-  pack = nil
   r = $gemconn.exec_params("select rubygems.name, versions.number, linksets.home, linksets.code, versions.licenses 
                               from rubygems, versions, linksets 
                               where rubygems.id = versions.rubygem_id 
                               and rubygems.id = linksets.rubygem_id 
                               and rubygems.name = $1 
                               and versions.number = $2", [name, version])
-  if r.ntuples > 0
-    pack = r[0]
-  end
-  pack
 end
 
 def api_get_template_result_by_product(name, release_name, release_version)

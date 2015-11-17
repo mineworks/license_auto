@@ -10,7 +10,7 @@ require_relative './helper'
 module API
 
 class Github
-  attr_reader :ref, :owner, :repo, :host
+  attr_reader :ref, :owner, :repo, :host, :repo_url
 
   def initialize(repo_url, db_ref=nil)
     ssh_pattern = /^git@/
@@ -21,7 +21,6 @@ class Github
       repo_url = repo_url.gsub(/:/, '/').gsub(/^git@/, 'https://')
     end
     @repo_url = repo_url
-    $plog.warn("Hi, mic, repo_url: #{repo_url}")
 
     repo_url = repo_url.gsub(/\.git$/, '')
     repo_url_pattern = API::SOURCE_URL_PATTERN[:github]
@@ -368,8 +367,6 @@ end
 end
 
 if __FILE__ == $0
-  #url = 'https://github.com/geemus/netrc'
-  #url = ' https://github.com/cloudfoundry/compile-extensions'
   url = 'https://github.com/aws/aws-sdk-ruby'
   g = API::Github.new(url)
   a = g.get_license_info

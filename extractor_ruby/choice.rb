@@ -6,6 +6,7 @@ require_relative './Ruby_extractor'
 require_relative './Read_local_data'
 require_relative './utils'
 require_relative '../conf/config'
+require_relative '../lib/api/pattern'
 #require 'License_recognition'
 
 include Ruby_extractor
@@ -22,23 +23,14 @@ module ExtractRuby
     # attr_reader :two_dependencies
     attr_reader :package_list
 
-    def initialize
-      @package_list       = Array.new()       # [name, version, status] package list , not exist "\n"
-      @failure_list       = Array.new()       # parse failure list , exist "\n"
-      @license_list       = Array.new()       # success List
-      # @two_dependencies   = Array.new()       # gemfile.lock two dependencies
-      @parse_error_st    	= 33
-      @rubygems_not_found = 30               # rubygemsDB not found
-      @st_true            = 10               # Correct extraction 10
+    def initialize(repo_path)
+      @repo_path = repo_path
 
-    end
-
-    def get_package
-      @package_list
-    end
-
-    def get_failurelist
-      @failure_list
+      @package_list       = [] # [name, version, status] package list , not exist "\n"
+      @rubygems_not_found = 30 # rubygemsDB not found
+      @status_init = 10
+      # gem server or git uri
+      @status_private_source = 33
     end
 
     # https://gist.github.com/flavio/1722530
@@ -46,48 +38,109 @@ module ExtractRuby
     # description : use bundler extract ruby package from gemfile.lcok
     # repo_path   : local repo path , type : String
     # st_true     : Correct extraction 10
-    # s.source.options['tag']
-    def parse_bundler(repo_path)
-      path = Obtain_path.new(repo_path, "gem", ".lock").get_data
-      if path.size == 0
+    # s.source.options['tag'], ['revision']
+    def get_first_level_specs()
+      all_specs = []
+      lockfiles = Obtain_path.new(@repo_path, "gem", ".lock").get_data
+      if lockfiles.size == 0
         $plog.info('gemfile.lock files not found,ruby packages not found ')
         return -1
       end
-      path.each do |ph|
-        $plog.debug("Gemfile.lock file pathname: #{ph}")
-        data = File.readlines(ph)
-        lockfile = Bundler::LockfileParser.new(Bundler.read_file(ph))
-        lockfile.specs.each do |s|
-          ps = {
-            'name'    => s.name,
-            'version' => s.version.to_s,
-            'st'      => @st_true
-          }
-          if s.source.options['uri'] != nil #['tag'] ['revision']
-            ps['uri'] = s.source.options['uri']
-          elsif s.source.options['remotes'] != nil
-            ps['remotes'] = s.source.options['remotes'].join(',').gsub(/http[s]?:\/\//, '')
-          end
-          @package_list << ps
 
-          # 2nd level dependencies
+      lockfiles.each do |pathname|
+        $plog.debug("Gemfile.lock file pathname: #{pathname}")
+        lockfile_parser = Bundler::LockfileParser.new(Bundler.read_file(pathname))
+        lockfile_parser.specs.each do |s|
+          all_specs.push(s)
+          # The 2nd level dependencies
           # s.dependencies.each{|rows|
-          #   tmp = Array.new
-          #   tmp.concat([rows.name])
-          #   #print rows.name
           #   rows.requirement.requirements.each{|row|
           #     tmp.concat [[row[0], row[1].version]]
           #   }
-          #   tmp.concat [rows.type]
-          #   @two_dependencies << tmp
           # }
         end
       end
+      all_specs
+    end
+
+    def start
+      all_packs = []
+      require_relative '../lib/api/gem_data'
+      require_relative '../lib/api'
+      local_gemdb = API::GemData.new
+      ruby_gems_org = 'https://rubygems.org'
+
+      first_level_specs = get_first_level_specs
+      first_level_specs.each {|s|
+        # $plog.debug("git_uri: #{s.source.options['uri']}, remotes: #{s.source.options['remotes']}")
+        # gem_server_remotes.join(',').gsub(/http[s]?:\/\//, '')
+        pack = nil
+        pack_name = s.name
+        pack_version = s.version.to_s
+
+        if s.source.class == Bundler::Source::Git
+          source_url = s.source.options['uri']
+          _status = @status_init
+          _lang = source_url
+          _cmt = 'Private git uri, source code not found'
+
+          if source_url =~ API::SOURCE_URL_PATTERN[:github]
+            g = API::Github.new(source_url)
+            source_url = g.repo_url
+            _lang = 'https://github.com'
+            if g.list_contents('').size == 0
+              _status = @status_private_source
+              _cmt = nil
+            end
+          end
+          pack = {
+            pack_name: pack_name,
+            pack_version: pack_version,
+            homepage: nil,
+            source_url: source_url,
+            license: nil,
+            status: _status,
+            language: _lang,
+            # This cmt require local rubygems.org database always up-to-date
+            cmt: _cmt
+          }
+        elsif s.source.class == Bundler::Source::Rubygems
+          gem_server_remotes = s.source.options['remotes']
+
+          formatted_remotes = gem_server_remotes.collect {|r|
+            r.gsub(/\/$/, '').gsub(/http:\/\/rubygems\.org/, ruby_gems_org)
+          }
+          # TODO: get Gemfile source section
+          db_pack = local_gemdb.get_gem(pack_name, pack_version)
+          if formatted_remotes.index(ruby_gems_org) and db_pack
+            pack = db_pack.merge({
+                                    :status => 10,
+                                    :language => ruby_gems_org,
+                                    :cmt => nil
+                                  })
+          else
+            formatted_remotes.delete(ruby_gems_org)
+            pack = {
+              pack_name: pack_name,
+              pack_version: pack_version,
+              homepage: nil,
+              source_url: nil,
+              license: 'UNKNOWN',
+              status: @status_private_source,
+              language: formatted_remotes.join(''),
+              # This cmt require local rubygems.org database always up-to-date
+              cmt: 'Private gem server or source code not found'
+            }
+          end
+        end
+        all_packs.push(pack)
+      }
+      all_packs
     end
 
     def select_rubygems_db
       require_relative '../lib/api/gem_data'
-      rubygems_result = Array.new
+      rubygems_result = []
       ruby_gems = API::GemData.new
       @package_list.each do |row|
         pack_hash = {
@@ -134,56 +187,13 @@ module ExtractRuby
       end
 
       return rubygems_result
-    end # def select_rubygems_db
+    end
 
-    # description : remove duplicate package
-    def remove_duplicate
-      # "rack,1.5.2,rack (1.5.2)" ==> "rack,1.5.2"
-      @package_list.each do |package|
-        package.replace(package.split(',')[0] + ',' + package.split(',')[1])
-      end
-      # 1 ... 7 ==> 1,2,3,4,5,6  Range
-      for i in (0 ... @package_list.size) do
-        for j in (i + 1 ... @package_list.size) do
-          if @package_list[i] != nil and @package_list[i] == @package_list[j]
-            @package_list[j] = nil
-          end
-        end
-      end
-      @package_list.compact!
-    end # def remove_duplicate
-
-    
-
-    def web_crawl
-      @package_list.each do |package|
-        p package
-        @license_list << rubygems(package)
-       # @pool.process{
-       #   @license_list << rubygems(package)
-       # }
-      end
-      #@pool.shutdown
-      if @package_list.size != @license_list.size
-        p "There are unfinished"
-      end
-    end # def web_crawl
-
-  end # class RubyExtractotr
-
-end # module ExtractRuby
+  end
+end
 
 if __FILE__ == $0
-  url = '/home/li/luowq/test_repo/go-buildpack'
-  url = '/home/li/luowq/test_repo/cf-cassandra-release/Gemfile.lock'
-  ruby = ExtractRuby::RubyExtractotr.new;
-  ruby.parse_bundler(url)
-  ruby.package_list.each{|value| p value}
-  p "!!!!!!!!!!!!!!!!!!!!!!!!"
-  ruby.select_rubygems_db.each{|value| p value }
-  #
-  #p "!!!!!!!!!!!!!!!!!!!!!!!!"
-  #ruby.web_crawl
+
 end
 
 
