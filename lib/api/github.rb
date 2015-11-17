@@ -13,8 +13,15 @@ class Github
   attr_reader :ref, :owner, :repo, :host
 
   def initialize(repo_url, db_ref=nil)
-    repo_url = repo_url.gsub(/git:\/\//, 'https://')
+    ssh_pattern = /^git@/
+    git_pattern = /^git:\/\//
+    if repo_url =~ git_pattern
+      repo_url = repo_url.gsub(/^git:\/\//, 'https://')
+    elsif repo_url =~ ssh_pattern
+      repo_url = repo_url.gsub(/:/, '/').gsub(/^git@/, 'https://')
+    end
     @repo_url = repo_url
+    $plog.warn("Hi, mic, repo_url: #{repo_url}")
 
     repo_url = repo_url.gsub(/\.git$/, '')
     repo_url_pattern = API::SOURCE_URL_PATTERN[:github]
