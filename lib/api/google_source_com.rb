@@ -32,21 +32,18 @@ module API
     def last_commits
       last_commit = nil
       opts = {:discard_page_bodies => true, :depth_limit => 0}.merge(@http_option)
-      commit_page = "#{@repo_url}/commit"
+      commit_page = "#{@repo_url}"
       Anemone.crawl(commit_page, opts) do |anemone|
         anemone.on_every_page do |page|
-p page.doc
-p page.html
           xpath = "//ol[@class='CommitLog']/li[1]/a[1]"
-          xpath = "//div[@class='RepoShortlog']"
           target_link = page.doc.xpath(xpath)
-          p target_link
+          # p target_link
           if target_link.size == 0
             raise "last_commit error: #{self}, #{@repo_url}"
           else
             # full_href = text.attr('href')
             short_sha = target_link.text()
-            full_sha = target_link.attr('href')
+            full_sha = target_link.attr('href').value
             last_commit = {
               'sha' => full_sha.split('/+/').last
             }
