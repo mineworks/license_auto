@@ -65,6 +65,7 @@ module Cloner
     gitmodules = find_gitmodules(clone_path)
     $plog.info("gitmodules: #{gitmodules}")
     gitmodules.each {|url|
+      homepage = nil
       # git@github.com:repo_owner/reop_name
       ssh_pattern = /^(?<username>.+)@/
       git_pattern = /^git:\/\//
@@ -85,6 +86,7 @@ module Cloner
         g = API::GoogleSourceCom.new(url)
       elsif url =~ API::SOURCE_URL_PATTERN[:go_pkg_in]
         g = API::GoPkgIn.new(url)
+        homepage = url
       else
         g = nil
         raise "Unknown repostory: #{url}"
@@ -117,8 +119,8 @@ module Cloner
         last_commit = g.last_commits
         pack_version = last_commit ? last_commit['sha'] : nil
         lang = g.host
-        source_url = url
-        homepage = license = cmt = nil
+        source_url = g.repo_url
+        license = cmt = nil
         status = 10
         add_pack_result = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
         pack_id, is_newbie = add_pack_result['pack_id'].to_i, (add_pack_result['is_newbie'] == 't')
