@@ -83,6 +83,8 @@ module Cloner
         g = API::Bitbucket.new(url)
       elsif url =~ API::SOURCE_URL_PATTERN[:google_source_com]
         g = API::GoogleSourceCom.new(url)
+      elsif url =~ API::SOURCE_URL_PATTERN[:go_pkg_in]
+        g = API::GoPkgIn.new(url)
       else
         g = nil
         raise "Unknown repostory: #{url}"
@@ -121,7 +123,7 @@ module Cloner
         add_pack_result = api_add_pack(pack_name, pack_version, lang, homepage, source_url, license, status, cmt)
         pack_id, is_newbie = add_pack_result['pack_id'].to_i, (add_pack_result['is_newbie'] == 't')
         r = api_add_product_repo_pack(parent_repo_id, pack_id, release_id)
-        $plog.debug("r: #{r}")
+        # $plog.debug("r: #{r}")
         if is_newbie
           queue_name = 'license_auto.pack'
           $rmq.publish(queue_name, {:pack_id => pack_id}.to_json, check_exist=true)

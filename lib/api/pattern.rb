@@ -9,7 +9,8 @@ module API
     :github_html_page => /(?<protocol>http[s]?):\/\/(?<host>(www\.)?github\.com)\/(?<owner>.+)\/(?<repo>[^\/]+)\/blob\/(?<branch>.+)\/(?<file_pathname>.+)?/,
     :github_dot_com => /github\.com/,
     :rubygems_org => /rubygems\.org/,
-    :google_source_com => /(?<protocol>http[s]?):\/\/(?<owner>.+)\.(?<host>googlesource\.com)\/(?<repo>[^\/.]+)(?<ext>\.git)?/
+    :google_source_com => /(?<protocol>http[s]?):\/\/(?<owner>.+)\.(?<host>googlesource\.com)\/(?<repo>[^\/.]+)(?<ext>\.git)?/,
+    :go_pkg_in => /(?<protocol>http[s]?):\/\/(?<host>gopkg\.in)\/((?<owner>[^\/.]+)\/(?<repo>[^\/.]+)\.(?<ref>.+)|(?<repo>[^\/.]+)\.(?<ref>.+))/
   }
   FILE_NAME_PATTERN = {
     :license_file => /(licen[sc]e|copying)+/i,
