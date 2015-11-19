@@ -15,7 +15,7 @@ def add_product(product_name)
 end
 
 def add_repo(repo_name, source_url, parent_repo_id=nil, priv=-1)
-  r = $conn.exec_params("select * from product where name = $1", [repo_name])
+  r = $conn.exec_params("select * from repo where name = $1 and source_url = $2", [repo_name, source_url])
   if r.ntuples == 1
     return false, r[0]
   else
@@ -69,17 +69,20 @@ def api_get_repo_manifest_file_list(repo_id)
 end
 
 def api_add_product_repo(release_id, parent_repo_id, sub_repo_id)
-  $plog.debug("release_id: #{release_id}, parent_repo_id: #{parent_repo_id}")
   all_products = $conn.exec_params("
     select * from product_repo
       where release_id = $1
       and repo_id = $2", [release_id, parent_repo_id])
   all_products.each {|p|
     product_id = p['product_id']
-    $plog.debug("product_id: #{product_id}")
     begin
-      r = $conn.exec_params("insert into product_repo (release_id, product_id, repo_id) values ($1, $2, $3)",
+      pg_result = $conn.exec_params("select * from product_repo where release_id = $1 and product_id = $2 and repo_id = $3",
                           [release_id, product_id, sub_repo_id])
+      if pg_result.ntuples == 0
+        $plog.debug("release_id: #{release_id}, repo_id: #{sub_repo_id}, parent_repo_id: #{parent_repo_id}")
+        r = $conn.exec_params("insert into product_repo (release_id, product_id, repo_id) values ($1, $2, $3)",
+                          [release_id, product_id, sub_repo_id])
+      end
     rescue Exception => e
       $plog.fatal(e)
     end

@@ -20,6 +20,9 @@ def worker(body)
     case_item = JSON.parse(body)
 
     repo_id = case_item['repo_id'].to_i
+    if repo_id == 404
+      return
+    end
     release_id = case_item['release_id'].to_i
     repo_url = api_get_repo_source_url(repo_id)
 
@@ -87,9 +90,10 @@ def main()
 end
 
 if __FILE__ == $0
-  # body = '{"repo_id": 78, "release_id": 2}'
+  # repo_id = 384
+  # release_id = 10
+  # body = "{\"repo_id\": #{repo_id}, \"release_id\": #{release_id}}"
   # worker(body)
   main
-
 end
 
