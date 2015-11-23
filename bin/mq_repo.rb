@@ -10,6 +10,7 @@ require_relative '../lib/parser/golang_parser'
 require_relative '../lib/parser/erlang_parser'
 require_relative '../lib/parser/manifest_parser'
 require_relative '../lib/parser/npm_parser'
+require_relative '../lib/parser/gradle_parser'
 require_relative '../lib/cloner'
 require_relative '../lib/db'
 require_relative '../lib/recorder'
@@ -50,6 +51,9 @@ def worker(body)
 
     npm_packs = NpmParser.new(clone_path).start
     saved = PacksSaver.new(repo_id, npm_packs, 'NodeJs', release_id).save
+
+    gradle_packs = GradleParser.new(clone_path).start
+    saved = PacksSaver.new(repo_id, gradle_packs, 'Gradle', release_id).save
 
     packs = ErlangParser.new(clone_path).start
     saver = PacksSaver.new(repo_id, packs, 'Erlang', release_id)
