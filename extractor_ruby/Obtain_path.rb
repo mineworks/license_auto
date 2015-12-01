@@ -1,4 +1,4 @@
-
+# TODO: move to utils.rb
 class Obtain_path
 	
 	def initialize(ph, f_name, ex)

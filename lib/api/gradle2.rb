@@ -21,6 +21,7 @@ module API
     # JSON: http://search.maven.org/solrsearch/select?q=g:%22org.apache.commons%22&rows=20&wt=json
     # JSON: http://search.maven.org/solrsearch/select?q=g:%22org.apache.commons%22%20AND%20a:%22commons-lang3%22&rows=2000&wt=json
     # JSON: http://search.maven.org/solrsearch/select?q=g:%22org.apache.commons%22%20AND%20a:%22commons-lang3%22%20AND%20v:%223.0%22&rows=2000&wt=json
+    # http://search.maven.org/solrsearch/select?q=g:%22org.apache.maven.indexer%22+AND+a:%22maven-indexer%22&rows=20&core=gav
 
     def fetch_license_info_from_website()
       license = nil
