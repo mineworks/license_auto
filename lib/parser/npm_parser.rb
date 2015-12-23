@@ -48,7 +48,13 @@ class NpmParser
             }
             pack_name_versions.push(pack)
           else
-            raise "Unknown semver pattern: #{semver}, pack_name"
+            pack = {
+              'name' => pack_name,
+              'version' => semver,
+              'uri' => nil 
+            } 
+            pack_name_versions.push(pack)
+            # raise "Unknown semver pattern: #{semver}, pack_name"
           end
         }
       }
