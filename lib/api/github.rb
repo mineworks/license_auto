@@ -24,6 +24,7 @@ class Github
 
     repo_url = repo_url.gsub(/\.git$/, '')
     repo_url_pattern = API::SOURCE_URL_PATTERN[:github]
+    # FIXME: error: http://github.com/TooTallNate/ansi.js -> http://github.com/TooTallNate/ansi
     regex_group = repo_url_pattern.match(repo_url)
     @protocol = regex_group[:protocol]
     @host = regex_group[:host]
