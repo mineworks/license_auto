@@ -87,41 +87,41 @@ class GradleParser
 
   def start
     all_projects_deps = Set.new
-    build_dot_gradle = find_build_dot_gradle.first
-
-    if build_dot_gradle
-      $plog.debug(build_dot_gradle)
-      Dir.chdir(@repo_path) {
-        all_projects_deps = all_projects_deps.merge(list_dependencies)
-        projects = list_projects
-        $plog.debug("projects: #{projects}")
-        projects.each {|project_name|
-          dependencies = list_dependencies(project_name)
-          $plog.debug("dependencies: #{dependencies.to_a}")
-          all_projects_deps = all_projects_deps.merge(dependencies)
+    find_build_dot_gradle.each {|build_dot_gradle|
+      if build_dot_gradle
+        $plog.debug(build_dot_gradle)
+        Dir.chdir(@repo_path) {
+          all_projects_deps = all_projects_deps.merge(list_dependencies)
+          projects = list_projects
+          $plog.debug("projects: #{projects}")
+          projects.each {|project_name|
+            dependencies = list_dependencies(project_name)
+            $plog.debug("dependencies: #{dependencies.to_a}")
+            all_projects_deps = all_projects_deps.merge(dependencies)
+          }
         }
-      }
-    else
-      $plog.info("There is no build.gradle script in #{@repo_path}")
-    end
-    all_projects_deps.map {|group_name_version|
-      group, name, version = group_name_version.split(':')
-
-      # 'junit:junit:3.8.2 -> 4.11'
-      range_arrow_pattern = /(?<min_ver>.*)\s->\s(?<max_ver>.*)/
-      is_range_version = range_arrow_pattern.match(version)
-      if is_range_version
-        version = is_range_version[:max_ver]
+      else
+        $plog.info("There is no build.gradle script in #{@repo_path}")
       end
+      all_projects_deps.map {|group_name_version|
+        group, name, version = group_name_version.split(':')
 
-      # 'org.apache.ant:ant:1.8.3 (*)'
-      star_pattern = /\s\(\*\)/
-      version = version.gsub(star_pattern, '')
+        # 'junit:junit:3.8.2 -> 4.11'
+        range_arrow_pattern = /(?<min_ver>.*)\s->\s(?<max_ver>.*)/
+        is_range_version = range_arrow_pattern.match(version)
+        if is_range_version
+          version = is_range_version[:max_ver]
+        end
 
-      {
-        group: group,
-        name: name,
-        version: version
+        # 'org.apache.ant:ant:1.8.3 (*)'
+        star_pattern = /\s\(\*\)/
+        version = version.gsub(star_pattern, '')
+
+        {
+            group: group,
+            name: name,
+            version: version
+        }
       }
     }
   end
