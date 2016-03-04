@@ -2,7 +2,7 @@ require 'json'
 require 'open3'
 require 'httparty'
 
-require_relative '../../conf/config'
+require_relative '../../config/config'
 require_relative '../api/pattern'
 require_relative '../api/github'
 

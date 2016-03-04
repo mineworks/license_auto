@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'csv'
 require 'json'
-require_relative '../conf/config'
+require_relative '../config/config'
 require_relative './api'
 
 class PacksSaver

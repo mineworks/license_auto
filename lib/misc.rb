@@ -1,7 +1,7 @@
 require  'find'
 require 'json'
 require 'httparty'
-require_relative '../conf/config'
+require_relative '../config/config'
 
 module Misc
 

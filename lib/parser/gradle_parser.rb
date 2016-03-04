@@ -1,4 +1,4 @@
-require_relative '../../conf/config'
+require_relative '../../config/config'
 require_relative '../misc'
 
 require 'open3'

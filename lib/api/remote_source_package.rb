@@ -5,8 +5,7 @@ require 'zlib'
 require 'xz'
 require 'open3'
 
-require_relative '../../conf/config'
-require_relative '../../extractor_ruby/License_recognition'
+require_relative '../../config/config'
 require_relative '../../lib/api/helper'
 require_relative '../../lib/misc'
 

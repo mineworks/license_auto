@@ -1,7 +1,7 @@
 ## license_auto
 [license_auto](https://github.com/mineworks/license_auto) is a ruby gem for Open Source License collection job.
 
-## Dependencies Management Detecting Implement Details
+### Dependencies Management Detecting Implement Details
 <table>
   <tr>
     <th>Language</th>
@@ -83,7 +83,6 @@
 * go v1.4.2
 
 
-
 ## Design Principles
 * Get resource by HTTP first. 
 
@@ -93,7 +92,7 @@
 ``` ruby
 params = {
     github_username: 'alice'
-    github_password: '123456'
+    github_password: '123456',
 }
 auto = License::Auto.new().config(params)
 ```
@@ -105,8 +104,10 @@ TODO: config rubygems.org PostgreSQL database connection string if you have crea
 ### Check dependencies of a repository
 ``` ruby
 auto = License::Auto.new
-dependencies = auto.get_dependencies()
-puts dependencies
+repo = {
+  repo_url: 'https://github.com/mineworks/license_auto.git'
+}
+dependencies = auto.get_dependencies(repo)
 ```
 
 ### Check License Info of a given package(library)
@@ -115,15 +116,12 @@ auto = License::Auto.new()
 package = {
     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
     name: 'bundler',
-    group: 'com.google.http-client'  # Optional: Assign nil if your package is not a Java
+    group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
     version: '1.11.2',               # Optional: Assign nil if check the latest
     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
 }
-license_info = auto.get_license_info()
+license_info = auto.get_license_info(package)
 ```
-
-
-
 
 # TODO
 * Speed up License name recognizing.
