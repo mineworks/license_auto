@@ -1,3 +1,4 @@
+foo.rb
 *.patch
 *.diff
 node_modules/

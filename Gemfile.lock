@@ -6,6 +6,7 @@ GEM
       robotex (>= 1.0.0)
     ffi (1.9.10)
     git (1.2.9.1)
+    hashie (3.4.3)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -35,9 +36,10 @@ PLATFORMS
 DEPENDENCIES
   anemone
   git
+  hashie
   httparty
   json
-  license_auto
+  license_auto (= 0.1.0)
   log4r
   minitest
   pg
