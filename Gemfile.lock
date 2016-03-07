@@ -4,19 +4,19 @@ GEM
     anemone (0.7.2)
       nokogiri (>= 1.3.0)
       robotex (>= 1.0.0)
+    diff-lcs (1.2.5)
     ffi (1.9.10)
     git (1.2.9.1)
     hashie (3.4.3)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    hurley (0.2)
     io-like (0.3.0)
     json (1.8.3)
-    license_auto (0.1.0)
     log4r (1.1.10)
     mime-types (2.6.2)
     mini_portile (0.6.2)
-    minitest (5.8.0)
     multi_xml (0.5.5)
     netrc (0.7.8)
     nokogiri (1.6.6.2)
@@ -26,9 +26,24 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     robotex (1.0.0)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby-xz (0.2.1)
       ffi
       io-like
+    rubygems_api (1.0.1)
+      hurley (~> 0)
 
 PLATFORMS
   ruby
@@ -39,12 +54,12 @@ DEPENDENCIES
   hashie
   httparty
   json
-  license_auto (= 0.1.0)
   log4r
-  minitest
   pg
   rest-client
+  rspec
   ruby-xz
+  rubygems_api (~> 1.0, >= 1.0.1)
 
 BUNDLED WITH
    1.10.6

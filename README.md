@@ -17,7 +17,7 @@
     <td>Gemfile(.lock)</td>
     <td>https://rubygems.org/</td>
     <td> https://rubygems.org/pages/data</td>
-    <td>0</td>
+    <td>1</td>
   </tr>
   <tr>
     <td>Java</td>
@@ -112,15 +112,15 @@ dependencies = auto.get_dependencies(repo)
 
 ### Check License Info of a given package(library)
 ``` ruby
-auto = License::Auto.new()
-package = {
+my_pack = {
     language: 'Ruby',                # Ruby|Golang|Java|NodeJS|Erlang|Python|
     name: 'bundler',
     group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
     version: '1.11.2',               # Optional: Assign nil if check the latest
     project_server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
 }
-license_info = auto.get_license_info(package)
+package = LicenseAuto::Package.new(my_pack)
+license_info = package.get_license_info()
 ```
 
 # TODO
