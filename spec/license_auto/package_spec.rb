@@ -15,6 +15,24 @@ describe LicenseAuto::Package do
     license_info = package.get_license_info()
     expect(license_info).to be_a(LicenseAuto::LicenseInfo)
 
-    puts license_info.body
+    puts JSON.pretty_generate(license_info.body)
+  end
+
+  it "raise KeyError when get license information of Package" do
+    my_pack = {
+        language: 'foo',
+        name: 'bundler',
+        group: 'com.google.http-client',
+        version: '1.11.2',
+        project_server: 'rubygems.org'
+    }
+    package = LicenseAuto::Package.new(my_pack)
+    expect(package.name).to eq(my_pack[:name])
+
+    begin
+      license_info = package.get_license_info()
+    rescue Exception => e
+      expect(e.class).to eq(KeyError)
+    end
   end
 end
