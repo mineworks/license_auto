@@ -4,7 +4,9 @@ class License_recognition
     @license_text = ''
     @local_license_list = Array.new
     @local_license_path = path
-    @high_frequency     = ['MIT','MIT2.0','Apache2.0','RubyClause-6','BSD',
+    # TODO: First step, chose the 3 most possible licenses text by keywords; Second step is loop mathing all texts
+    # TODO: Find keywords of license text
+    @sorted_frequency     = ['MIT','MIT2.0','Apache2.0','RubyClause-6','BSD',
                            'GPL2.0','GPL3.0','LGPL2.1','LGPL3.0']   # Often used license name
     @license_extension  = ".txt"      # Local license file extensions
     @similar_list       = Array.new
@@ -74,7 +76,7 @@ class License_recognition
   # description : License name list is sorted, commonly used on the front
   # constant    : License often used list
   # change      : Waiting list license change
-  def sequence(constant = @high_frequency, change = @local_license_list)
+  def sequence(constant = @sorted_frequency, change = @local_license_list)
     i = 0
     for j in (0 ... constant.size)
       #p constant[j]
@@ -93,7 +95,7 @@ class License_recognition
   # description : Get all the local license file path
   # path        : Local license folder
   def get_local_license(path = @local_license_path)
-    #p @high_frequency
+    #p @sorted_frequency
     if File.directory?(path)
       Dir.foreach(path) do |file|
         if file != "." and file != ".." and !File.directory?(file) and File.extname(file) == @license_extension
