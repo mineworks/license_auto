@@ -1,9 +1,9 @@
 module LicenseAuto
-  class LicenseInfo
-    attr_reader :body
+  class LicenseInfo < Hashie::Mash
+    attr_reader :licenses
 
-    def initialize(licenses)
-      @body = licenses || []
+    def initialize(licenses=nil)
+      @licenses = licenses || []
     end
 
   end

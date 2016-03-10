@@ -34,7 +34,7 @@ class Bitbucket
       $plog.info("api_url: #{api_url}")
       response = HTTParty.get(api_url)
       if response.code == 200
-        contents = JSON.parse(response.body)
+        contents = JSON.parse(response.licenses)
       else
         # TODO: @Micfan, define custom exceptions
         # raise MyException
@@ -69,7 +69,7 @@ class Bitbucket
       $plog.debug(api_url)
       response = HTTParty.get(api_url)
       if response.code == 200
-        license_text = response.body
+        license_text = response.licenses
         license_url = api_url
 
         $plog.info("License file 链接: #{license_url}, #{license_text}")
@@ -129,7 +129,7 @@ class Bitbucket
     last_commit = mainbranch = nil
     branches_tags = nil
     if response.code == 200
-      branches_tags = JSON.parse(response.body)
+      branches_tags = JSON.parse(response.licenses)
     else
       $plog.error("!!! response: #{response}")
     end

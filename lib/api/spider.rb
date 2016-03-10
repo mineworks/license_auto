@@ -18,7 +18,7 @@ module API
     def find_source_url()
       response = HTTParty.get(@homepage_url, options=@http_option)
       if response.code == 200
-        body = response.body
+        body = response.licenses
         # TODO: author name valid
         pattern = /(http[s]?:\/\/(github\.com|bitbucket\.org)\/|git@(github\.com|bitbucket\.org):)(?<author>.+?)\/#{@pack_name}/i
         match_result = pattern.match(body)

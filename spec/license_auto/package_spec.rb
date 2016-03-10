@@ -15,7 +15,7 @@ describe LicenseAuto::Package do
     license_info = package.get_license_info()
     expect(license_info).to be_a(LicenseAuto::LicenseInfo)
 
-    puts JSON.pretty_generate(license_info.body)
+    puts JSON.pretty_generate(license_info.licenses)
   end
 
   it "raise KeyError when get license information of Package" do

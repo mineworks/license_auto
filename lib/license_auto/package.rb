@@ -33,18 +33,18 @@ module LicenseAuto
     ##
     # Class Entry
 
-    def get_license_info()
-      # TODO: uncomment this line
-      # chose_project_server() unless chose_project_server()
+    def get_license_info(**args)
 
-      @server.get_license_info() if chose_project_server()
+      # args = {
+      #     fetch_license_text: true
+      # }.merge(args)
 
+      @server.get_license_info if chose_project_server
 
-      #   # TODO: detect latest version
-      #   @version = nil
-
-      #   # TODO: fill default project_server
-      #   @project_server = nil
+      # TODO: uncomment these line, add Google or Yahoo!
+      # if @server.nil?
+      #     @server.get_license_info if chose_search_engine
+      # end
 
     end
 
