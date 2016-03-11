@@ -7,7 +7,7 @@ module LicenseAuto
   module VERSION
     MAJOR = 0
     MINOR = 1
-    TINY  = 0
+    TINY  = 1
     PRE   = ''
 
     STRING =
