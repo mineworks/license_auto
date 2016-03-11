@@ -14,6 +14,7 @@ group :default do
   gem "nokogiri"
   gem "anemone"
   gem 'rest-client'
+  # TODO: remove
   gem "pg"
   # TODO: I found this gem is too slow, how to promote its HTTP lib speed?
   gem 'rubygems_api', '~> 1.0', '>= 1.0.1'
@@ -23,7 +24,9 @@ group :default do
 end
 
 group :test do
+  gem "json"
   gem "rspec"
+  gem 'webmock'
 end
 
 

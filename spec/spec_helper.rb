@@ -1,3 +1,6 @@
-require './lib/license_auto'
+require 'json'
+require 'rspec'
+# TODO: mock
+# require 'webmock/rspec'
 
-Bundler.require(:test)
+require 'license_auto'

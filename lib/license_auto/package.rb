@@ -1,5 +1,7 @@
 require 'hashie/mash'
 
+require 'license_auto/website/ruby_gems_org'
+
 module LicenseAuto
 
   ##
