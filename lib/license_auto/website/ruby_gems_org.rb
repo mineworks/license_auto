@@ -1,15 +1,13 @@
 require 'gems'
-require 'rubygems'
-require 'rubygems/remote_fetcher'
-require 'rubygems/spec_fetcher'
-require 'rubygems/dependency'
-
 require 'hashie'
 
 require 'license_auto/website/github'
 
 
 class RubyGemsOrg < Website
+
+
+  GEM_NOT_FOUND = "This rubygem could not be found."
 
   def initialize(package)
     super(package)
@@ -19,8 +17,12 @@ class RubyGemsOrg < Website
 
   def get_license_info()
     if @package.version.nil?
-      @package.version = get_remote_latest_version
-      raise('This rubygem could not be found') unless @package.version
+      begin
+        @package.version = get_latest_version['number']
+      rescue Exception => e
+        # TODO: what returned value is better?
+        return nil
+      end
     end
 
     gem_info = get_gem_info
@@ -45,12 +47,31 @@ class RubyGemsOrg < Website
   end
 
   # TODO: switch to https://github.com/rubygems/gems/issues/32#issuecomment-195180422
-  def get_remote_latest_version()
-    fetcher = Gem::SpecFetcher.fetcher
-    dependency = Gem::Dependency.new(@package.name, ">= #{@package}")
-    remotes, = fetcher.search_for_dependency dependency
-    remotes  = remotes.map { |n, _| n.version }
-    latest_remote = remotes.sort.last
+  # @return {
+  #     "authors" => "David Heinemeier Hansson",
+  #     "built_at" => "2016-03-07T00:00:00.000Z",
+  #     "created_at" => "2016-03-07T22:33:22.563Z",
+  #     "description" => "Ruby on Rails is a full-stack web framework optimized for programmer happiness and sustainable productivity. It encourages beautiful code by favoring convention over configuration.",
+  #     "downloads_count" => 28113,
+  #     "metadata" => {},
+  #     "number" => "4.2.6",
+  #     "summary" => "Full-stack web application framework.",
+  #     "platform" => "ruby",
+  #     "ruby_version" => ">= 1.9.3",
+  #     "prerelease" => false,
+  #     "licenses" => [
+  #         [0] "MIT"
+  #     ],
+  #     "requirements" => [],
+  #     "sha" => "a199258c0d2bae09993a6932c49df254fd66428899d1823b8c5285de02e5bc33"
+  # }
+  def get_latest_version()
+    versions = Gems.versions(@package.name).reject { |v| v['prerelease'] }.first
+    if versions == GEM_NOT_FOUND
+      raise(GEM_NOT_FOUND)
+    end
+
+    versions.reject { |v| v['prerelease'] }.first
   end
 
   def download_gem()
