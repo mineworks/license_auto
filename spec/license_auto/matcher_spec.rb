@@ -48,7 +48,7 @@ describe LicenseAuto::Matcher::FilepathName do
     [md, txt].each {|filename|
       matcher = LicenseAuto::Matcher::FilepathName.new(filename)
       matched = matcher.match_readme_file
-      puts matched
+
       expect(matched).to_not eq(nil)
       expect(matched[:extension]).to_not eq(nil)
     }
