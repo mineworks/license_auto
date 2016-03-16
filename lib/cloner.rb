@@ -10,7 +10,7 @@ module Cloner
   def self.make_path(repo)
     # todo: If repo is a git@github.com:xxx/yyy
     $plog.debug(repo)
-    repo = repo.gsub(/(https:\/\/|http:\/\/|git@)/,'')
+    repo = repo.gsub(/(https:\/\/|http:\/\/|git@)/, '')
     path = "#{AUTO_ROOT}/#{repo}"
   end
 

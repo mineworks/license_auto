@@ -4,7 +4,7 @@ my_pack = {
     name: 'bundler',
     group: 'com.google.http-client', # Optional: Assign nil if your package is not a Java
     version: '1.11.2',               # Optional: Assign nil if check the latest
-    server: 'rubygems.org'   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
+    server: 'rubygems.org'           # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
 }
 package = LicenseAuto::Package.new(my_pack)
 license_info = package.get_license_info()
