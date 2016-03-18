@@ -1,4 +1,15 @@
-# TODO: move to units.rb
+require 'frequency'
+
+class Similarity
+  def initialize(filename, content)
+    @filename = filename
+    @content = content
+  end
+
+end
+
+
+
 class License_recognition
   def initialize(path = '')
     @license_text = ''

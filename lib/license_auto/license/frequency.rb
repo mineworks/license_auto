@@ -1,5 +1,5 @@
 ##
-# Statistic
+# Statistic order: High to Low
 
 LICENSE_SORTED_FREQUENCY = [
     'MIT',

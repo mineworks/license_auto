@@ -5,6 +5,7 @@ group :default do
   gem "json"
   gem "gems"
   gem "github_api"
+  gem 'tf-idf-similarity', '~> 0.1.5'
 
   gem "git"
   gem "log4r"
@@ -19,9 +20,14 @@ group :default do
 end
 
 group :test do
-  gem "json"
   gem "rspec"
   gem 'webmock'
+  gem "rubocop"
+  # TODO: simplecov, generate HTML
+  gem 'simplecov'
 end
 
+group :development do
+  gem "rake"
+end
 
