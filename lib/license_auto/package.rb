@@ -71,7 +71,7 @@ module LicenseAuto
               LANGUAGES_PACKAGE_SERVER.fetch(self.language.to_sym).new(self)
             end
       rescue KeyError => e
-        return nil
+        raise(e)
       end
     end
 

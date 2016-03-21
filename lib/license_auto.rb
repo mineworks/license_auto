@@ -17,4 +17,5 @@ require 'license_auto/website'
 require 'license_auto/matcher'
 require 'license_auto/package'
 require 'license_auto/license_info'
+require 'license_auto/exceptions'
 

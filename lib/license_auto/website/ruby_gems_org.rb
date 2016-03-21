@@ -2,6 +2,7 @@ require 'gems'
 require 'hashie'
 
 require 'license_auto/website/github_com'
+require 'license_auto/exceptions'
 
 
 class RubyGemsOrg < Website
@@ -28,7 +29,8 @@ class RubyGemsOrg < Website
     end
 
     gem_info = get_gem_info
-    gem_info = Hashie::Mash.new(gem_info)
+
+    raise LicenseAuto::PackageNotFound if gem_info.nil?
 
     source_code_matcher = LicenseAuto::Matcher::SourceURL.new(gem_info.source_code_uri)
 
@@ -47,7 +49,13 @@ class RubyGemsOrg < Website
 
   def get_gem_info()
     # TODO: Gems.info(@package.name, @package.version)
-    Gems.info(@package.name)
+    gem_info = Gems.info(@package.name)
+    gem_info =
+        if gem_info == GEM_NOT_FOUND
+          nil
+        else
+          Hashie::Mash.new(gem_info)
+        end
   end
 
   # TODO: switch to https://github.com/rubygems/gems/issues/32#issuecomment-195180422
