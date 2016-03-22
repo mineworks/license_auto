@@ -58,4 +58,8 @@ class GithubCom < Website
     end
     possible_ref
   end
+
+  def list_languages
+    @server.repos.languages
+  end
 end
