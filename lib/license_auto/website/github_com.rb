@@ -1,4 +1,8 @@
+require 'fileutils'
 require 'github_api'
+require 'git'
+
+require 'license_auto/config/config'
 
 class GithubCom < Website
 
@@ -38,6 +42,8 @@ class GithubCom < Website
       end
     }
 
+    LicenseAuto.logger.warn('Hello mic')
+
     LicenseAuto::LicenseInfo.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 
@@ -60,6 +66,28 @@ class GithubCom < Website
   end
 
   def list_languages
+    LicenseAuto.logger.debug('this is list languaegs')
     @server.repos.languages
+  end
+
+  def clone
+    clone_url = repo_info.fetch('clone_url')
+    trimmed_url = clone_url.gsub(/^http[s]?:\/\//, '')
+    clone_dir = "#{LICENSE_AUTO_CACHE}#{trimmed_url}"
+    FileUtils::rm_rf(clone_dir) if Dir.exists?(clone_dir)
+
+    clone_opts = {
+        :depth => 1 # Only last commit history for fast
+    }
+    cloned_repo = Git.clone(repo, path, clone_opts)
+    # path = cloned_repo.dir.path
+    clone_dir
+  end
+
+  def repo_info
+    @server.repos.get
+  end
+
+  def filter_gitmodules
   end
 end

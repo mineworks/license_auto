@@ -53,3 +53,5 @@ LICENSE_WEBSITE_URL = 'http://localhost:3000'
 
 
 
+LICENSE_AUTO_ROOT = '/tmp/license_auto'
+LICENSE_AUTO_CACHE = "#{LICENSE_AUTO_ROOT}/cache"
