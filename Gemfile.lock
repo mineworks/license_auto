@@ -109,6 +109,7 @@ PLATFORMS
 
 DEPENDENCIES
   anemone
+  bundler
   gems
   git
   github_api
