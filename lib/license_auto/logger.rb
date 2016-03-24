@@ -1,27 +1,27 @@
 require 'log4r'
+require 'license_auto/config/config'
 
 module LicenseAuto
   def self.logger
     return @logger if @logger
-    level = Log4r::DEBUG
-    @logger = Log4r::Logger.new("license_auto_log")
+    @logger = Log4r::Logger.new("license_auto")
     @logger.trace = true
-    @logger.level = level
+    @logger.level = LOG_LEVEL
+
     @logger.add(Log4r::Outputter.stderr)
     @logger.add(Log4r::Outputter.stdout)
 
-    # stderr_output = Log4r::StderrOutputter.new('stderr')
     stdout_output = Log4r::StdoutOutputter.new('stdout')
     file_output = Log4r::FileOutputter.new("file_output",
                                            :filename => "/tmp/license_auto.log",
                                            :trunc => false,
-                                           :level => level)
+                                           :level => LOG_LEVEL)
     formatter = Log4r::PatternFormatter.new(:pattern => "%l %d %p - %M  %t")
-    # stderr_output.formatter = formatter
     stdout_output.formatter = formatter
     file_output.formatter = formatter
 
     @logger.outputters = [stdout_output, file_output]
+
     @logger
   end
 end

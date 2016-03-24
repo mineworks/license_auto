@@ -28,13 +28,12 @@ describe GithubCom do
     github = GithubCom.new(my_pack, user, repo)
     license_info = github.get_license_info
     expect(license_info.licenses.size > 0).to be(true)
-    # puts license_info.licenses
   end
 
   it 'List Github Repo languages' do
     github = GithubCom.new(my_pack, user, repo)
     languages = github.list_languages
-    puts languages
+
     expect(languages.size > 0).to be(true)
   end
 
