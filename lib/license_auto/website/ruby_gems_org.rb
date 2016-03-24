@@ -7,6 +7,7 @@ require 'license_auto/exceptions'
 
 class RubyGemsOrg < Website
 
+  URI = 'https://rubygems.org/'
   HOST = 'rubygems.org'
   LANGUAGE = 'Ruby'
 
