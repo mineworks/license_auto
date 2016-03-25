@@ -10,11 +10,11 @@ module LicenseAuto
     end
 
     def dependency_file_pattern
-      /gem.*\.lock/i
+      /gem.*\.lock$/i
     end
 
     def gemfile_pattern
-      /Gemfile$/i
+      /gemfile$/i
     end
 
     def parse_dependencies
@@ -48,6 +48,7 @@ module LicenseAuto
                     #     else
                     #       spec.source.remotes
                     #     end
+                    # TODO: support http://www.gemfury.com, aka multi `source` DSL; requre 'rubygems'?
                     spec.source.remotes.map {|r|
                       r.to_s
                     }.join(',')
@@ -56,11 +57,8 @@ module LicenseAuto
                   # Untested
                   spec.full_gem_path
                 else
-                  # TODO:
-                  # LicenseAuto.logger.debug(spec.source.class)
-                # remotes = s.source.options['remotes']
+                  raise('Yo, this error should ever not occur!')
               end
-
           {
               name: spec.name,
               version: spec.version.to_s,
@@ -68,7 +66,7 @@ module LicenseAuto
           }
         }
       }
-      LicenseAuto.logger.debug(JSON.pretty_generate(dep_files))
+      # LicenseAuto.logger.debug(JSON.pretty_generate(dep_files))
     end
   end
 end
