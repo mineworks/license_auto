@@ -84,6 +84,11 @@
 gem install license_auto
 ```
 
+## Configure
+```
+sudo cp license_auto/config/sample.config.yml etc/license_auto.conf.yml
+```
+
 ## Examples
 
 * Optional: Config Github Auth

@@ -1,13 +1,20 @@
+logger:
+  file: '/tmp/license_auto.log'
+  level: 'debug'
+
 github:
-  username: 'xxx'
-  passworkd: 'xxx'
-  2fa_token: 'xxx'
+  username: 'micfan'
+  # https://github.com/octokit/octokit.rb#oauth-access-tokens
+  access_token: '<your 40 char token>'
 
-http_proxy:
-  host: 'www.example.com'
-  port: 8080
-  username: 'xxx'
-  password: 'xxx'
+http:
+  time_out: 480
+  proxy:
+    host: 'proxy.example.com'
+    port: 8080
+    username: ''
+    password: ''
 
-cache_dir:
-  -
+dirs:
+  root: '/tmp/license_auto'
+  cache: 'cache'
