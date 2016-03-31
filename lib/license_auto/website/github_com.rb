@@ -18,7 +18,11 @@ class GithubCom < Website
   # ref: string
   def initialize(package, user, repo, ref=nil)
     super(package)
+    LicenseAuto.logger.debug(user)
+    LicenseAuto.logger.debug(ref)
     @ref = ref
+    LicenseAuto.logger.debug(@ref)
+
     @server = Github.new(user: user, repo: repo)
   end
 
@@ -26,7 +30,7 @@ class GithubCom < Website
   # @return LicenseInfo
 
   def get_license_info()
-    possible_ref = @ref || get_possible_ref
+    possible_ref = @ref || match_versioned_ref
     # If possible_ref is nil, the Github API server will return the default branch contents
     contents = @server.repos.contents.get(path: '/', ref: possible_ref)
 
@@ -45,7 +49,7 @@ class GithubCom < Website
     LicenseAuto::LicenseInfo.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 
-  def get_possible_ref()
+  def match_versioned_ref()
     possible_ref = nil
     # If provided a Git SHA, use it directly
     if @package.version.size >= GIT_HASH_LENGTH
@@ -70,8 +74,9 @@ class GithubCom < Website
   end
 
   def clone
-    LicenseAuto.logger.debug(repo_info)
-    clone_url = repo_info.body.fetch('clone_url')
+    info = repo_info
+    # LicenseAuto.logger.debug(info)
+    clone_url = info.body.fetch('clone_url')
     trimmed_url = clone_url.gsub(/^http[s]?:\/\//, '')
     clone_dir = "#{LUTO_CACHE_DIR}/#{trimmed_url}"
 
@@ -80,10 +85,12 @@ class GithubCom < Website
       git = Git.open(clone_dir, :log => LicenseAuto.logger)
       local_branch = git.branches.local[0].full
       # TODO: switch to :ref
-      git.pull(remote='origin', branch=local_branch)
+      # git.pull(remote='origin', branch=local_branch)
     else
+      LicenseAuto.logger.debug(@ref)
       clone_opts = {
-          :depth => 1 # Only last commit history for fast
+          :depth => 1, # Only last commit history for fast
+          :branch => @ref
       }
       cloned_repo = Git.clone(clone_url, clone_dir, clone_opts)
     end

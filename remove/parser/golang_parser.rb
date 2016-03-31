@@ -5,7 +5,7 @@ require 'json'
 require 'open3'
 require 'set'
 require_relative '../../lib/cloner'
-require_relative '../../enums'
+require_relative '../../golang'
 require_relative '../../config/config'
 require_relative '../recorder'
 

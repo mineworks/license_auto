@@ -15,6 +15,31 @@ module LicenseAuto
       [Bundler]
     end
 
+    # @return:
+    # {
+    #     :"LicenseAuto::Bundler": [
+    #         {
+    #             "dep_file": "/tmp/license_auto/cache/github.com/mineworks/license_auto.git/Gemfile.lock",
+    #             "deps": [
+    #                 {
+    #                     "name": "addressable",
+    #                     "version": "2.4.0",
+    #                     "remote": "https://rubygems.org/"
+    #                 },
+    #                 {
+    #                     "name": "anemone",
+    #                     "version": "0.7.2",
+    #                     "remote": "https://rubygems.org/"
+    #                 },
+    #                 {
+    #                     "name": "ast",
+    #                     "version": "2.2.0",
+    #                     "remote": "https://rubygems.org/"
+    #                 }
+    #             ]
+    #         }
+    #     ]
+    # }
     def find_dependencies
       repo_dir = @server.clone
       deps = {}
@@ -32,7 +57,8 @@ module LicenseAuto
       github_matched = source_code_matcher.match_github_resource
       if github_matched
         # TODO: pass argument: ref
-        @server = GithubCom.new(@package, github_matched[:owner], github_matched[:repo], ref=ref)
+        LicenseAuto.logger.debug(self.ref)
+        @server = GithubCom.new({}, github_matched[:owner], github_matched[:repo], ref=self.ref)
       end
     end
   end
