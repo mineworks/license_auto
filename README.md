@@ -21,7 +21,7 @@
     <td>Gemfile(.lock)</td>
     <td>https://rubygems.org/</td>
     <!-- <td> https://rubygems.org/pages/data</td> -->
-    <td>1</td>
+    <td>30</td>
   </tr>
   <tr>
     <td>Java</td>
