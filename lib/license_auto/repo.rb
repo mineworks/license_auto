@@ -5,6 +5,12 @@ require 'license_auto/package_manager/bundler'
 module LicenseAuto
   class Repo < Hashie::Mash
 
+    # hash example:
+    #     {
+    #         "clone_url": "https://github.com/mineworks/license_auto.git",
+    #         "ref": "readme",
+    #         "access_token": "40 chars token"
+    #     }
     def initialize(hash)
       super(hash)
       @server = chose_repo_server
@@ -41,14 +47,20 @@ module LicenseAuto
     #     ]
     # }
     def find_dependencies
+      LicenseAuto.logger.debug(@server)
       repo_dir = @server.clone
       deps = {}
       Repo.package_managers.each {|pm|
+        LicenseAuto.logger.debug(pm)
         deps[pm.to_s.to_sym] = pm.new(repo_dir).parse_dependencies
       }
       LicenseAuto.logger.debug(JSON.pretty_generate(deps))
       deps
     end
+
+    # def get_ref()
+    #   @server.get_ref(self.ref)
+    # end
 
     private
 
