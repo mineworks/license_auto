@@ -5,7 +5,7 @@ require 'open-uri'
 
 require 'license_auto/license/readme'
 
-describe Readme do
+describe LicenseAuto::Readme do
   before do
     readme_uri = 'https://raw.githubusercontent.com/rails/rails/master/README.md'
     stub_request(:get, readme_uri).
@@ -24,7 +24,7 @@ describe Readme do
 
   it 'regex match Markdown file, find license section' do
     readme_content = open(readme_uri).read
-    markdown = Readme.new(readme_uri, readme_content)
+    markdown = LicenseAuto::Readme.new(readme_uri, readme_content)
     expect(markdown.license_content).to_not eq(nil)
     # LicenseAuto.logger.debug(html.class)
   end

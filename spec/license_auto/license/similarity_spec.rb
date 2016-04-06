@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'open-uri'
 require 'license_auto/license/similarity'
 
-describe Similarity do
+describe LicenseAuto::Similarity do
   before do
     download_url = 'https://raw.githubusercontent.com/bundler/bundler/v1.11.2/LICENSE.md'
     stub_request(:get, download_url).
@@ -42,14 +42,14 @@ describe Similarity do
 
   it 'calculate similarity ratio of MIT' do
     mit_content = open(mit_uri).read
-    sim = Similarity.new(mit_content)
+    sim = LicenseAuto::Similarity.new(mit_content)
     most_sim_license = sim.most_license_sim
     expect(most_sim_license.first).to eq('MIT')
   end
 
   it 'calculate similarity ratio of Apache2.0' do
     apache2_content = open(apache2_license_uri).read
-    sim = Similarity.new(apache2_content)
+    sim = LicenseAuto::Similarity.new(apache2_content)
     most_sim_license = sim.most_license_sim
     expect(most_sim_license.first).to eq('Apache2.0')
   end

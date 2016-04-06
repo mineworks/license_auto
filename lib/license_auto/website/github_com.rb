@@ -1,8 +1,13 @@
+require 'base64'
+
 require 'fileutils'
 require 'github_api'
 require 'git'
 
+
 require 'license_auto/config/config'
+require 'license_auto/license/similarity'
+require 'license_auto/license/readme'
 
 class GithubCom < Website
 
@@ -19,13 +24,15 @@ class GithubCom < Website
   def initialize(package, user, repo, ref=nil)
     super(package)
     @ref = ref
-    LicenseAuto.logger.debug("#{user}/#{repo}")
+    LicenseAuto.logger.debug("#{user}/#{repo}, #{@ref}")
 
-    @server = Github.new(user: user, repo: repo)
+    basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
+    # @server = Github.new(user: user, repo: repo)
+    @server = Github.new(user: user, repo: repo, basic_auth: basic_auth)
   end
 
   ##
-  # @return LicenseInfo
+  # @return LicenseInfoWrapper
 
   def get_license_info()
     possible_ref = @ref || match_versioned_ref
@@ -44,7 +51,40 @@ class GithubCom < Website
       end
     }
 
-    LicenseAuto::LicenseInfo.new(licenses: license_files, readmes: readme_files, notices: notice_files)
+    license_files = license_files.map {|obj|
+      license_content = get_blobs(obj['sha'])
+      license_name, sim_ratio = LicenseAuto::Similarity.new(license_content).most_license_sim
+      _hash = {
+        name: license_name,
+        sim_ratio: sim_ratio,
+        html_url: obj['html_url'],
+        download_url: obj['download_url'],
+        text: license_content
+      }
+      LicenseAuto::LicenseWrapper.new(_hash)
+    }.compact!
+
+    readme_files = readme_files.map {|obj|
+      readme_content = get_blobs(obj['sha'])
+      license_content = LicenseAuto::Readme.new(obj['download_url'], readme_content).license_content
+      LicenseAuto.logger.debug(license_content)
+      if license_content.nil?
+        next
+      else
+        license_name, sim_ratio = LicenseAuto::Similarity.new(license_content).most_license_sim
+        _hash = {
+            name: license_name,
+            sim_ratio: sim_ratio,
+            html_url: obj['html_url'],
+            download_url: obj['download_url'],
+            text: license_content
+        }
+        LicenseAuto::LicenseWrapper.new(_hash)
+      end
+    }.compact!
+
+
+    LicenseAuto::LicenseInfoWrapper.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 
   def get_ref(ref)
@@ -115,5 +155,18 @@ class GithubCom < Website
   end
 
   def filter_gitmodules
+  end
+
+  # http://www.rubydoc.info/github/piotrmurach/github/master/Github/Client/GitData/Blobs#get-instance_method
+  def get_blobs(sha)
+    response_wrapper = @server.git_data.blobs.get(@server.user, @server.repo, sha)
+    LicenseAuto.logger.debug(response_wrapper)
+    content = response_wrapper.body.content
+    encoding = response_wrapper.body.encoding
+    if encoding == 'base64'
+      Base64.decode64(content)
+    else
+      LicenseAuto.logger.error("Unknown encoding: #{encoding}")
+    end
   end
 end
