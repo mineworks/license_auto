@@ -1,6 +1,6 @@
-# license_auto(v0.1.0.beta)
+# license_auto(v0.1.1.2)
  
-![Progress](http://progressed.io/bar/5?title=progress)
+![Progress](http://progressed.io/bar/10?title=progress)
 [![Code Climate](https://codeclimate.com/github/mineworks/license_auto/badges/gpa.svg)](https://codeclimate.com/github/mineworks/license_auto)
 [![Build Status](https://travis-ci.org/mineworks/license_auto.svg?branch=master)](https://travis-ci.org/mineworks/license_auto)
 
@@ -21,7 +21,7 @@
     <td>Gemfile(.lock)</td>
     <td>https://rubygems.org/</td>
     <!-- <td> https://rubygems.org/pages/data</td> -->
-    <td>30</td>
+    <td>50</td>
   </tr>
   <tr>
     <td>Java</td>
@@ -96,11 +96,11 @@ cp license_auto/config/gitconfig ~/.gitconfig
 ``` ruby
 require 'license_auto'
 my_repo = {
-  clone_url: 'https://github.com/mineworks/license_auto.git',
-  ret: 'master'
+  "clone_url": "https://github.com/mineworks/license_auto.git",
+  "ref": "test-branch"
 }
 repo = LicenseAuto::Repo.new(my_repo)
-dependencies = repo.find_dependencies()
+dependencies = repo.find_dependencies
 ```
 
 * Get License Info of a package
