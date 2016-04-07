@@ -24,11 +24,19 @@ class GithubCom < Website
   def initialize(package, user, repo, ref=nil)
     super(package)
     @ref = ref
+
     LicenseAuto.logger.debug("#{user}/#{repo}, #{@ref}")
 
-    basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
-    # @server = Github.new(user: user, repo: repo)
-    @server = Github.new(user: user, repo: repo, basic_auth: basic_auth)
+    @server =
+      begin
+        eval('WebMock')
+        LicenseAuto.logger.debug("LicenseAuto under running mode")
+        Github.new(user: user, repo: repo)
+      rescue NameError => e
+        LicenseAuto.logger.debug("LicenseAuto under RSpec mode")
+        basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
+        Github.new(user: user, repo: repo, basic_auth: basic_auth)
+      end
   end
 
   ##
@@ -62,7 +70,7 @@ class GithubCom < Website
         text: license_content
       }
       LicenseAuto::LicenseWrapper.new(_hash)
-    }.compact!
+    }
 
     readme_files = readme_files.map {|obj|
       readme_content = get_blobs(obj['sha'])
@@ -83,7 +91,7 @@ class GithubCom < Website
       end
     }.compact!
 
-
+    LicenseAuto.logger.debug(license_files)
     LicenseAuto::LicenseInfoWrapper.new(licenses: license_files, readmes: readme_files, notices: notice_files)
   end
 
