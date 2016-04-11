@@ -62,32 +62,30 @@ class GithubCom < Website
     license_files = license_files.map {|obj|
       license_content = get_blobs(obj['sha'])
       license_name, sim_ratio = LicenseAuto::Similarity.new(license_content).most_license_sim
-      _hash = {
+      LicenseAuto::LicenseWrapper.new(
         name: license_name,
         sim_ratio: sim_ratio,
         html_url: obj['html_url'],
         download_url: obj['download_url'],
         text: license_content
-      }
-      LicenseAuto::LicenseWrapper.new(_hash)
+      )
     }
 
     readme_files = readme_files.map {|obj|
       readme_content = get_blobs(obj['sha'])
       license_content = LicenseAuto::Readme.new(obj['download_url'], readme_content).license_content
-      LicenseAuto.logger.debug(license_content)
+      LicenseAuto.logger.debug("readme_content: #{license_content}")
       if license_content.nil?
         next
       else
         license_name, sim_ratio = LicenseAuto::Similarity.new(license_content).most_license_sim
-        _hash = {
+        LicenseAuto::LicenseWrapper.new(
             name: license_name,
             sim_ratio: sim_ratio,
             html_url: obj['html_url'],
             download_url: obj['download_url'],
             text: license_content
-        }
-        LicenseAuto::LicenseWrapper.new(_hash)
+        )
       end
     }.compact!
 
