@@ -76,7 +76,8 @@
 * Gradle v2.9
 * Maven v3.x
 * Rebar v2.6.1
-* npm v3.3.12
+* NodeJS v5.7.0+
+* npm v3.6.0
 * Python pip v1.5.6
 * go v1.4.2
 

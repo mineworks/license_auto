@@ -13,21 +13,21 @@ describe LicenseAuto::Npm do
   #   expect(pm.parse_dependencies.size).to be > 0
   # end
 
-  # it 'check system tool' do
-  #   bool = LicenseAuto::Npm.check_cli
-  #   expect(bool).to eq(true)
-  # end
-  #
-  # it 'valid a sem-version' do
-  #   valid_semver = '1.2.3'
-  #
-  #   bool = LicenseAuto::Npm.is_valid_semver?(valid_semver)
-  #   expect(bool).to eq(true)
-  #
-  #   invalid_semver = 'a.b.c'
-  #   bool = LicenseAuto::Npm.is_valid_semver?(invalid_semver)
-  #   expect(bool).to eq(false)
-  #
-  # end
+  it 'check system tool' do
+    bool = LicenseAuto::Npm.check_cli
+    expect(bool).to eq(true)
+  end
+
+  it 'valid a sem-version' do
+    valid_semver = '1.2.3'
+
+    bool = LicenseAuto::Npm.is_valid_semver?(valid_semver)
+    expect(bool).to eq(true)
+
+    invalid_semver = 'a.b.c'
+    bool = LicenseAuto::Npm.is_valid_semver?(invalid_semver)
+    expect(bool).to eq(false)
+
+  end
 
 end

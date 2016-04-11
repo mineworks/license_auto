@@ -1,6 +1,7 @@
 require 'hashie/mash'
 require 'license_auto/website/github_com'
 require 'license_auto/package_manager/bundler'
+require 'license_auto/package_manager/npm'
 
 module LicenseAuto
   class Repo < Hashie::Mash
@@ -18,7 +19,7 @@ module LicenseAuto
     end
 
     def self.package_managers
-      [Bundler]
+      [Bundler, Npm]
     end
 
     # @return:
