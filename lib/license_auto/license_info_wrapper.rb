@@ -3,17 +3,28 @@ require 'hashie/mash'
 
 module LicenseAuto
 
-  class LicenseInfoWrapper < Hashie::Dash
+
+  class PackWrapper < Hashie::Dash
     include Hashie::Extensions::Mash
 
-    property :licenses, default: []
-    property :readmes, default: []
-    property :notices, default: []
-
+    property :pack_id
     property :homepage, default: nil
     property :project_url, default: nil
     property :source_url, default: nil
     property :cmt, default: nil
+  end
+
+  class LicenseInfoWrapper < Hashie::Dash
+    include Hashie::Extensions::Mash
+    include Hashie::Extensions::Coercion
+
+    property :licenses, default: []
+    property :readmes, default: []
+    property :notices, default: []
+    property :cmt, default: nil
+    property :pack
+
+    coerce_key :pack, PackWrapper
 
   end
 

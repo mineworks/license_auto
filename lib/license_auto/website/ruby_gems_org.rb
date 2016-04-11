@@ -111,6 +111,8 @@ class RubyGemsOrg < Website
 
     raise LicenseAuto::PackageNotFound if gem_info.nil?
 
+    license_info = nil
+
     source_code_matcher = LicenseAuto::Matcher::SourceURL.new(gem_info.source_code_uri || gem_info.homepage_uri)
     github_matched = source_code_matcher.match_github_resource
     bitbucket_matched = source_code_matcher.match_bitbucket_resource
@@ -141,14 +143,21 @@ class RubyGemsOrg < Website
             text: nil
         )
       }
-      license_info = LicenseAuto::LicenseInfoWrapper.new(
-          licenses: license_files,
-          project_url: gem_info.project_uri,
-          homepage: gem_info.homepage_uri,
-          source_url: gem_info.source_code_uri
-      )
+
+      license_info = LicenseAuto::LicenseInfoWrapper.new(licenses: license_files)
+      LicenseAuto.logger.debug(license_info)
     end
 
+    pack_wrapper = LicenseAuto::PackWrapper.new(
+        project_url: gem_info.project_uri,
+        homepage: gem_info.homepage_uri,
+        source_url: gem_info.source_code_uri
+    )
+
+    license_info[:pack] = pack_wrapper unless license_info.nil?
+
+
+    license_info
   end
 
   def get_gem_info()

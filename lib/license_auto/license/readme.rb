@@ -15,11 +15,17 @@ module LicenseAuto
 
     def initialize(filename, content)
       impl = formator(filename)
-      @license_content = impl.cut_license(content)
+      @license_content =
+          if impl.nil?
+            LicenseAuto.info("Unknown readme format: #{filename}, returned full-text instead")
+            content
+          else
+             impl.cut_license(content)
+          end
     end
 
     def extensions
-      [Markdown]
+      [Markdown, RDoc]
     end
 
     def formator(filename)
@@ -32,6 +38,18 @@ module LicenseAuto
   class Markdown
     FILE_EXTENSION = /\.(md|markdown)$/i
     PATTERN = /(?<text>^##\s*(license|copy|copying)(.*\n*)*)($|(?=\n^##))/i
+
+    def self.cut_license(content)
+      matched = PATTERN.match(content)
+      if matched
+        matched[:text]
+      end
+    end
+  end
+
+  class RDoc
+    FILE_EXTENSION = /\.rdoc$/i
+    PATTERN = /(?<text>^==\s*(license|copy|copying)(.*\n*)*)($|(?=\n^==))/i
 
     def self.cut_license(content)
       matched = PATTERN.match(content)

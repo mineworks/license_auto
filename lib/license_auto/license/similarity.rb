@@ -10,6 +10,7 @@ module LicenseAuto
     SIM_RATIO = 0.85
 
     def initialize(license_content)
+      @license_content = license_content
       # LicenseAuto.logger.debug(license_content)
       @license_template_documents =
           LICENSE_SORTED_FREQUENCY.reject {|template_name|
@@ -49,7 +50,7 @@ module LicenseAuto
 
       license_name = LICENSE_SORTED_FREQUENCY[sim_license_index]
 
-      debug = "License: #{license_name}, Ratio: #{max_sim_ratio}"
+      debug = "License: #{license_name}, Ratio: #{max_sim_ratio}, license_content: #{@license_content[0..20]}..."
       LicenseAuto.logger.debug(debug)
 
       [license_name, max_sim_ratio]
