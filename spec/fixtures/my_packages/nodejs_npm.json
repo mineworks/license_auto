@@ -1,0 +1,7 @@
+{
+  "language": "NodeJS",//                # Ruby|Golang|Java|NodeJS|Erlang|Python|
+  "name": "grunt",
+  "group": "",        // # Optional: Assign nil if your package is not a Java
+  "version": "1.0.1", //               # Optional: Assign nil if check the latest
+  "server": "registry.npmjs.org"  //   # Optional: github.com|rubygems.org|pypi.python.org/pypi|registry.npmjs.org
+}

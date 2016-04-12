@@ -90,7 +90,9 @@ module LicenseAuto
       ##
       # git ref: commit hash/branch/tag
       def match_the_ref(ref)
+        # LicenseAuto.logger.debug(ref)
         version_pattern = /[vV]?#{@name.gsub(/\./, '\.').gsub(/\//, '\/')}$/i
+        # LicenseAuto.logger.debug(version_pattern)
         version_pattern.match(ref)
       end
 

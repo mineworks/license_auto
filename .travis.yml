@@ -6,8 +6,9 @@ rvm:
 node_js:
  - "5"
 
-install:
- - npm install
+#install:
+# - npm install
+# - bundle install
 
 script:
  - bundle exec rake build

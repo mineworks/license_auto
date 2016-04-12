@@ -24,89 +24,11 @@ class RubyGemsOrg < Website
       begin
         @package.version = get_latest_version['number']
       rescue Exception => e
-        # TODO: what returned value is better?
+        LicenseAuto.logger.error(e)
         return nil
       end
     end
 
-    # Data eg. Hashie::Mash (19 elements)
-    #     {
-    #         "name":"diff-lcs",
-    #         "downloads":42036753,
-    #         "version":"1.2.5",
-    #         "version_downloads":25578122,
-    #         "platform":"ruby",
-    #         "authors":"Austin Ziegler",
-    #         "info":"Diff::LCS computes the difference between two Enumerable sequences using the\nMcIlroy-Hunt longest common subsequence (LCS) algorithm. It includes utilities\nto create a simple HTML diff output format and a standard diff-like tool.\n\nThis is release 1.2.4, fixing a bug introduced after diff-lcs 1.1.3 that did\nnot properly prune common sequences at the beginning of a comparison set.\nThanks to Paul Kunysch for fixing this issue.\n\nCoincident with the release of diff-lcs 1.2.3, we reported an issue with\nRubinius in 1.9 mode\n({rubinius/rubinius#2268}[https://github.com/rubinius/rubinius/issues/2268]).\nWe are happy to report that this issue has been resolved.",
-    #         "licenses":[
-    #             "MIT",
-    #             "Perl Artistic v2",
-    #             "GNU GPL v2"
-    #         ],
-    #         "metadata":{
-    #
-    #         },
-    #         "sha":"a1d3dde665292317a883d319066792e3f0e6a24cade4bc4cc47605d27664c9ed",
-    #         "project_uri":"https://rubygems.org/gems/diff-lcs",
-    #         "gem_uri":"https://rubygems.org/gems/diff-lcs-1.2.5.gem",
-    #         "homepage_uri":"http://diff-lcs.rubyforge.org/",
-    #         "wiki_uri":null,
-    #         "documentation_uri":"http://www.rubydoc.info/gems/diff-lcs/1.2.5",
-    #         "mailing_list_uri":null,
-    #         "source_code_uri":null,
-    #         "bug_tracker_uri":null,
-    #         "dependencies":{
-    #             "development":[
-    #                 {
-    #                     "name":"hoe",
-    #                     "requirements":"~> 3.7"
-    #                 },
-    #                 {
-    #                     "name":"hoe-bundler",
-    #                     "requirements":"~> 1.2"
-    #                 },
-    #                 {
-    #                     "name":"hoe-doofus",
-    #                     "requirements":"~> 1.0"
-    #                 },
-    #                 {
-    #                     "name":"hoe-gemspec2",
-    #                     "requirements":"~> 1.1"
-    #                 },
-    #                 {
-    #                     "name":"hoe-git",
-    #                     "requirements":"~> 1.5"
-    #                 },
-    #                 {
-    #                     "name":"hoe-rubygems",
-    #                     "requirements":"~> 1.0"
-    #                 },
-    #                 {
-    #                     "name":"hoe-travis",
-    #                     "requirements":"~> 1.2"
-    #                 },
-    #                 {
-    #                     "name":"rake",
-    #                     "requirements":"~> 10.0"
-    #                 },
-    #                 {
-    #                     "name":"rdoc",
-    #                     "requirements":"~> 4.0"
-    #                 },
-    #                 {
-    #                     "name":"rspec",
-    #                     "requirements":"~> 2.0"
-    #                 },
-    #                 {
-    #                     "name":"rubyforge",
-    #                     "requirements":">= 2.0.4"
-    #                 }
-    #             ],
-    #             "runtime":[
-    #
-    #             ]
-    #         }
-    #     }
     gem_info = get_gem_info
 
     raise LicenseAuto::PackageNotFound if gem_info.nil?
@@ -159,6 +81,84 @@ class RubyGemsOrg < Website
     license_info
   end
 
+  # @return eg. Hashie::Mash (19 elements)
+  #     {
+  #         "name":"diff-lcs",
+  #         "downloads":42036753,
+  #         "version":"1.2.5",
+  #         "version_downloads":25578122,
+  #         "platform":"ruby",
+  #         "authors":"Austin Ziegler",
+  #         "info":"Diff::LCS computes the difference between two Enumerable sequences using the\nMcIlroy-Hunt longest common subsequence (LCS) algorithm. It includes utilities\nto create a simple HTML diff output format and a standard diff-like tool.\n\nThis is release 1.2.4, fixing a bug introduced after diff-lcs 1.1.3 that did\nnot properly prune common sequences at the beginning of a comparison set.\nThanks to Paul Kunysch for fixing this issue.\n\nCoincident with the release of diff-lcs 1.2.3, we reported an issue with\nRubinius in 1.9 mode\n({rubinius/rubinius#2268}[https://github.com/rubinius/rubinius/issues/2268]).\nWe are happy to report that this issue has been resolved.",
+  #         "licenses":[
+  #             "MIT",
+  #             "Perl Artistic v2",
+  #             "GNU GPL v2"
+  #         ],
+  #         "metadata":{
+  #
+  #         },
+  #         "sha":"a1d3dde665292317a883d319066792e3f0e6a24cade4bc4cc47605d27664c9ed",
+  #         "project_uri":"https://rubygems.org/gems/diff-lcs",
+  #         "gem_uri":"https://rubygems.org/gems/diff-lcs-1.2.5.gem",
+  #         "homepage_uri":"http://diff-lcs.rubyforge.org/",
+  #         "wiki_uri":null,
+  #         "documentation_uri":"http://www.rubydoc.info/gems/diff-lcs/1.2.5",
+  #         "mailing_list_uri":null,
+  #         "source_code_uri":null,
+  #         "bug_tracker_uri":null,
+  #         "dependencies":{
+  #             "development":[
+  #                 {
+  #                     "name":"hoe",
+  #                     "requirements":"~> 3.7"
+  #                 },
+  #                 {
+  #                     "name":"hoe-bundler",
+  #                     "requirements":"~> 1.2"
+  #                 },
+  #                 {
+  #                     "name":"hoe-doofus",
+  #                     "requirements":"~> 1.0"
+  #                 },
+  #                 {
+  #                     "name":"hoe-gemspec2",
+  #                     "requirements":"~> 1.1"
+  #                 },
+  #                 {
+  #                     "name":"hoe-git",
+  #                     "requirements":"~> 1.5"
+  #                 },
+  #                 {
+  #                     "name":"hoe-rubygems",
+  #                     "requirements":"~> 1.0"
+  #                 },
+  #                 {
+  #                     "name":"hoe-travis",
+  #                     "requirements":"~> 1.2"
+  #                 },
+  #                 {
+  #                     "name":"rake",
+  #                     "requirements":"~> 10.0"
+  #                 },
+  #                 {
+  #                     "name":"rdoc",
+  #                     "requirements":"~> 4.0"
+  #                 },
+  #                 {
+  #                     "name":"rspec",
+  #                     "requirements":"~> 2.0"
+  #                 },
+  #                 {
+  #                     "name":"rubyforge",
+  #                     "requirements":">= 2.0.4"
+  #                 }
+  #             ],
+  #             "runtime":[
+  #
+  #             ]
+  #         }
+  #     }
   def get_gem_info()
     # TODO: Gems.info(@package.name, @package.version)
     gem_info = Gems.info(@package.name)

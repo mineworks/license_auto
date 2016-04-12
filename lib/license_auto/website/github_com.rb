@@ -35,7 +35,7 @@ class GithubCom < Website
       rescue NameError => e
         LicenseAuto.logger.debug("Running LicenseAuto in formal mode")
         basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
-        Github.new(user: user, repo: repo, basic_auth: basic_auth)
+        Github.new(user: user, repo: repo, basic_auth: basic_auth, auto_pagination: true)
       end
   end
 
@@ -44,6 +44,7 @@ class GithubCom < Website
 
   def get_license_info()
     possible_ref = @ref || match_versioned_ref
+    LicenseAuto.logger.debug(possible_ref)
     # If possible_ref is nil, the Github API server will return the default branch contents
     contents = @server.repos.contents.get(path: '/', ref: possible_ref)
 
@@ -74,7 +75,7 @@ class GithubCom < Website
     readme_files = readme_files.map {|obj|
       readme_content = get_blobs(obj['sha'])
       license_content = LicenseAuto::Readme.new(obj['download_url'], readme_content).license_content
-      LicenseAuto.logger.debug("readme_content: #{license_content}")
+      LicenseAuto.logger.debug("readme_content:\n#{license_content}\n")
       if license_content.nil?
         next
       else
@@ -87,7 +88,7 @@ class GithubCom < Website
             text: license_content
         )
       end
-    }.compact!
+    }.compact
 
     LicenseAuto::LicenseInfoWrapper.new(
         licenses: license_files,
@@ -122,6 +123,12 @@ class GithubCom < Website
     langs = @server.repos.languages
     LicenseAuto.logger.debug("All languaegs: #{langs}")
     langs
+  end
+
+  # @return
+  # Array: [#<Hashie::Mash commit=#<Hashie::Mash sha="8065e5c64a22bd6d60e4df8d9be46b5805ec9355" url="https://api.github.com/repos/bower/bower/commits/8065e5c64a22bd6d60e4df8d9be46b5805ec9355"> name="v1.7.9" tarball_url="https://api.github.com/repos/bower/bower/tarball/v1.7.9" zipball_url="https://api.github.com/repos/bower/bower/zipball/v1.7.9">, #<Hashie::Mash commit=
+  def list_tags
+    @server.repos.tags.body
   end
 
   def clone

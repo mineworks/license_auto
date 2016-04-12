@@ -1,0 +1,101 @@
+[
+  {
+    "name": "v1.0.1",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v1.0.1",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v1.0.1",
+    "commit": {
+      "sha": "8ada4948b69c6ec9b1e956b5e6b2e6814fa054ca",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/8ada4948b69c6ec9b1e956b5e6b2e6814fa054ca"
+    }
+  },
+  {
+    "name": "v1.0.0",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v1.0.0",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v1.0.0",
+    "commit": {
+      "sha": "26c6c3c80ce9db13e0c8d83bceff48c5c87b3bb7",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/26c6c3c80ce9db13e0c8d83bceff48c5c87b3bb7"
+    }
+  },
+  {
+    "name": "v1.0.0-rc1",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v1.0.0-rc1",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v1.0.0-rc1",
+    "commit": {
+      "sha": "c8a5251d44cbe1092c552438ffc075ab1a62a58a",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/c8a5251d44cbe1092c552438ffc075ab1a62a58a"
+    }
+  },
+  {
+    "name": "v0.4.5",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.5",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.5",
+    "commit": {
+      "sha": "e6f9cdfd61e35f8dc81649c544b8645621ab103d",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/e6f9cdfd61e35f8dc81649c544b8645621ab103d"
+    }
+  },
+  {
+    "name": "v0.4.4",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.4",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.4",
+    "commit": {
+      "sha": "bfc869e0551992e3418a498920c49646a425ea76",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/bfc869e0551992e3418a498920c49646a425ea76"
+    }
+  },
+  {
+    "name": "v0.4.3",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.3",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.3",
+    "commit": {
+      "sha": "8bbc8acec090b2129b5cc23605ded8c87678db6a",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/8bbc8acec090b2129b5cc23605ded8c87678db6a"
+    }
+  },
+  {
+    "name": "v0.4.2",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.2",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.2",
+    "commit": {
+      "sha": "5ab7a3ed6885fdbf4b458d72d65d488cf9eedf48",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/5ab7a3ed6885fdbf4b458d72d65d488cf9eedf48"
+    }
+  },
+  {
+    "name": "v0.4.1",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.1",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.1",
+    "commit": {
+      "sha": "c5cb63483aa5d0f933b914a1872b8c2366203a2e",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/c5cb63483aa5d0f933b914a1872b8c2366203a2e"
+    }
+  },
+  {
+    "name": "v0.4.0",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/v0.4.0",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/v0.4.0",
+    "commit": {
+      "sha": "fc956fa002eb0b6b2e9fc07abbe3415067f7f36c",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/fc956fa002eb0b6b2e9fc07abbe3415067f7f36c"
+    }
+  },
+  {
+    "name": "_pr1170_author_head",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/_pr1170_author_head",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/_pr1170_author_head",
+    "commit": {
+      "sha": "416a57344685974c091babcca62388fd03503fc7",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/416a57344685974c091babcca62388fd03503fc7"
+    }
+  },
+  {
+    "name": "_pr1108_author_head",
+    "zipball_url": "https://api.github.com/repos/gruntjs/grunt/zipball/_pr1108_author_head",
+    "tarball_url": "https://api.github.com/repos/gruntjs/grunt/tarball/_pr1108_author_head",
+    "commit": {
+      "sha": "a85a304b36f0983d7b42ffbe15ff098766759411",
+      "url": "https://api.github.com/repos/gruntjs/grunt/commits/a85a304b36f0983d7b42ffbe15ff098766759411"
+    }
+  }
+]

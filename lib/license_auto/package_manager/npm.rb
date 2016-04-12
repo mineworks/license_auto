@@ -31,46 +31,39 @@ module LicenseAuto
             dep_file: dep_file,
             deps: [npm_definition.dependencies, npm_definition.dependencies].compact.map {|hash|
                 hash.map {|pack_name, semver|
-                  if LicenseAuto::Npm.is_valid_semver?(semver)
-                    npm_registry = LicenseAuto::NpmRegistry.new(pack_name, semver)
-                    available_version = npm_registry.chose_latest_available_version(semver)
-                    {
-                        name: pack_name,
-                        version: available_version,
-                        remote: npm_registry.registry
-                    }
-                  end
-                }
+                  available_version, remote =
+                      if LicenseAuto::Npm.is_valid_semver?(semver)
+                        pack = Hashie::Mash.new(
+                            "language": "NodeJS",
+                            "name": pack_name,
+                            "group": "",
+                            "version": semver,
+                            "server": "registry.npmjs.org"
+                        )
+                        npm_registry = LicenseAuto::NpmRegistry.new(pack)
+                        version = npm_registry.chose_latest_available_version(semver)
+                        [version, npm_registry.registry]
+                      else
+                        # DOC: https://docs.npmjs.com/files/package.json#git-urls-as-dependencies
+                        git_url = semver.gsub(/^git\+/, '')
+                        matcher = LicenseAuto::Matcher::SourceURL.new(git_url)
+                        github_matched = matcher.match_github_resource
+                        tags = if github_matched
+                                 # TODO: ref=github_matched[:ref]
+                                 github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
+                                 github.list_tags
+                               end
+                        LicenseAuto.logger.debug(tags)
 
-              # elsif semver =~ API::SOURCE_URL_PATTERN[:npm_urls]
-              #   r = API::SOURCE_URL_PATTERN[:npm_urls].match(semver)
-              #   # TODO: save by original type
-              #   if r['host'] =~ API::SOURCE_URL_PATTERN[:github_dot_com]
-              #     source_url = "https://github.com/#{r['owner']}/#{r['repo']}"
-              #   else
-              #     source_url = semver
-              #   end
-              #   if r['ref'] == nil
-              #     version = 'master'
-              #   else
-              #     version = r['ref']
-              #   end
-              #   pack = {
-              #       'name' => pack_name,
-              #       'version' => version,
-              #       'uri' => source_url
-              #   }
-              #   pack_name_versions.push(pack)
-              # else
-              #   pack = {
-              #       'name' => pack_name,
-              #       'version' => semver,
-              #       'uri' => nil
-              #   }
-              #   pack_name_versions.push(pack)
-                # raise "Unknown semver pattern: #{semver}, pack_name"
-              # end
-            }
+                        [tags.first.name, git_url]
+                      end
+                  {
+                      name: pack_name,
+                      version: available_version,
+                      remote: remote
+                  }
+                }
+            }.flatten
           }
         }
       end
@@ -80,7 +73,7 @@ module LicenseAuto
     # semver: {String}
     def self.is_valid_semver?(semver)
       node_cmd = "node -e \"var semver = require('semver'); var valid = semver.validRange('#{semver}'); console.log(valid)\""
-      LicenseAuto.logger.debug(node_cmd)
+      # LicenseAuto.logger.debug(node_cmd)
       stdout_str, stderr_str, status = Open3.capture3(node_cmd)
       is_invalid = stdout_str.gsub(/\n/, '') == 'null'
       if is_invalid
