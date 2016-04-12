@@ -93,7 +93,6 @@ module LicenseAuto
 
     # TODO: move
     def self.check_cli
-      # TODO check node
       bash_cmd = "node -v"
       LicenseAuto.logger.debug(bash_cmd)
       stdout_str, stderr_str, status = Open3.capture3(bash_cmd)
@@ -112,11 +111,9 @@ module LicenseAuto
       stdout_str, stderr_str, status = Open3.capture3(bash_cmd)
       unless stderr_str.empty?
         LicenseAuto.logger.error(stderr_str)
-        # bash_cmd = "sudo npm install -g semver"
         LicenseAuto.logger.info(
-            "\n1. Install npm package semver globally first:\n
-              #{bash_cmd}\n
-             2. export NODE_PATH=/usr/local/lib/node_modules/\n")
+            "\nInstall npm packages first using:\n
+              $ npm install\n")
         return false
       end
 
