@@ -25,7 +25,7 @@ class GithubCom < Website
     super(package)
     @ref = ref
 
-    LicenseAuto.logger.debug("#{user}/#{repo}, #{@ref}")
+    LicenseAuto.logger.debug("https://github.com/#{user}/#{repo}, #{@ref}")
 
     @server =
       begin

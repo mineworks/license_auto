@@ -32,7 +32,10 @@ module LicenseAuto
             deps: [npm_definition.dependencies, npm_definition.dependencies].compact.map {|hash|
                 hash.map {|pack_name, semver|
                   available_version, remote =
-                      if LicenseAuto::Npm.is_valid_semver?(semver)
+                      if semver =~ /^file:/
+                        # DOC: https://docs.npmjs.com/files/package.json#local-paths
+                        ['local-path', semver]
+                      elsif LicenseAuto::Npm.is_valid_semver?(semver)
                         pack = Hashie::Mash.new(
                             "language": "NodeJS",
                             "name": pack_name,
@@ -48,14 +51,13 @@ module LicenseAuto
                         git_url = semver.gsub(/^git\+/, '')
                         matcher = LicenseAuto::Matcher::SourceURL.new(git_url)
                         github_matched = matcher.match_github_resource
-                        tags = if github_matched
-                                 # TODO: ref=github_matched[:ref]
-                                 github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
-                                 github.list_tags
-                               end
-                        LicenseAuto.logger.debug(tags)
-
-                        [tags.first.name, git_url]
+                        if github_matched
+                          # TODO: ref=github_matched[:ref]
+                          github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
+                          version = github.list_tags.first.name
+                          LicenseAuto.logger.debug(version)
+                          [version, git_url]
+                        end
                       end
                   {
                       name: pack_name,
@@ -76,11 +78,11 @@ module LicenseAuto
       # LicenseAuto.logger.debug(node_cmd)
       stdout_str, stderr_str, status = Open3.capture3(node_cmd)
       is_invalid = stdout_str.gsub(/\n/, '') == 'null'
-      if is_invalid
-        LicenseAuto.logger.error("semver: #{semver} is not a valid sem-version")
-      else
-        LicenseAuto.logger.debug("semver: #{semver} is valid")
-      end
+      # if is_invalid
+      #   LicenseAuto.logger.error("semver: #{semver} is not a valid sem-version")
+      # else
+      #   LicenseAuto.logger.debug("semver: #{semver} is valid")
+      # end
       not is_invalid
     end
 
