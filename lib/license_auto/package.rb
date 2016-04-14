@@ -114,7 +114,7 @@ module LicenseAuto
               else
                 LicenseAuto.logger.fatal("Golang server: #{self.server} should be supported!")
               end
-            elsif self.server?
+            elsif self.server
               PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
             end
       rescue KeyError => e
