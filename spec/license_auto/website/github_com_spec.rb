@@ -22,6 +22,18 @@ describe GithubCom do
     languages_path = "https://api.github.com/repos/bundler/bundler/languages"
     stub_request(:get, languages_path).
         to_return(:status => 200, :body => fixture(languages_path), :headers => {})
+
+    commit_path = "https://api.github.com/repos/bundler/bundler/git/blobs/e356f59f949264bff1600af3476d5e37147957cc"
+    stub_request(:get, commit_path ).
+        to_return(:status => 200, :body => fixture(commit_path), :headers => {})
+
+    blobs = "https://api.github.com/repos/bundler/bundler/git/blobs/c46767306718fbbb1320d43f6b5668a950c6b0d7"
+    stub_request(:get, blobs).
+        to_return(:status => 200, :body => fixture(blobs), :headers => {})
+
+    commit = "https://api.github.com/repos/bundler/bundler/commits"
+    stub_request(:get, commit).
+        to_return(:status => 200, :body => fixture(commit), :headers => {})
   end
 
   it 'Get Github LicenseInfo' do
@@ -35,6 +47,16 @@ describe GithubCom do
     languages = github.list_languages
 
     expect(languages.size > 0).to be(true)
+  end
+
+  it 'List Github Repo commits' do
+    github = GithubCom.new(my_pack, user, repo)
+    commits = github.list_commits
+
+    expect(commits.size > 0).to be(true)
+
+    latest = github.latest_commit
+    expect(latest.sha).to eq('3a09448d8b060f2688dbc73bfa1eb08e1bd126f3')
   end
 
 end

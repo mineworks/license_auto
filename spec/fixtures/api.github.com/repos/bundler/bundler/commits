@@ -1,0 +1,2172 @@
+[
+  {
+    "sha": "3a09448d8b060f2688dbc73bfa1eb08e1bd126f3",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T06:43:36Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T06:43:36Z"
+      },
+      "message": "Auto merge of #4415 - bundler:seg-rubocop-0.39, r=segiddins\n\n[RuboCop] Update to 0.39.0",
+      "tree": {
+        "sha": "7c3dd178441878d3b0feb38052627ed74fa453ca",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/7c3dd178441878d3b0feb38052627ed74fa453ca"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/3a09448d8b060f2688dbc73bfa1eb08e1bd126f3",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/3a09448d8b060f2688dbc73bfa1eb08e1bd126f3",
+    "html_url": "https://github.com/bundler/bundler/commit/3a09448d8b060f2688dbc73bfa1eb08e1bd126f3",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/3a09448d8b060f2688dbc73bfa1eb08e1bd126f3/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c3621778dc263b19c446908c7f5c5641aa6d4037",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/c3621778dc263b19c446908c7f5c5641aa6d4037",
+        "html_url": "https://github.com/bundler/bundler/commit/c3621778dc263b19c446908c7f5c5641aa6d4037"
+      },
+      {
+        "sha": "e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+        "html_url": "https://github.com/bundler/bundler/commit/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa"
+      }
+    ]
+  },
+  {
+    "sha": "c3621778dc263b19c446908c7f5c5641aa6d4037",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T05:21:21Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T05:21:21Z"
+      },
+      "message": "Auto merge of #4413 - bundler:seg-speed-up-specs-update-repo, r=indirect\n\n[Builders] Dont rebuild gem index when unnecessary\n\nThis should speed up the specs slightly\n\n\\c @indirect",
+      "tree": {
+        "sha": "3a2f9a742bd52d77a1485cb8de606f1fe9c58daf",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/3a2f9a742bd52d77a1485cb8de606f1fe9c58daf"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/c3621778dc263b19c446908c7f5c5641aa6d4037",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/c3621778dc263b19c446908c7f5c5641aa6d4037",
+    "html_url": "https://github.com/bundler/bundler/commit/c3621778dc263b19c446908c7f5c5641aa6d4037",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/c3621778dc263b19c446908c7f5c5641aa6d4037/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "b3b14b6732b5764d8d087032657ea3653467390d",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/b3b14b6732b5764d8d087032657ea3653467390d",
+        "html_url": "https://github.com/bundler/bundler/commit/b3b14b6732b5764d8d087032657ea3653467390d"
+      },
+      {
+        "sha": "d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+        "html_url": "https://github.com/bundler/bundler/commit/d4faf61a3a8a7655a9765596e1e811053f93ef8c"
+      }
+    ]
+  },
+  {
+    "sha": "b3b14b6732b5764d8d087032657ea3653467390d",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T04:00:51Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T04:00:51Z"
+      },
+      "message": "Auto merge of #4412 - bundler:seg-speed-up-path, r=indirect\n\n[Path] Speed up bin generation when there are many files\n\nCloses #2846, I presume.\n\n\\c @indirect",
+      "tree": {
+        "sha": "15a170ecee77bafbc45f5de5b68d2255d70253e9",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/15a170ecee77bafbc45f5de5b68d2255d70253e9"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/b3b14b6732b5764d8d087032657ea3653467390d",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/b3b14b6732b5764d8d087032657ea3653467390d",
+    "html_url": "https://github.com/bundler/bundler/commit/b3b14b6732b5764d8d087032657ea3653467390d",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/b3b14b6732b5764d8d087032657ea3653467390d/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+        "html_url": "https://github.com/bundler/bundler/commit/7e004d3e42ae5ea64af9b18330a92228f1201f4c"
+      },
+      {
+        "sha": "faf7b5aa038451304b376d72a39e08f7f73a6859",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/faf7b5aa038451304b376d72a39e08f7f73a6859",
+        "html_url": "https://github.com/bundler/bundler/commit/faf7b5aa038451304b376d72a39e08f7f73a6859"
+      }
+    ]
+  },
+  {
+    "sha": "7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T01:23:28Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-30T01:23:28Z"
+      },
+      "message": "Auto merge of #4418 - yuuki1224:patch-3, r=segiddins\n\nFix exception message in spec_set.rb\n\nThis exception message contains duplication of \"depend\".",
+      "tree": {
+        "sha": "3b1c77c56865ac06b8d7cd8e4aa8c18622f6e03d",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/3b1c77c56865ac06b8d7cd8e4aa8c18622f6e03d"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+    "html_url": "https://github.com/bundler/bundler/commit/7e004d3e42ae5ea64af9b18330a92228f1201f4c",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/7e004d3e42ae5ea64af9b18330a92228f1201f4c/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+        "html_url": "https://github.com/bundler/bundler/commit/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815"
+      },
+      {
+        "sha": "ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+        "html_url": "https://github.com/bundler/bundler/commit/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6"
+      }
+    ]
+  },
+  {
+    "sha": "ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+    "commit": {
+      "author": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-30T00:01:28Z"
+      },
+      "committer": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-30T00:01:28Z"
+      },
+      "message": "Fix exception message in spec_set.rb",
+      "tree": {
+        "sha": "a4b9c9de5ebe2c384ca1889f164d1750941f7a8a",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/a4b9c9de5ebe2c384ca1889f164d1750941f7a8a"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+    "html_url": "https://github.com/bundler/bundler/commit/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/ab1b4f2d08afd9ea51df01d73f77d99b3c5f9bd6/comments",
+    "author": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "755e1a49f29ecc87dbf619310326cc1057adf697",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/755e1a49f29ecc87dbf619310326cc1057adf697",
+        "html_url": "https://github.com/bundler/bundler/commit/755e1a49f29ecc87dbf619310326cc1057adf697"
+      }
+    ]
+  },
+  {
+    "sha": "015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T23:04:13Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T23:04:13Z"
+      },
+      "message": "Auto merge of #4408 - bundler:seg-enotsup, r=indirect\n\n[SharedHelpers] Handle Errno::ENOTSUP in .filesystem_access\n\nCloses #4394.\n\n\\c @RochesterinNYC",
+      "tree": {
+        "sha": "4ccf4e3e21975348dc9edcca63ee9cdf3a3d7696",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/4ccf4e3e21975348dc9edcca63ee9cdf3a3d7696"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+    "html_url": "https://github.com/bundler/bundler/commit/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/015c1cb52b47c9f7f644652ffdaa7fefcfd0f815/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "755e1a49f29ecc87dbf619310326cc1057adf697",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/755e1a49f29ecc87dbf619310326cc1057adf697",
+        "html_url": "https://github.com/bundler/bundler/commit/755e1a49f29ecc87dbf619310326cc1057adf697"
+      },
+      {
+        "sha": "e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+        "html_url": "https://github.com/bundler/bundler/commit/e2e8aa7d78b76cfb49404fa4226572df76fe0946"
+      }
+    ]
+  },
+  {
+    "sha": "e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T22:37:23Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T22:37:23Z"
+      },
+      "message": "[RuboCop] Update to 0.39.0",
+      "tree": {
+        "sha": "f43fe9b2f1de7a3461ab832e6177b02d02c6ac1c",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/f43fe9b2f1de7a3461ab832e6177b02d02c6ac1c"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+    "html_url": "https://github.com/bundler/bundler/commit/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e3e05e14c94c3c5839717d716bfe2ebc6e3a61fa/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+        "html_url": "https://github.com/bundler/bundler/commit/7cc7716bbfa4484a61bd277e4706249bdfb01b52"
+      }
+    ]
+  },
+  {
+    "sha": "755e1a49f29ecc87dbf619310326cc1057adf697",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T21:53:28Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T21:53:28Z"
+      },
+      "message": "Auto merge of #4414 - bundler:seg-sys-exec, r=indirect\n\nRewrite Spec::Helpers#sys_exec\n\nIn testing, this reduces time spent in sys_exec by ~12%\n\n\\c @indirect",
+      "tree": {
+        "sha": "48bc7aef04d37fd852ec48b1b214ef630089b876",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/48bc7aef04d37fd852ec48b1b214ef630089b876"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/755e1a49f29ecc87dbf619310326cc1057adf697",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/755e1a49f29ecc87dbf619310326cc1057adf697",
+    "html_url": "https://github.com/bundler/bundler/commit/755e1a49f29ecc87dbf619310326cc1057adf697",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/755e1a49f29ecc87dbf619310326cc1057adf697/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+        "html_url": "https://github.com/bundler/bundler/commit/7cc7716bbfa4484a61bd277e4706249bdfb01b52"
+      },
+      {
+        "sha": "e3f278959756d61f966a2f6f4e54b75838d4aa21",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e3f278959756d61f966a2f6f4e54b75838d4aa21",
+        "html_url": "https://github.com/bundler/bundler/commit/e3f278959756d61f966a2f6f4e54b75838d4aa21"
+      }
+    ]
+  },
+  {
+    "sha": "7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T21:19:40Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T21:19:40Z"
+      },
+      "message": "Auto merge of #4399 - spk:fix-80-column-newgem-gemspec, r=segiddins\n\nFix 80 column on newgem gemspec\n\n80 column is not respected on newgem created, this have to be changed every new gem for those respecting this convention.\nCheers",
+      "tree": {
+        "sha": "795c0e232c115a94598674c7e1676b0742bef585",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/795c0e232c115a94598674c7e1676b0742bef585"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+    "html_url": "https://github.com/bundler/bundler/commit/7cc7716bbfa4484a61bd277e4706249bdfb01b52",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/7cc7716bbfa4484a61bd277e4706249bdfb01b52/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+        "html_url": "https://github.com/bundler/bundler/commit/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7"
+      },
+      {
+        "sha": "e469222292e5bb3fbac26c47563de39a956b3aad",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e469222292e5bb3fbac26c47563de39a956b3aad",
+        "html_url": "https://github.com/bundler/bundler/commit/e469222292e5bb3fbac26c47563de39a956b3aad"
+      }
+    ]
+  },
+  {
+    "sha": "e469222292e5bb3fbac26c47563de39a956b3aad",
+    "commit": {
+      "author": {
+        "name": "Laurent Arnoud",
+        "email": "laurent@spkdev.net",
+        "date": "2016-03-26T11:27:13Z"
+      },
+      "committer": {
+        "name": "Laurent Arnoud",
+        "email": "laurent@spkdev.net",
+        "date": "2016-03-29T16:53:57Z"
+      },
+      "message": "Fix 80 column on newgem gemspec",
+      "tree": {
+        "sha": "795c0e232c115a94598674c7e1676b0742bef585",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/795c0e232c115a94598674c7e1676b0742bef585"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e469222292e5bb3fbac26c47563de39a956b3aad",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e469222292e5bb3fbac26c47563de39a956b3aad",
+    "html_url": "https://github.com/bundler/bundler/commit/e469222292e5bb3fbac26c47563de39a956b3aad",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e469222292e5bb3fbac26c47563de39a956b3aad/comments",
+    "author": {
+      "login": "spk",
+      "id": 98590,
+      "avatar_url": "https://avatars.githubusercontent.com/u/98590?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/spk",
+      "html_url": "https://github.com/spk",
+      "followers_url": "https://api.github.com/users/spk/followers",
+      "following_url": "https://api.github.com/users/spk/following{/other_user}",
+      "gists_url": "https://api.github.com/users/spk/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/spk/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/spk/subscriptions",
+      "organizations_url": "https://api.github.com/users/spk/orgs",
+      "repos_url": "https://api.github.com/users/spk/repos",
+      "events_url": "https://api.github.com/users/spk/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/spk/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "spk",
+      "id": 98590,
+      "avatar_url": "https://avatars.githubusercontent.com/u/98590?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/spk",
+      "html_url": "https://github.com/spk",
+      "followers_url": "https://api.github.com/users/spk/followers",
+      "following_url": "https://api.github.com/users/spk/following{/other_user}",
+      "gists_url": "https://api.github.com/users/spk/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/spk/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/spk/subscriptions",
+      "organizations_url": "https://api.github.com/users/spk/orgs",
+      "repos_url": "https://api.github.com/users/spk/repos",
+      "events_url": "https://api.github.com/users/spk/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/spk/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+        "html_url": "https://github.com/bundler/bundler/commit/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7"
+      }
+    ]
+  },
+  {
+    "sha": "8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T06:01:27Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-29T06:01:27Z"
+      },
+      "message": "Auto merge of #4409 - RochesterinNYC:use-new-ssl-certs-structure-certificates-in-method, r=indirect\n\nHave `CertificateManager` use new `ssl_certs` dir structure for `#certificates_in`\n\n- Related to #4407\n\n/cc @indirect",
+      "tree": {
+        "sha": "607f5fb845c28e899844771ffeab0a336446cc4b",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/607f5fb845c28e899844771ffeab0a336446cc4b"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+    "html_url": "https://github.com/bundler/bundler/commit/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/8e5ae78f89ae89ed689c3b2eeff2260bd74a48f7/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+        "html_url": "https://github.com/bundler/bundler/commit/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea"
+      },
+      {
+        "sha": "03955d8079679ee2630724b369834cd59e287604",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/03955d8079679ee2630724b369834cd59e287604",
+        "html_url": "https://github.com/bundler/bundler/commit/03955d8079679ee2630724b369834cd59e287604"
+      }
+    ]
+  },
+  {
+    "sha": "e3f278959756d61f966a2f6f4e54b75838d4aa21",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T02:08:13Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T02:08:13Z"
+      },
+      "message": "Rewrite Spec::Helpers#sys_exec\n\nIn testing, this reduces time spent in sys_exec by ~12%",
+      "tree": {
+        "sha": "668f417122e217f6a15a719ab4e94f286db331cd",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/668f417122e217f6a15a719ab4e94f286db331cd"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e3f278959756d61f966a2f6f4e54b75838d4aa21",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e3f278959756d61f966a2f6f4e54b75838d4aa21",
+    "html_url": "https://github.com/bundler/bundler/commit/e3f278959756d61f966a2f6f4e54b75838d4aa21",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e3f278959756d61f966a2f6f4e54b75838d4aa21/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      }
+    ]
+  },
+  {
+    "sha": "d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T00:18:40Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T00:18:40Z"
+      },
+      "message": "[Builders] Dont rebuild gem index when unnecessary\n\nThis should speed up the specs slightly",
+      "tree": {
+        "sha": "188586283e4212d43c98bdc740741019f4a13ec4",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/188586283e4212d43c98bdc740741019f4a13ec4"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+    "html_url": "https://github.com/bundler/bundler/commit/d4faf61a3a8a7655a9765596e1e811053f93ef8c",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/d4faf61a3a8a7655a9765596e1e811053f93ef8c/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      }
+    ]
+  },
+  {
+    "sha": "faf7b5aa038451304b376d72a39e08f7f73a6859",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T00:01:25Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-29T00:01:25Z"
+      },
+      "message": "[Path] Speed up bin generation when there are many files",
+      "tree": {
+        "sha": "aa594e31542d6c389f2d619ba62698b9a804e64a",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/aa594e31542d6c389f2d619ba62698b9a804e64a"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/faf7b5aa038451304b376d72a39e08f7f73a6859",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/faf7b5aa038451304b376d72a39e08f7f73a6859",
+    "html_url": "https://github.com/bundler/bundler/commit/faf7b5aa038451304b376d72a39e08f7f73a6859",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/faf7b5aa038451304b376d72a39e08f7f73a6859/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      }
+    ]
+  },
+  {
+    "sha": "c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T23:30:01Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T23:30:01Z"
+      },
+      "message": "Auto merge of #4411 - yuuki1224:patch-2, r=segiddins\n\nFix typo in cache/platform_spec.rb\n\njust fixed typo!",
+      "tree": {
+        "sha": "4a5b9697d0e807d6dcb95402ead789380537f95b",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/4a5b9697d0e807d6dcb95402ead789380537f95b"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+    "html_url": "https://github.com/bundler/bundler/commit/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/c26b0d8d4e7f105cf6467875dd8a0d42cd10e5ea/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      },
+      {
+        "sha": "351831dd9deadf4b732f2cf6c6076786d13496a8",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/351831dd9deadf4b732f2cf6c6076786d13496a8",
+        "html_url": "https://github.com/bundler/bundler/commit/351831dd9deadf4b732f2cf6c6076786d13496a8"
+      }
+    ]
+  },
+  {
+    "sha": "351831dd9deadf4b732f2cf6c6076786d13496a8",
+    "commit": {
+      "author": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-28T23:27:18Z"
+      },
+      "committer": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-28T23:27:18Z"
+      },
+      "message": "Fix typo in cache/platform_spec.rb",
+      "tree": {
+        "sha": "4a5b9697d0e807d6dcb95402ead789380537f95b",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/4a5b9697d0e807d6dcb95402ead789380537f95b"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/351831dd9deadf4b732f2cf6c6076786d13496a8",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/351831dd9deadf4b732f2cf6c6076786d13496a8",
+    "html_url": "https://github.com/bundler/bundler/commit/351831dd9deadf4b732f2cf6c6076786d13496a8",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/351831dd9deadf4b732f2cf6c6076786d13496a8/comments",
+    "author": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      }
+    ]
+  },
+  {
+    "sha": "03955d8079679ee2630724b369834cd59e287604",
+    "commit": {
+      "author": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-28T22:08:31Z"
+      },
+      "committer": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-28T22:08:31Z"
+      },
+      "message": "Have `Bundler::SSLCerts::CertificateManager` use new `ssl_certs` dir\nstructure for `#certificates_in`",
+      "tree": {
+        "sha": "93c7674c11ef5f81c9bb412712be267ca189d6ca",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/93c7674c11ef5f81c9bb412712be267ca189d6ca"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/03955d8079679ee2630724b369834cd59e287604",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/03955d8079679ee2630724b369834cd59e287604",
+    "html_url": "https://github.com/bundler/bundler/commit/03955d8079679ee2630724b369834cd59e287604",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/03955d8079679ee2630724b369834cd59e287604/comments",
+    "author": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+        "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb"
+      }
+    ]
+  },
+  {
+    "sha": "e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-28T22:01:16Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-28T22:01:16Z"
+      },
+      "message": "[SharedHelpers] Support 1.8.7 not having ENOTSUP defined",
+      "tree": {
+        "sha": "71b38c501e1c73e5bb931e78d61d8756f933d19b",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/71b38c501e1c73e5bb931e78d61d8756f933d19b"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+    "html_url": "https://github.com/bundler/bundler/commit/e2e8aa7d78b76cfb49404fa4226572df76fe0946",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e2e8aa7d78b76cfb49404fa4226572df76fe0946/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "6ca09f574220a6bded14069f7163980551f54341",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/6ca09f574220a6bded14069f7163980551f54341",
+        "html_url": "https://github.com/bundler/bundler/commit/6ca09f574220a6bded14069f7163980551f54341"
+      }
+    ]
+  },
+  {
+    "sha": "6ca09f574220a6bded14069f7163980551f54341",
+    "commit": {
+      "author": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-28T19:54:57Z"
+      },
+      "committer": {
+        "name": "Samuel Giddins",
+        "email": "segiddins@segiddins.me",
+        "date": "2016-03-28T19:54:57Z"
+      },
+      "message": "[SharedHelpers] Handle Errno::ENOTSUP in .filesystem_access",
+      "tree": {
+        "sha": "10152a0cb77ab8ff09885f6a3d649b7e941c95f9",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/10152a0cb77ab8ff09885f6a3d649b7e941c95f9"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/6ca09f574220a6bded14069f7163980551f54341",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/6ca09f574220a6bded14069f7163980551f54341",
+    "html_url": "https://github.com/bundler/bundler/commit/6ca09f574220a6bded14069f7163980551f54341",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/6ca09f574220a6bded14069f7163980551f54341/comments",
+    "author": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "segiddins",
+      "id": 1946610,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1946610?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/segiddins",
+      "html_url": "https://github.com/segiddins",
+      "followers_url": "https://api.github.com/users/segiddins/followers",
+      "following_url": "https://api.github.com/users/segiddins/following{/other_user}",
+      "gists_url": "https://api.github.com/users/segiddins/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/segiddins/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/segiddins/subscriptions",
+      "organizations_url": "https://api.github.com/users/segiddins/orgs",
+      "repos_url": "https://api.github.com/users/segiddins/repos",
+      "events_url": "https://api.github.com/users/segiddins/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/segiddins/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4a4fec7f69752e7da70f0a622b47cd28c318386f",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/4a4fec7f69752e7da70f0a622b47cd28c318386f",
+        "html_url": "https://github.com/bundler/bundler/commit/4a4fec7f69752e7da70f0a622b47cd28c318386f"
+      }
+    ]
+  },
+  {
+    "sha": "d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T19:27:14Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T19:27:14Z"
+      },
+      "message": "Auto merge of #4401 - yuuki1224:patch-1, r=segiddins\n\nFix typo in bundler/cli_spec.rb\n\nFixed typo.",
+      "tree": {
+        "sha": "3ac2f73328c7b5305e49f2deb130a8624a0c9170",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/3ac2f73328c7b5305e49f2deb130a8624a0c9170"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+    "html_url": "https://github.com/bundler/bundler/commit/d716a0ada398f53cd0ecf5e1708d10426e3833eb",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/d716a0ada398f53cd0ecf5e1708d10426e3833eb/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4a4fec7f69752e7da70f0a622b47cd28c318386f",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/4a4fec7f69752e7da70f0a622b47cd28c318386f",
+        "html_url": "https://github.com/bundler/bundler/commit/4a4fec7f69752e7da70f0a622b47cd28c318386f"
+      },
+      {
+        "sha": "e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+        "html_url": "https://github.com/bundler/bundler/commit/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916"
+      }
+    ]
+  },
+  {
+    "sha": "4a4fec7f69752e7da70f0a622b47cd28c318386f",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T06:12:20Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T06:12:20Z"
+      },
+      "message": "Auto merge of #4403 - RochesterinNYC:fix-patch-minor-major-flags-bundle-outdated, r=indirect\n\nFix `bundle outdated` behavior with combinations of `--major`, `--minor`, and `--patch` flags\n\n- Allow `bundle outdated` to handle all combinations of `--major`, `--minor`, and `--patch` flags\n- Related to discussion at #4249",
+      "tree": {
+        "sha": "6032c138dd9d9959a9f07ed1e87ff427db1a9ab9",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/6032c138dd9d9959a9f07ed1e87ff427db1a9ab9"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/4a4fec7f69752e7da70f0a622b47cd28c318386f",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/4a4fec7f69752e7da70f0a622b47cd28c318386f",
+    "html_url": "https://github.com/bundler/bundler/commit/4a4fec7f69752e7da70f0a622b47cd28c318386f",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/4a4fec7f69752e7da70f0a622b47cd28c318386f/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+        "html_url": "https://github.com/bundler/bundler/commit/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea"
+      },
+      {
+        "sha": "2e39a8e29bb1a61a46078aa74d892a20ba666938",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/2e39a8e29bb1a61a46078aa74d892a20ba666938",
+        "html_url": "https://github.com/bundler/bundler/commit/2e39a8e29bb1a61a46078aa74d892a20ba666938"
+      }
+    ]
+  },
+  {
+    "sha": "55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T06:04:00Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-28T06:04:00Z"
+      },
+      "message": "Auto merge of #4393 - RochesterinNYC:fix-recursive-copy-bundle-package-diff-name, r=indirect\n\nPrevent endless recursive copy for `bundle package --all`\n\n- prevents endless recursive copy regardless of gemspec file name (and whether it matches the name of the gem)\n\n- Fixes #4392",
+      "tree": {
+        "sha": "c74d9f6086e6c2dd7cfb25d00807d34e68122b74",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/c74d9f6086e6c2dd7cfb25d00807d34e68122b74"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+    "html_url": "https://github.com/bundler/bundler/commit/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/55b2d815efc8aa26bc85cce4cca0b1496c38d2ea/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "html_url": "https://github.com/bundler/bundler/commit/83350e3693c5ed5dd7e55916411e5c2c877548d3"
+      },
+      {
+        "sha": "ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+        "html_url": "https://github.com/bundler/bundler/commit/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6"
+      }
+    ]
+  },
+  {
+    "sha": "2e39a8e29bb1a61a46078aa74d892a20ba666938",
+    "commit": {
+      "author": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-27T04:22:34Z"
+      },
+      "committer": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-27T04:22:34Z"
+      },
+      "message": "Allow `bundle outdated` to handle all combinations of `--major`,\n`--minor`, and `--patch` flags\n\n- Add test coverage for these combination sets\n- Fixes #4396",
+      "tree": {
+        "sha": "f7fc91eed8ba84418cfd4a93474b4029cffa470d",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/f7fc91eed8ba84418cfd4a93474b4029cffa470d"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/2e39a8e29bb1a61a46078aa74d892a20ba666938",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/2e39a8e29bb1a61a46078aa74d892a20ba666938",
+    "html_url": "https://github.com/bundler/bundler/commit/2e39a8e29bb1a61a46078aa74d892a20ba666938",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/2e39a8e29bb1a61a46078aa74d892a20ba666938/comments",
+    "author": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "5aa7058df1070b471f174b997a100fa3304cc814",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/5aa7058df1070b471f174b997a100fa3304cc814",
+        "html_url": "https://github.com/bundler/bundler/commit/5aa7058df1070b471f174b997a100fa3304cc814"
+      }
+    ]
+  },
+  {
+    "sha": "e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+    "commit": {
+      "author": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-26T20:02:57Z"
+      },
+      "committer": {
+        "name": "Yuki Asano",
+        "email": "yuuki.1224.softtennis@gmail.com",
+        "date": "2016-03-26T20:02:57Z"
+      },
+      "message": "Fix typo in bundler/cli_spec.rb",
+      "tree": {
+        "sha": "8f66dac6fa45d0dd3f3d50ae814e292b8afec946",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/8f66dac6fa45d0dd3f3d50ae814e292b8afec946"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+    "html_url": "https://github.com/bundler/bundler/commit/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e596d0ebf5e2ed8dc59dc48b771ae2bbad27a916/comments",
+    "author": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "yuuki1224",
+      "id": 1756640,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1756640?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yuuki1224",
+      "html_url": "https://github.com/yuuki1224",
+      "followers_url": "https://api.github.com/users/yuuki1224/followers",
+      "following_url": "https://api.github.com/users/yuuki1224/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yuuki1224/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yuuki1224/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yuuki1224/subscriptions",
+      "organizations_url": "https://api.github.com/users/yuuki1224/orgs",
+      "repos_url": "https://api.github.com/users/yuuki1224/repos",
+      "events_url": "https://api.github.com/users/yuuki1224/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yuuki1224/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "html_url": "https://github.com/bundler/bundler/commit/83350e3693c5ed5dd7e55916411e5c2c877548d3"
+      }
+    ]
+  },
+  {
+    "sha": "5aa7058df1070b471f174b997a100fa3304cc814",
+    "commit": {
+      "author": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-26T13:35:11Z"
+      },
+      "committer": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-26T14:44:16Z"
+      },
+      "message": "Create shared examples for major, minor, patch version detection in\n`bundle outdated` specs",
+      "tree": {
+        "sha": "c203e8d48a3c3d9dcd006fc25dccf3928ceb5c43",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/c203e8d48a3c3d9dcd006fc25dccf3928ceb5c43"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/5aa7058df1070b471f174b997a100fa3304cc814",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/5aa7058df1070b471f174b997a100fa3304cc814",
+    "html_url": "https://github.com/bundler/bundler/commit/5aa7058df1070b471f174b997a100fa3304cc814",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/5aa7058df1070b471f174b997a100fa3304cc814/comments",
+    "author": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "html_url": "https://github.com/bundler/bundler/commit/83350e3693c5ed5dd7e55916411e5c2c877548d3"
+      }
+    ]
+  },
+  {
+    "sha": "ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+    "commit": {
+      "author": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-25T18:01:41Z"
+      },
+      "committer": {
+        "name": "James Wen",
+        "email": "jrw2175@columbia.edu",
+        "date": "2016-03-25T18:01:41Z"
+      },
+      "message": "Prevent endless recursive copy for `bundle package --all` and\ndifferently named gemspecs and gems\n\n- Fixes #4392",
+      "tree": {
+        "sha": "c74d9f6086e6c2dd7cfb25d00807d34e68122b74",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/c74d9f6086e6c2dd7cfb25d00807d34e68122b74"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+    "html_url": "https://github.com/bundler/bundler/commit/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/ff3ba7f1d53b504fe1d8ae1613466626065cf2a6/comments",
+    "author": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "RochesterinNYC",
+      "id": 1504464,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1504464?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/RochesterinNYC",
+      "html_url": "https://github.com/RochesterinNYC",
+      "followers_url": "https://api.github.com/users/RochesterinNYC/followers",
+      "following_url": "https://api.github.com/users/RochesterinNYC/following{/other_user}",
+      "gists_url": "https://api.github.com/users/RochesterinNYC/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/RochesterinNYC/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/RochesterinNYC/subscriptions",
+      "organizations_url": "https://api.github.com/users/RochesterinNYC/orgs",
+      "repos_url": "https://api.github.com/users/RochesterinNYC/repos",
+      "events_url": "https://api.github.com/users/RochesterinNYC/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/RochesterinNYC/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+        "html_url": "https://github.com/bundler/bundler/commit/83350e3693c5ed5dd7e55916411e5c2c877548d3"
+      }
+    ]
+  },
+  {
+    "sha": "83350e3693c5ed5dd7e55916411e5c2c877548d3",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-23T14:30:19Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-23T14:30:19Z"
+      },
+      "message": "Auto merge of #4388 - sj26:bundle-open-clean-env, r=segiddins\n\nOpen editor with clean env\n\nEditors which have ruby embedded may be confused by bundler's environment, so strip it before launching the editor process.\n\nHere's what happens when I try to `bundle open activesupport` within a rails app using homebrew-installed vim (which embeds ruby by default) but using a different version of ruby in my app:\n\n```\n$ bundle open activesupport\ndyld: lazy symbol binding failed: Symbol not found: _rb_str_new_static\n  Referenced from: /usr/local/rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/json-1.8.3/lib/json/ext/parser.bundle\n  Expected in: flat namespace\n\ndyld: Symbol not found: _rb_str_new_static\n  Referenced from: /usr/local/rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/json-1.8.3/lib/json/ext/parser.bundle\n  Expected in: flat namespace\n\nVim: Caught deadly signal TRAP\nVim: Finished.\nCould not run 'vim /usr/local/rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/activesupport-4.2.6'\n```\n\nVim is linked against OS X's ruby which is a different version, but is booting within a bundler environment with a GEM_PATH set to my application's ruby's gem directories.\n\nRunning the editor with a clean env fixes the problem and I can successfully open gems with vim.\n\nSidenote: I can't run the test suite locally. Following DEVELOPMENT.md I have graphviz and groff installed with homebrew, using ruby 2.3.0 via rbenv, and I run `rake spec:deps` then `rake spec` with the following result:\n\n```\n$ rake spec:deps\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^automatiek$\" -v \"~> 0.1.0\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install automatiek -v \"~> 0.1.0\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^mustache$\" -v \"= 0.99.6\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install mustache -v \"= 0.99.6\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^rake$\" -v \"~> 10.0\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install rake -v \"~> 10.0\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^rdiscount$\" -v \"~> 2.1.8\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install rdiscount -v \"~> 2.1.8\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^ronn$\" -v \"~> 0.7.3\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install ronn -v \"~> 0.7.3\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^rspec$\" -v \"~> 3.0\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install rspec -v \"~> 3.0\" --no-ri --no-rdoc\ntrue\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S gem list -i \"^rubocop$\" -v \"= 0.38.0\" || /usr/local/rbenv/versions/2.3.0/bin/ruby -S gem install rubocop -v \"= 0.38.0\" --no-ri --no-rdoc\ntrue\ninstalling gems for the tests to use...\nSuccessfully installed fakeweb-1.3.0\nSuccessfully installed artifice-0.6\nSuccessfully installed rack-1.6.4\nSuccessfully installed compact_index-0.10.0\n4 gems installed\nSuccessfully installed sinatra-1.2.7\n1 gem installed\nSuccessfully installed rake-10.0.2\n1 gem installed\nSuccessfully installed builder-2.1.2\n1 gem installed\n\nYou need to install GraphViz (http://graphviz.org/) to use this Gem.\n\nFor more information about Ruby-Graphviz :\n* Doc : http://rdoc.info/projects/glejeune/Ruby-Graphviz\n* Sources : http://github.com/glejeune/Ruby-Graphviz\n* Mailing List : http://groups.google.com/group/ruby-graphviz\n\nLast (important) changes :\nRuby-Graphviz no longer supports Ruby < 1.9.3\n\nSuccessfully installed ruby-graphviz-1.2.2\n1 gem installed\nspec:deps ran for   0.010000   0.020000  10.020000 ( 24.491881)\n\n$ rake spec\nmkdir -p lib/bundler/man\n/usr/local/rbenv/versions/2.3.0/bin/ruby -S ronn --roff --pipe man/bundle-config.ronn > lib/bundler/man/bundle-config\ngroff -Wall -mtty-char -mandoc -Tascii lib/bundler/man/bundle-config | col -b > lib/bundler/man/bundle-config.txt\n# [... more groff ...]\n\n/usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-core-3.4.4/exe/rspec --pattern spec/\\*\\*\\{,/\\*/\\*\\*\\}/\\*_spec.rb\n/usr/local/rbenv/gems/2.3.0/gems/rspec-support-3.4.1/lib/rspec/support/warnings.rb:7: warning: method redefined; discarding old deprecate\n/usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-support-3.4.1/lib/rspec/support/warnings.rb:7: warning: previous definition of deprecate was here\n# [... more rspec warnings ...]\n\n/usr/local/rbenv/versions/2.3.0/lib/ruby/site_ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- rake (LoadError)\n\tfrom /usr/local/rbenv/versions/2.3.0/lib/ruby/site_ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'\n\tfrom /Users/sj26/Projects/bundler/spec/bundler/gem_helper_spec.rb:3:in `<top (required)>'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1361:in `load'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1361:in `block in load_spec_files'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1359:in `each'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1359:in `load_spec_files'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:106:in `setup'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:92:in `run'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:78:in `run'\n\tfrom /usr/local/rbenv/gems/2.3.0/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:45:in `invoke'\n\tfrom /usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-core-3.4.4/exe/rspec:4:in `<main>'\n/usr/local/rbenv/versions/2.3.0/bin/ruby -I/usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-support-3.4.1/lib:/usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-core-3.4.4/lib /usr/local/rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rspec-core-3.4.4/exe/rspec --pattern spec/\\*\\*\\{,/\\*/\\*\\*\\}/\\*_spec.rb failed\n```\n\nI can't follow what the spec suite is doing with the load and gem paths closely enough to figure out what's gone wrong.",
+      "tree": {
+        "sha": "96d1d52278963363d270a927d1e8343f7db19561",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/96d1d52278963363d270a927d1e8343f7db19561"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+    "html_url": "https://github.com/bundler/bundler/commit/83350e3693c5ed5dd7e55916411e5c2c877548d3",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/83350e3693c5ed5dd7e55916411e5c2c877548d3/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4c54e5f64594986ab187aafa0068b16be8959408",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/4c54e5f64594986ab187aafa0068b16be8959408",
+        "html_url": "https://github.com/bundler/bundler/commit/4c54e5f64594986ab187aafa0068b16be8959408"
+      },
+      {
+        "sha": "e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+        "html_url": "https://github.com/bundler/bundler/commit/e35b4e74a2f7f629203dbab7602df17a01a73c4f"
+      }
+    ]
+  },
+  {
+    "sha": "e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+    "commit": {
+      "author": {
+        "name": "Samuel Cochran",
+        "email": "sj26@sj26.com",
+        "date": "2016-03-23T08:09:10Z"
+      },
+      "committer": {
+        "name": "Samuel Cochran",
+        "email": "sj26@sj26.com",
+        "date": "2016-03-23T08:09:47Z"
+      },
+      "message": "Open editor with clean env\n\nEditors which have ruby embedded may be confused by bundler's\nenvironment, so strip it before launching the editor process.",
+      "tree": {
+        "sha": "96d1d52278963363d270a927d1e8343f7db19561",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/96d1d52278963363d270a927d1e8343f7db19561"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+    "html_url": "https://github.com/bundler/bundler/commit/e35b4e74a2f7f629203dbab7602df17a01a73c4f",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/e35b4e74a2f7f629203dbab7602df17a01a73c4f/comments",
+    "author": {
+      "login": "sj26",
+      "id": 14028,
+      "avatar_url": "https://avatars.githubusercontent.com/u/14028?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/sj26",
+      "html_url": "https://github.com/sj26",
+      "followers_url": "https://api.github.com/users/sj26/followers",
+      "following_url": "https://api.github.com/users/sj26/following{/other_user}",
+      "gists_url": "https://api.github.com/users/sj26/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/sj26/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/sj26/subscriptions",
+      "organizations_url": "https://api.github.com/users/sj26/orgs",
+      "repos_url": "https://api.github.com/users/sj26/repos",
+      "events_url": "https://api.github.com/users/sj26/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/sj26/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "sj26",
+      "id": 14028,
+      "avatar_url": "https://avatars.githubusercontent.com/u/14028?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/sj26",
+      "html_url": "https://github.com/sj26",
+      "followers_url": "https://api.github.com/users/sj26/followers",
+      "following_url": "https://api.github.com/users/sj26/following{/other_user}",
+      "gists_url": "https://api.github.com/users/sj26/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/sj26/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/sj26/subscriptions",
+      "organizations_url": "https://api.github.com/users/sj26/orgs",
+      "repos_url": "https://api.github.com/users/sj26/repos",
+      "events_url": "https://api.github.com/users/sj26/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/sj26/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4c54e5f64594986ab187aafa0068b16be8959408",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/4c54e5f64594986ab187aafa0068b16be8959408",
+        "html_url": "https://github.com/bundler/bundler/commit/4c54e5f64594986ab187aafa0068b16be8959408"
+      }
+    ]
+  },
+  {
+    "sha": "4c54e5f64594986ab187aafa0068b16be8959408",
+    "commit": {
+      "author": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-22T20:08:32Z"
+      },
+      "committer": {
+        "name": "Homu",
+        "email": "homu@barosl.com",
+        "date": "2016-03-22T20:08:32Z"
+      },
+      "message": "Auto merge of #4274 - glennpratt:standalone-bundler-path, r=segiddins\n\nCreate standalone bundler/setup.rb at a consistent path.\n\nWhile chasing a threading / chdir bug in #4264, I discovered `bundler/setup.rb` isn't written to a proper directory when run in a subdirectory and binstubs don't work (https://github.com/bundler/bundler/pull/4264#issuecomment-179506385).\n\nThis changes that so `bundler/setup.rb` is written relative to `Bundler.root` instead of `cwd` and expands test coverage a bit.",
+      "tree": {
+        "sha": "c1023e6dda58b40cb47b20bc8669625e6223d35a",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/c1023e6dda58b40cb47b20bc8669625e6223d35a"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/4c54e5f64594986ab187aafa0068b16be8959408",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/4c54e5f64594986ab187aafa0068b16be8959408",
+    "html_url": "https://github.com/bundler/bundler/commit/4c54e5f64594986ab187aafa0068b16be8959408",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/4c54e5f64594986ab187aafa0068b16be8959408/comments",
+    "author": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "homu",
+      "id": 10212162,
+      "avatar_url": "https://avatars.githubusercontent.com/u/10212162?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/homu",
+      "html_url": "https://github.com/homu",
+      "followers_url": "https://api.github.com/users/homu/followers",
+      "following_url": "https://api.github.com/users/homu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/homu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/homu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/homu/subscriptions",
+      "organizations_url": "https://api.github.com/users/homu/orgs",
+      "repos_url": "https://api.github.com/users/homu/repos",
+      "events_url": "https://api.github.com/users/homu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/homu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ff0f736021368a746e9e23f69c6b62ad86e98d35",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/ff0f736021368a746e9e23f69c6b62ad86e98d35",
+        "html_url": "https://github.com/bundler/bundler/commit/ff0f736021368a746e9e23f69c6b62ad86e98d35"
+      },
+      {
+        "sha": "0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+        "html_url": "https://github.com/bundler/bundler/commit/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9"
+      }
+    ]
+  },
+  {
+    "sha": "0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+    "commit": {
+      "author": {
+        "name": "Glenn Pratt",
+        "email": "glennpratt@gmail.com",
+        "date": "2016-02-04T17:11:40Z"
+      },
+      "committer": {
+        "name": "Glenn Pratt",
+        "email": "glennpratt@gmail.com",
+        "date": "2016-03-22T19:11:10Z"
+      },
+      "message": "Create standalone bundler/setup.rb at a consistent path.\n\nFixes #4274",
+      "tree": {
+        "sha": "aa34478111592b70b30857a29886a63dcd8d7adf",
+        "url": "https://api.github.com/repos/bundler/bundler/git/trees/aa34478111592b70b30857a29886a63dcd8d7adf"
+      },
+      "url": "https://api.github.com/repos/bundler/bundler/git/commits/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/bundler/bundler/commits/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+    "html_url": "https://github.com/bundler/bundler/commit/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9",
+    "comments_url": "https://api.github.com/repos/bundler/bundler/commits/0ba8444faecbab3cd4da57c83a79a7e3a21f2fc9/comments",
+    "author": {
+      "login": "glennpratt",
+      "id": 202230,
+      "avatar_url": "https://avatars.githubusercontent.com/u/202230?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/glennpratt",
+      "html_url": "https://github.com/glennpratt",
+      "followers_url": "https://api.github.com/users/glennpratt/followers",
+      "following_url": "https://api.github.com/users/glennpratt/following{/other_user}",
+      "gists_url": "https://api.github.com/users/glennpratt/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/glennpratt/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/glennpratt/subscriptions",
+      "organizations_url": "https://api.github.com/users/glennpratt/orgs",
+      "repos_url": "https://api.github.com/users/glennpratt/repos",
+      "events_url": "https://api.github.com/users/glennpratt/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/glennpratt/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "glennpratt",
+      "id": 202230,
+      "avatar_url": "https://avatars.githubusercontent.com/u/202230?v=3",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/glennpratt",
+      "html_url": "https://github.com/glennpratt",
+      "followers_url": "https://api.github.com/users/glennpratt/followers",
+      "following_url": "https://api.github.com/users/glennpratt/following{/other_user}",
+      "gists_url": "https://api.github.com/users/glennpratt/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/glennpratt/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/glennpratt/subscriptions",
+      "organizations_url": "https://api.github.com/users/glennpratt/orgs",
+      "repos_url": "https://api.github.com/users/glennpratt/repos",
+      "events_url": "https://api.github.com/users/glennpratt/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/glennpratt/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "65fe6b0f62c7ca115097cb55672dcd6b4ac824bf",
+        "url": "https://api.github.com/repos/bundler/bundler/commits/65fe6b0f62c7ca115097cb55672dcd6b4ac824bf",
+        "html_url": "https://github.com/bundler/bundler/commit/65fe6b0f62c7ca115097cb55672dcd6b4ac824bf"
+      }
+    ]
+  }
+]
