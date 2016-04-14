@@ -50,7 +50,7 @@ module LicenseAuto
     def get_available_versions(sem_version_range)
       # LicenseAuto.logger.debug("sem_version_range: #{sem_version_range}")
       package_meta = get_package_meta
-      all_versions = package_meta['versions']
+      all_versions = package_meta.versions
 
       available_versions = all_versions.select {|version, meta|
             # Example: node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
@@ -59,6 +59,9 @@ module LicenseAuto
             if stdout_str == "true\n"
               # LicenseAuto.logger.debug("available version: #{version}")
               true
+            else
+              # LicenseAuto.logger.debug("version: #{version}, semver: #{sem_version_range}, #{stdout_str}, #{stderr_str}")
+              false
             end
           }
     end
