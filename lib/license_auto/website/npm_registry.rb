@@ -34,14 +34,13 @@ module LicenseAuto
       api_url = "#{@registry}#{@package.name}/?version=#{@package.version}"
       LicenseAuto.logger.debug(api_url)
       response = HTTParty.get(api_url)
-      package_info =
-          case response.code
-            when 200
-              JSON.parse(response.licenses)
-            else
-              LicenseAuto.logger.error(response)
-              nil
-          end
+      case response.code
+        when 200
+          JSON.parse(response.licenses)
+        else
+          LicenseAuto.logger.error(response)
+          nil
+      end
     end
 
     # DOC: https://www.npmjs.com/package/semver
@@ -52,10 +51,10 @@ module LicenseAuto
       package_meta = get_package_meta
       all_versions = package_meta.versions
 
-      available_versions = all_versions.select {|version, meta|
+      all_versions.select {|version, meta|
         # Example: node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
         cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
-        stdout_str, stderr_str, status = Open3.capture3(cmd)
+        stdout_str, _stderr_str, _status = Open3.capture3(cmd)
         if stdout_str == "true\n"
           # LicenseAuto.logger.debug("available version: #{version}")
           true
@@ -72,7 +71,6 @@ module LicenseAuto
       LicenseAuto.logger.debug("chosen version: #{chosen} for #{@package.name}")
       chosen
     end
-
 
     def get_license_info()
       if @package.version.nil?
@@ -108,10 +106,10 @@ module LicenseAuto
           # homepage_spider = HomepageSpider.new(gem_info.homepage_uri, @package.name)
           # source_code_uri = homepage_spider.get_source_code_uri
           # if source_code_uri
-          #   LicenseAuto.logger.warn("TODO: call myself recursively")
+          #   LicenseAuto.logger.warn("call myself recursively")
           # else
           #   license_wrapper = homepage_spider.get_license_page
-          #   LicenseAuto.logger.warn("TODO: HomepageSpider")
+          #   LicenseAuto.logger.warn("omepageSpider")
           # end
         elsif not npm_info.licenses.empty?
           # TODO:

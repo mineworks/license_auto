@@ -61,7 +61,7 @@ module LicenseAuto
 
       dep_keys = ['Deps', 'Imports', 'TestImports', 'XTestImports']
       deps = dep_keys.map {|key|
-        arr = listed_content[key]
+        listed_content[key]
       }.flatten.compact
 
       deps = Set.new(deps)
@@ -70,7 +70,7 @@ module LicenseAuto
         # LicenseAuto.logger.debug("#{dep}, #{bool}")
         bool
       }.map {|dep|
-        host, owner, repo, subdir = dep.split('/')
+        host, owner, repo, _subdir = dep.split('/')
         [host, owner, repo].join('/')
       }
     end
@@ -130,14 +130,14 @@ module LicenseAuto
       Dir.chdir(@path) do
         cmd = 'go list -json ./...'
         stdout_str, stderr_str, status = Open3.capture3(cmd)
-        content = Hashie::Mash.new(JSON.parse(stdout_str)) if stdout_str
+        Hashie::Mash.new(JSON.parse(stdout_str)) if stdout_str
       end
     end
 
     def self.check_cli
       bash_cmd = "go version"
       # LicenseAuto.logger.debug(bash_cmd)
-      stdout_str, stderr_str, status = Open3.capture3(bash_cmd)
+      stdout_str, stderr_str, _status = Open3.capture3(bash_cmd)
       golang_version = /1\.6/
 
       if not stderr_str.empty?

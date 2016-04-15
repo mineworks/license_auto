@@ -6,8 +6,9 @@ class HomepageSpider
 
   SOURCE_CODE_URI_PATTERN = /(github\.com|bitbucket\.org)\/.*\/#{@package.name}/
 
-  def initialize(homepage, pack_name)
-
+  def initialize(homepage, package_name)
+    @homepage = homepage
+    @package_name = package_name
   end
 
   # Eg. 2
@@ -44,6 +45,12 @@ class HomepageSpider
         name: license_name,
         sim_ratio: sim_ratio
     )
+  end
+
+
+  def get_license_info
+    # source_code_uri = get_source_code_uri
+    license_info = nil
   end
 
 end

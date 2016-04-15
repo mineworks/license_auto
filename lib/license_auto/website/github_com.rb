@@ -157,7 +157,7 @@ class GithubCom < Website
     clone_dir = "#{LUTO_CACHE_DIR}/#{trimmed_url}"
     LicenseAuto.logger.debug(clone_dir)
 
-    if Dir.exists?(clone_dir)
+    if Dir.exist?(clone_dir)
       git = Git.open(clone_dir, :log => LicenseAuto.logger)
       local_branch = git.branches.local[0].full
       if local_branch == @ref
@@ -179,7 +179,7 @@ class GithubCom < Website
         :branch => @ref
     }
     LicenseAuto.logger.debug(clone_url)
-    cloned_repo = Git.clone(clone_url, clone_dir, clone_opts)
+    Git.clone(clone_url, clone_dir, clone_opts)
   end
 
   def repo_info
