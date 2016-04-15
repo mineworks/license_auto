@@ -36,7 +36,7 @@
     <td>npm</td>
     <td>package.json</td>
     <td>http://registry.npmjs.org</td>
-    <td>0</td>
+    <td>100</td>
   </tr>
   <tr>
       <td>Debian</td>
@@ -50,7 +50,7 @@
     <td>go list -json ./...</td>
     <td></td>
     <td></td>
-    <td>0</td>
+    <td>50</td>
   </tr>
   <tr>
     <td>Python</td>

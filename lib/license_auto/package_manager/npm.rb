@@ -76,7 +76,7 @@ module LicenseAuto
     def self.is_valid_semver?(semver)
       node_cmd = "node -e \"var semver = require('semver'); var valid = semver.validRange('#{semver}'); console.log(valid)\""
       # LicenseAuto.logger.debug(node_cmd)
-      stdout_str, stderr_str, status = Open3.capture3(node_cmd)
+      stdout_str, _stderr_str, _status = Open3.capture3(node_cmd)
       is_invalid = stdout_str.gsub(/\n/, '') == 'null'
       # if is_invalid
       #   LicenseAuto.logger.error("semver: #{semver} is not a valid sem-version")

@@ -1,0 +1,3 @@
+[submodule "spec/fixtures/github.com/mineworks/license_auto_test_case"]
+	path = spec/fixtures/github.com/mineworks/license_auto_test_case
+	url = https://github.com/mineworks/license_auto_test_case.git
