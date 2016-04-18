@@ -13,11 +13,11 @@ module LicenseAuto
     end
 
     def dependency_file_pattern
-      /#{@path}\/gem.*\.lock$/i
+      /#{@path}\/[0-9a-zA-Z_.]*gem.*\.lock$/i
     end
 
     def gemfile_pattern
-      /gemfile$/i
+      /#{@path}\/[0-9a-zA-Z_.]*gemfile$/i
     end
 
     def parse_dependencies
@@ -30,13 +30,12 @@ module LicenseAuto
 
       lock_files = dependency_file_path_names
       if lock_files.empty?
-        LicenseAuto.logger.info("Gemfile.lock file not exisit")
+        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exisit")
         gem_files = dependency_file_path_names(pattern=gemfile_pattern)
         # TODO: parse gem_files
         unless gem_files.empty?
-          LicenseAuto.logger.info("Gemfile exisit: #{gem_files}")
+          LicenseAuto.logger.warn("#{LANGUAGE}: Gemfile exisit: #{gem_files}")
         end
-
         return []
       else
         lock_files.map {|dep_file|

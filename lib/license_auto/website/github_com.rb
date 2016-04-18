@@ -192,7 +192,7 @@ class GithubCom < Website
   # http://www.rubydoc.info/github/piotrmurach/github/master/Github/Client/GitData/Blobs#get-instance_method
   def get_blobs(sha)
     response_wrapper = @server.git_data.blobs.get(@server.user, @server.repo, sha)
-    LicenseAuto.logger.debug(response_wrapper)
+    # LicenseAuto.logger.debug(response_wrapper)
     content = response_wrapper.body.content
     encoding = response_wrapper.body.encoding
     if encoding == 'base64'
