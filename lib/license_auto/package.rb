@@ -5,6 +5,7 @@ require 'license_auto/website/ruby_gems_org'
 require 'license_auto/website/gemfury_com'
 require 'license_auto/website/github_com'
 require 'license_auto/website/npm_registry'
+require 'license_auto/website/maven_central_repository'
 
 
 module LicenseAuto
@@ -30,7 +31,6 @@ module LicenseAuto
         Ruby: RubyGemsOrg,
         NodeJS: NpmRegistry,
         # TODO: add many server, eg. http://gopkg.in
-        # Golang: GithubCom
     }
 
     SOURCE_CODE_SERVERS = [
@@ -87,18 +87,16 @@ module LicenseAuto
     #     ]
     # }
     def get_license_info()
+      @server.get_license_info if chose_package_server
 
       # args = {
       #     fetch_license_text: true
       # }.merge(args)
 
-      @server.get_license_info if chose_package_server
-
       # TODO: uncomment these line, add Google or Yahoo!
       # if @server.nil?
       #     @server.get_license_info if chose_search_engine
       # end
-
     end
 
     private
@@ -114,6 +112,14 @@ module LicenseAuto
               else
                 LicenseAuto.logger.fatal("Golang server: #{self.server} should be supported!")
               end
+            elsif self.language == 'Java' # and self.server
+                matcher = Matcher::SourceURL.new(self.server)
+                maven_default_matched = matcher.match_maven_default_central
+                if maven_default_matched
+                  LicenseAuto::MavenCentralRepository.new(self.group, self.name, self.version)
+                else
+                  LicenseAuto.logger.fatal("Maven server: #{self.server} should be supported!")
+                end
             elsif self.server
               PACKAGE_SERVERS.fetch(self.language.to_sym).new(self)
             end

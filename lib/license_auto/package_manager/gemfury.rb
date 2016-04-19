@@ -1,3 +1,5 @@
+# https://github.com/gemfury/gemfury
+
 module Bundler
   class Source
     class Gemfury
