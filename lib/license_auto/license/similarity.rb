@@ -11,7 +11,7 @@ module LicenseAuto
 
     def initialize(license_content)
       @license_content = license_content.encode('UTF-8', :invalid => :replace, :undef => :replace)
-      LicenseAuto.logger.debug("\n#{@license_content}")
+      # LicenseAuto.logger.debug("\n#{@license_content}")
       @license_template_documents =
           LICENSE_SORTED_FREQUENCY.reject {|template_name|
             abs_filename_path(template_name).nil?

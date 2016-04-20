@@ -130,7 +130,7 @@ module LicenseAuto
       Dir.chdir(@path) do
         cmd = 'go list -json ./...'
         stdout_str, stderr_str, status = Open3.capture3(cmd)
-        Hashie::Mash.new(JSON.parse(stdout_str)) if stdout_str
+        Hashie::Mash.new(JSON.parse(stdout_str)) if stdout_str.length > 0
       end
     end
 

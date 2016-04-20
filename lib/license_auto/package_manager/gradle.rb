@@ -9,6 +9,8 @@ module LicenseAuto
 
     DEPENDENCY_PATTERN = /\\---\s(?<group>.+):(?<name>.+):(?<version>.+)/
 
+    REMOTE = 'https://repo1.maven.org/maven2/'
+
     def initialize(path)
       super(path)
     end
@@ -60,7 +62,7 @@ module LicenseAuto
       projects = []
       Dir.chdir(@path) do
         stdout_str, stderr_str, _status = Open3.capture3(cmd)
-        if stdout_str
+        if stdout_str.length > 0
           LicenseAuto.logger.debug(stdout_str)
           stdout_str.split("\n").each {|line|
             sub_project_pattern = /Project\s\'(:)?(?<project_name>.+)\'/
@@ -84,13 +86,27 @@ module LicenseAuto
         root_deps.merge(deps)
       }
       root_deps.map {|dep|
-        group, name, version = dep.split(':')
+        group, name, version_range = dep.split(':')
+        version = filter_version(version_range)
         {
             name: [group, name].join(':'),
             version: version,
-            remote: nil
+            remote: REMOTE
         }
       }
+    end
+
+    def filter_version(version_range)
+      # 'junit:junit:3.8.2 -> 4.11'
+      range_arrow_pattern = /(?<min_ver>.*)\s->\s(?<max_ver>.*)/
+      matched = range_arrow_pattern.match(version_range)
+      if matched
+        version_range = matched[:max_ver]
+      end
+
+      # 'org.apache.ant:ant:1.8.3 (*)'
+      star_pattern = /\s\(\*\)/
+      version_range.gsub(star_pattern, '')
     end
 
     # @return sample:
