@@ -21,20 +21,20 @@ describe LicenseAuto::Gradle do
   }
   let(:pm) {LicenseAuto::Gradle.new(repo_dir)}
 
-  # it 'check system tool' do
-  #   bool = LicenseAuto::Gradle.check_cli
-  #   expect(bool).to eq(true)
-  # end
-  #
-  # it 'list projects' do
-  #   projects = pm.list_projects
-  #   expect(projects).to eq(target_projects)
-  # end
-  #
-  # it 'list dependencies of Root Project' do
-  #   deps = pm.list_dependencies
-  #   expect(deps).to eq(target_deps)
-  # end
+  it 'check system tool' do
+    bool = LicenseAuto::Gradle.check_cli
+    expect(bool).to eq(true)
+  end
+
+  it 'list projects' do
+    projects = pm.list_projects
+    expect(projects).to eq(target_projects)
+  end
+
+  it 'list dependencies of Root Project' do
+    deps = pm.list_dependencies
+    expect(deps).to eq(target_deps)
+  end
 
   it 'parse_dependencies' do
     deps = pm.parse_dependencies

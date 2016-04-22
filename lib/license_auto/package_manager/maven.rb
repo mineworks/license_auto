@@ -24,7 +24,7 @@ module LicenseAuto
     def parse_dependencies
       build_files = dependency_file_path_names
       if build_files.empty?
-        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exisit")
+        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exist")
         []
       else
         build_files.map {|dep_file|
