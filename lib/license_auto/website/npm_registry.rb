@@ -20,13 +20,13 @@ module LicenseAuto
       api_url = "#{@registry}#{@package.name}"
       LicenseAuto.logger.debug(api_url)
       response = HTTParty.get(api_url)
-      package_meta =
-          if response.code == 200
-            Hashie::Mash.new(JSON.parse(response.body))
-          else
-            LicenseAuto.logger.error("Npm registry API response: #{response}")
-            nil
-          end
+
+      if response.code == 200
+        Hashie::Mash.new(JSON.parse(response.body))
+      else
+        LicenseAuto.logger.error("Npm registry API response: #{response}")
+        nil
+      end
     end
 
     # RESTful API: http://registry.npmjs.org/grunt/?version=0.1.0

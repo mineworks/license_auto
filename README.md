@@ -1,6 +1,6 @@
 # license_auto
  
-![Progress](http://progressed.io/bar/10?title=progress)
+![Progress](http://progressed.io/bar/30?title=progress)
 [![Gem Version](https://badge.fury.io/rb/license_auto.svg)](https://badge.fury.io/rb/license_auto)
 [![Code Climate](https://codeclimate.com/github/mineworks/license_auto/badges/gpa.svg)](https://codeclimate.com/github/mineworks/license_auto)
 [![Build Status](https://travis-ci.org/mineworks/license_auto.svg?branch=master)](https://travis-ci.org/mineworks/license_auto)
@@ -22,14 +22,14 @@
     <td>Gemfile(.lock)</td>
     <td>https://rubygems.org/</td>
     <!-- <td> https://rubygems.org/pages/data</td> -->
-    <td>50</td>
+    <td>70</td>
   </tr>
   <tr>
     <td>Java</td>
     <td>Gradle, Maven</td>
     <td>build.gradle, pom.xml</td>
     <td>https://repo1.maven.org/maven2</td>
-    <td>20</td>
+    <td>100</td>
   </tr>
   <tr>
     <td>NodeJS</td>

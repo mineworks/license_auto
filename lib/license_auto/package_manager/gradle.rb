@@ -22,7 +22,7 @@ module LicenseAuto
     def parse_dependencies
       build_files = dependency_file_path_names
       if build_files.empty?
-        LicenseAuto.logger.info("#{dependency_file_pattern} file not exist")
+        LicenseAuto.logger.info("#{LANGUAGE}: #{dependency_file_pattern} file not exist")
         []
         # TODO: check his sub dir has `build.gradle` or not
       else

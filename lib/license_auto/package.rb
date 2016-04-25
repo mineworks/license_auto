@@ -30,6 +30,7 @@ module LicenseAuto
     PACKAGE_SERVERS = {
         Ruby: RubyGemsOrg,
         NodeJS: NpmRegistry,
+        GitModule: GithubCom
         # TODO: add many server, eg. http://gopkg.in
     }
 
