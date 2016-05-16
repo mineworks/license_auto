@@ -14,6 +14,8 @@ module LicenseAuto
     # GET http://search.maven.org/solrsearch/select?q=g%3A%22com.google.inject%22&rows=20&wt=json
     REST_API = 'http://search.maven.org/solrsearch'
 
+    NO_LICENSE_TEXT = nil
+
 
     def initialize(group_id, artifact_id, version, central_prefix='https://repo1.maven.org/maven2')
       @group_id = group_id
@@ -196,15 +198,19 @@ module LicenseAuto
                        elsif not license_url.empty?
                          LicenseAuto.logger.debug(license_url)
                          # TODO: add proxy
-                         response = HTTParty.get(license_url, timeout: 10)
-                         response.body if response.code == 200
+                         begin
+                           response = HTTParty.get(license_url, timeout: 10)
+                           response.body if response.code == 200
+                         rescue Net::OpenTimeout => e
+                           e.to_s
+                         end
                        end
 
         _license_name, sim_ratio =
             if license_text
               LicenseAuto::Similarity.new(license_text).most_license_sim
             else
-              [nil, 1.0]
+              [nil, NO_LICENSE_TEXT]
             end
 
         if license_text.nil? and not node.xpath(".//comments").empty?

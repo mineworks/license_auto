@@ -4,14 +4,12 @@
 require 'open3'
 require 'set'
 require 'license_auto/package_manager'
-require 'license_auto/matcher'
+require 'license_auto/website/bower_herokuapp_com'
 
 module LicenseAuto
   class Bower < LicenseAuto::PackageManager
 
     LANGUAGE = 'Bower'
-
-    REGISTRY = 'http://bower.herokuapp.com/packages'
 
     def initialize(path)
       super(path)
@@ -38,20 +36,6 @@ module LicenseAuto
         ]
       end
       # LicenseAuto.logger.debug(JSON.pretty_generate(deps))
-    end
-
-    # @return [clone_url, latest_sha]
-    def fetch_remote_latest_sha(repo_url)
-      matcher = Matcher::SourceURL.new(repo_url)
-      github_matched = matcher.match_github_resource
-      if github_matched
-        github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
-        latest_sha = github.latest_commit.sha
-        # LicenseAuto.logger.debug(latest_sha)
-        [github.url, latest_sha]
-      else
-        [repo_url, nil]
-      end
     end
 
     # semver: {String}
@@ -81,7 +65,7 @@ module LicenseAuto
         {
             name: name,
             version: semver.gsub(/~/, ''),
-            remote: REGISTRY
+            remote: LicenseAuto::BowerHerokuappCom::REGISTRY
         }
       }
     end
