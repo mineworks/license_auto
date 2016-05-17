@@ -18,7 +18,7 @@ module LicenseAuto
       impl = formator(filename)
       @license_content =
           if impl.nil?
-            LicenseAuto.info("Unknown readme format: #{filename}, returned full-text instead")
+            LicenseAuto.logger.info("Unknown readme format: #{filename}, returned full-text instead")
             @content
           else
              impl.cut_license(@content)

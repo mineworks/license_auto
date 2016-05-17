@@ -26,17 +26,25 @@ module LicenseAuto
       else
         deps = filter_deps(contents)
         LicenseAuto.logger.debug(deps)
+        dep_array = []
+        ####
+        GC::Profiler.enable
+        deps.each {|dep|
+          remote, latest_sha = fetch_remote_latest_sha(dep)
+          dep_array.push({
+              name: dep,
+              version: latest_sha,
+              remote: remote
+          })
+        }
+        puts GC::Profiler.result
+
+        GC::Profiler.disable
+
         [
           {
               dep_file: nil,
-              deps: deps.map {|dep|
-                      remote, latest_sha = fetch_remote_latest_sha(dep)
-                      {
-                          name: dep,
-                          version: latest_sha,
-                          remote: remote
-                      }
-              }
+              deps: dep_array
           }
         ]
       end
@@ -50,8 +58,9 @@ module LicenseAuto
       if github_matched
         github = GithubCom.new({}, github_matched[:owner], github_matched[:repo])
         latest_sha = github.latest_commit.sha
+        url = github.url
         # LicenseAuto.logger.debug(latest_sha)
-        [github.url, latest_sha]
+        [url, latest_sha]
       else
         [repo_url, nil]
       end

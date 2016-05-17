@@ -23,7 +23,7 @@ class GithubCom < Website
   # user: string
   # repo: string
   # ref: string
-  def initialize(package, user, repo, ref=nil)
+  def initialize(package, user, repo, ref=nil, auto_pagination=false)
     super(package)
     @ref = ref
     @url = "https://github.com/#{user}/#{repo}"
@@ -37,7 +37,7 @@ class GithubCom < Website
       rescue NameError => e
         LicenseAuto.logger.debug("Running LicenseAuto in formal mode")
         basic_auth = "#{LUTO_CONF.github.username}:#{LUTO_CONF.github.access_token}"
-        Github.new(user: user, repo: repo, basic_auth: basic_auth, auto_pagination: true)
+        Github.new(user: user, repo: repo, basic_auth: basic_auth, auto_pagination: auto_pagination)
       end
   end
 
