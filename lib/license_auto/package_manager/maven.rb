@@ -8,6 +8,7 @@ module LicenseAuto
   class Maven < LicenseAuto::PackageManager
 
     LANGUAGE = 'Java'
+    REMOTE = 'repo1.maven.org/maven2'
 
     # DOC: https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope
     scopes = ""
@@ -49,7 +50,7 @@ module LicenseAuto
               {
                   name: [group, name].join(':'),
                   version: version,
-                  remote: nil
+                  remote: REMOTE
               }
             }
           else

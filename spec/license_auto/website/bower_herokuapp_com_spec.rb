@@ -6,25 +6,25 @@ describe LicenseAuto::BowerHerokuappCom do
   let(:pack_name) {'jquery'}
 
   before do
-    url = "http://registry.npmjs.org/grunt"
+    url = "http://bower.herokuapp.com/packages/jquery"
     stub_request(:get, url).
         to_return(:status => 200, :body => fixture(url), :headers => {})
 
-    github_tags = "https://api.github.com/repos/gruntjs/grunt/tags"
+    github_tags = "https://api.github.com/repos/jquery/jquery-dist/tags"
     stub_request(:get, github_tags).
         to_return(:status => 200, :body => fixture(github_tags), :headers => {})
 
-    github_contents = "https://api.github.com/repos/gruntjs/grunt/contents/?ref=v1.0.1"
+    github_contents = "https://api.github.com/repos/jquery/jquery-dist/contents/?ref=2.2.0"
     stub_request(:get, github_contents).
         to_return(:status => 200, :body => fixture(github_contents.gsub('?ref=', '')), :headers => {})
 
-    blobs = "https://api.github.com/repos/gruntjs/grunt/git/blobs/dcf8a0c01b35b948c1a3d80cd2279d1879914444"
-    stub_request(:get, blobs).
-        to_return(:status => 200, :body => fixture(blobs), :headers => {})
+    github_blobs = "https://api.github.com/repos/jquery/jquery-dist/git/blobs/5312a4c864d220d496ae0b6fd11834a08396fb89"
+    stub_request(:get, github_blobs).
+        to_return(:status => 200, :body => fixture(github_blobs), :headers => {})
 
-    blobs_1 = "https://api.github.com/repos/gruntjs/grunt/git/blobs/dcd6f65324b15cdb159c4c97e7ddfe801c0ae99b"
-    stub_request(:get, blobs_1).
-        to_return(:status => 200, :body => fixture(blobs_1), :headers => {})
+    github_blobs2 = "https://api.github.com/repos/jquery/jquery-dist/git/blobs/a00f666f32bdc7561df36a4b54476237cdc5e3bf"
+    stub_request(:get, github_blobs2).
+        to_return(:status => 200, :body => fixture(github_blobs2), :headers => {})
   end
 
   let(:my_pack) { JSON.parse(File.read(fixture_path + '/' + 'my_packages/javascript_bower.json'))}

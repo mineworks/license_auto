@@ -203,6 +203,8 @@ module LicenseAuto
                            response.body if response.code == 200
                          rescue Net::OpenTimeout => e
                            e.to_s
+                         rescue NoMethodError
+                           nil
                          end
                        end
 
@@ -213,9 +215,11 @@ module LicenseAuto
               [nil, NO_LICENSE_TEXT]
             end
 
+        # license text in the comment is not true text, but a short notice or description
         if license_text.nil? and not node.xpath(".//comments").empty?
           LicenseAuto.logger.debug(node.xpath(".//comments").text)
           license_text = node.xpath(".//comments").text
+          sim_ratio = nil
         end
 
         LicenseAuto::LicenseWrapper.new(
@@ -235,7 +239,7 @@ module LicenseAuto
           license_files.push(
               LicenseAuto::LicenseWrapper.new(
                   name: "UNKNOWN",
-                  sim_ratio: 1.0,
+                  sim_ratio: nil,
                   html_url: pom_url,
                   download_url: pom_url,
                   text: license_text
@@ -248,7 +252,7 @@ module LicenseAuto
             license_files.push(
                 LicenseAuto::LicenseWrapper.new(
                     name: "UNKNOWN",
-                    sim_ratio: 1.0,
+                    sim_ratio: nil,
                     html_url: pom_url,
                     download_url: pom_url,
                     text: license_text
