@@ -7,7 +7,8 @@ module LicenseAuto
 
     LANGUAGE = 'Java'
 
-    DEPENDENCY_PATTERN = /\\---\s(?<group>.+):(?<name>.+):(?<version>.+)/
+    # DEPENDENCY_PATTERN = /\\---\s(?<group>.+):(?<name>.+):(?<version>.+)/
+    DEPENDENCY_PATTERN = /(\\|\+)---\s(?<group>.+):(?<name>.+):(?<version>.+)/
 
     REMOTE = 'https://repo1.maven.org/maven2/'
 
@@ -115,7 +116,7 @@ module LicenseAuto
       Dir.chdir(@path) do
         deps = Set.new
         cmd = if project_name
-                "gradle -q #{project_name}:dependencies"
+                "gradle -q #{project_name}:dependencies --configuration runtime"
               else
                 "gradle -q dependencies"
               end
