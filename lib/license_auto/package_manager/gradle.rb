@@ -8,7 +8,7 @@ module LicenseAuto
     LANGUAGE = 'Java'
 
     # DEPENDENCY_PATTERN = /\\---\s(?<group>.+):(?<name>.+):(?<version>.+)/
-    DEPENDENCY_PATTERN = /(\\|\+)---\s(?<group>.+):(?<name>.+):(?<version>.+)/
+    DEPENDENCY_PATTERN = /[\+\\]---\s(?<group>.+):(?<name>.+):(?<version>.+)/
 
     REMOTE = 'https://repo1.maven.org/maven2/'
 
@@ -118,7 +118,7 @@ module LicenseAuto
         cmd = if project_name
                 "gradle -q #{project_name}:dependencies --configuration runtime"
               else
-                "gradle -q dependencies"
+                "gradle -q dependencies --configuration runtime"
               end
         LicenseAuto.logger.debug("cmd: #{cmd}")
 
@@ -129,7 +129,7 @@ module LicenseAuto
             matched = DEPENDENCY_PATTERN.match(line)
             # LicenseAuto.logger.debug("#{line}, matched: #{matched}")
             if matched
-              group_name_version = matched.to_s.gsub(/(\\|\+)---\s/, '')
+              group_name_version = matched.to_s.gsub(/[\+\\]---\s/, '')
               # External dependencies
               # DOC: https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html#N105E1
               deps.add(group_name_version)
