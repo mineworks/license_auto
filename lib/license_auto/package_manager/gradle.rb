@@ -129,7 +129,7 @@ module LicenseAuto
             matched = DEPENDENCY_PATTERN.match(line)
             # LicenseAuto.logger.debug("#{line}, matched: #{matched}")
             if matched
-              group_name_version = matched.to_s.gsub(/\\---\s/, '')
+              group_name_version = matched.to_s.gsub(/(\\|\+)---\s/, '')
               # External dependencies
               # DOC: https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html#N105E1
               deps.add(group_name_version)
