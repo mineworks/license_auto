@@ -2,23 +2,38 @@ require 'spec_helper'
 require 'license_auto/package_manager/gradle'
 
 describe LicenseAuto::Gradle do
-  let(:repo_dir) { test_case_dir('oreilly-gradle-book-examples/maven-gradle-comparison-dependency-simplest')}
-  let(:target_projects) {[]}
+  let(:repo_dir) { test_case_dir('package_manager/gradle')}
+
+  let(:target_projects) {["commons", "commons-newer"]}
+
   let(:target_deps) {
-    Set.new(["commons-beanutils:commons-beanutils:1.8.3", "commons-logging:commons-logging:1.1.1", "junit:junit:4.8.2"])
+    Set.new(["commons-logging:commons-logging:1.1.1",
+             "commons-io:commons-io:2.1 -> 2.4",
+             "commons-io:commons-io:2.4",
+             "commons-collections:commons-collections:3.2.1"])
   }
+
   let(:target_parsed_deps) {
     [{:dep_file=>
-          "spec/fixtures/github.com/mineworks/license_auto_test_case/oreilly-gradle-book-examples/maven-gradle-comparison-dependency-simplest/build.gradle",
+          "spec/fixtures/github.com/mineworks/license_auto_test_case/package_manager/gradle/build.gradle",
       :deps=>
-          [{:name=>"commons-beanutils:commons-beanutils",
-            :version=>"1.8.3",
-            :remote=>nil},
-           {:name=>"commons-logging:commons-logging",
+          [{:name=>"commons-logging:commons-logging",
             :version=>"1.1.1",
-            :remote=>nil},
-           {:name=>"junit:junit", :version=>"4.8.2", :remote=>nil}]}]
+            :remote=>"https://repo1.maven.org/maven2/"},
+
+           {:name=>"commons-io:commons-io",
+            :version=>"2.4",
+            :remote=>"https://repo1.maven.org/maven2/"},
+
+           {:name=>"commons-io:commons-io",
+            :version=>"2.4",
+            :remote=>"https://repo1.maven.org/maven2/"},
+
+           {:name=>"commons-collections:commons-collections",
+            :version=>"3.2.1",
+            :remote=>"https://repo1.maven.org/maven2/"}]}]
   }
+
   let(:pm) {LicenseAuto::Gradle.new(repo_dir)}
 
   it 'check system tool' do
@@ -36,7 +51,7 @@ describe LicenseAuto::Gradle do
     expect(deps).to eq(target_deps)
   end
 
-  it 'parse_dependencies' do
+  it 'parses simple dependencies' do
     deps = pm.parse_dependencies
     expect(deps).to eq(target_parsed_deps)
   end
