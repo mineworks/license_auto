@@ -54,6 +54,7 @@ module LicenseAuto
       end
       all_versions = package_meta.versions
 
+
       all_versions.select {|version, meta|
         # Example: node -e "var semver = require('semver'); var result = semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); console.log(result);"
         cmd = "node -e \"var semver = require('semver'); var available = semver.satisfies('#{version}', '#{sem_version_range}'); console.log(available);\""
@@ -70,10 +71,10 @@ module LicenseAuto
 
     def chose_latest_available_version(sem_version_range)
       available_versions = get_available_versions(sem_version_range)
-      if available_versions != false
-        chosen = available_versions.keys.last
-      else
+      if available_versions == false
         chosen = @package.version
+      else
+        chosen = available_versions.keys.last
       end
       LicenseAuto.logger.debug("chosen version: #{chosen} for #{@package.name}")
       chosen
