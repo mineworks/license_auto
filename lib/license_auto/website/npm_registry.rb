@@ -17,7 +17,11 @@ module LicenseAuto
     # RESTful API: http://registry.npmjs.org/:pack_name
     # TEST:        http://registry.npmjs.org/grunt
     def get_package_meta
-      api_url = "#{@registry}#{@package.name}"
+      if @package.name.include?('/')
+        api_url = "#{@registry}#{@package.name.gsub('/','%2F')}"
+      else
+        api_url = "#{@registry}#{@package.name}"
+      end
       LicenseAuto.logger.debug(api_url)
       response = HTTParty.get(api_url)
 
