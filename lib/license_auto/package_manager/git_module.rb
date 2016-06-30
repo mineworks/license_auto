@@ -13,7 +13,7 @@ module LicenseAuto
     end
 
     def dependency_file_pattern
-      /#{@path}\/\.gitmodules$/
+      %r{#{@path}/\.gitmodules$}
     end
 
     def parse_dependencies
@@ -49,25 +49,67 @@ module LicenseAuto
 
     private
 
-    def parse_modules(dep_file)
-      lines = File.readlines(dep_file)
-      module_pattern = /url\s=\s(?<url>.+)(\.git)?$/
-      lines.map {|line|
-        matched = module_pattern.match(line)
-        if matched
-          LicenseAuto.logger.debug("matched: #{matched}, .gitmodule line: #{line}")
-          clone_url = matched[:url].gsub(/\.git$/, '')
-          {
-              name: clone_url,
-              # TODO: fetch version infomation from .git/ dir is to complex
-              version: nil,
-              remote: clone_url
+    # Run `git submodule status` in the path of the dep_file.
+    # The output takes the format [+- ]?version path (refs/branch)
+    def parse_versions
+      cmd = 'git submodule status'
+      versions = {}
+      LicenseAuto.logger.debug(@path)
+      Dir.chdir(@path) do
+        stdout_str, stderr_str, _status = Open3.capture3(cmd)
+        if !stdout_str.empty?
+          LicenseAuto.logger.debug(stdout_str)
+          stdout_str.split("\n").each {|line|
+            if line =~ %r{^[-\+\s]([0-9a-fA-F]{40})\s+([\w\s\/\.]+)\s?\(?}i
+              versions[Regexp.last_match[2].strip] = Regexp.last_match[1]
+            end
           }
+        else
+          LicenseAuto.logger.error(stderr_str)
         end
-      }.compact
+      end
+      LicenseAuto.logger.debug("versions: #{versions}")
+      versions
     end
 
+    def parse_modules(dep_file)
+      versions = parse_versions
 
+      # Build an array of submodules from .gitmodules that contains
+      # a hash of the name=value pairs for the submodule
+      submodules = []
+      submodule_hash = nil
+      lines = File.readlines(dep_file)
+      lines.each{|line|
+        if line =~ /^\[submodule \"(.+)\"\]/i
+          submodule_hash = {}
+          submodule_hash[:name] = Regexp.last_match[1]
+          submodules.push(submodule_hash)
+        elsif submodule_hash && line =~ /=/
+          name, value = line.split('=').map(&:strip)
+          submodule_hash[name.to_sym] = value
+        end
+      }
+      merge_submodule_versions(submodules, versions)
+    end
 
+    # Merge verisons and submodules.  Remove any submodules that
+    # don't have a version.  They're likely things that were deleted
+    # with an older version of git that didn't clean up .gitmodules.
+    def merge_submodule_versions(submodules, versions)
+      submodules.each{|submodule|
+        path = submodule[:path]
+        version = versions[path]
+        if version
+          submodule[:version] = version
+          submodule[:remote] = submodule[:url].gsub(/\.git$/, '')
+        else
+          LicenseAuto.logger.debug("removing (missing from versions): #{submodule}")
+          submodules.delete(submodule)
+        end
+      }
+      LicenseAuto.logger.debug("deps: #{submodules}")
+      submodules
+    end
   end
 end
