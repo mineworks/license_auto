@@ -42,7 +42,7 @@ module LicenseAuto
     def self.check_cli
       cmd = 'gradle --version'
       stdout_str, stderr_str, _status = Open3.capture3(cmd)
-      if stdout_str.include?('Gradle 2.8')
+      if stdout_str.include?('Gradle 2.')
         true
       else
         LicenseAuto.logger.error("stdout_str: #{stdout_str}, stderr_str: #{stderr_str}")
