@@ -6,7 +6,9 @@ rvm:
 node_js:
  - "5"
 
-#install:
+install:
+ - npm install bower
+ - npm install semver
 # - npm install
 # - bundle install
 
