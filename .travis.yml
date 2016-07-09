@@ -6,24 +6,9 @@ dist: trusty
 rvm:
  - "2.2"
 
-before_install:
- #- sudo apt-get install -y curl
- #- touch ~/.bash_profile
- #- sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
- #- sudo bash ~/.bash_profile
- #- sudo nvm install stable
- #- sudo nvm use stable
- #- sudo apt-get remove -y nodejs
- #- curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
- #- sudo apt-get install -y nodejs
- - node -v
- - npm install bower
- - npm install semver
- - go version
- #- sudo apt-get install -y golang
- #- sudo add-apt-repository -y ppa:cwchien/gradle
- #- sudo apt-get update
- #- sudo apt-get install gradle
+#before_install:
+ #- npm install bower
+ #- npm install semver
 
 script:
  - bundle exec rake build
