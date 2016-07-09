@@ -10,7 +10,7 @@ before_install:
  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
  - sudo apt-get install -y nodejs
  - npm install -g n
- - n stable
+ - sudo n stable
  - npm install bower
  - npm install semver
  - sudo apt-get install -y golang
@@ -21,5 +21,6 @@ before_install:
 # - bundle install
 
 script:
+ - n
  - bundle exec rake build
  - bundle exec rspec spec
