@@ -7,10 +7,8 @@ rvm:
 
 before_install:
  - sudo apt-get -y install curl
- - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+ - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
  - sudo apt-get install -y nodejs
- - sudo apt-get install -y nodejs-legacy
- - sudo apt-get install -y npm
  - npm install bower
  - npm install semver
  - sudo apt-get install -y golang
