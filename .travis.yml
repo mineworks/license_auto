@@ -10,7 +10,7 @@ before_install:
  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
  - sudo apt-get install -y nodejs
  - sudo apt-get install -y nodejs-legacy
- - sodu apt-get install -y npm
+ - sudo apt-get install -y npm
  - npm install bower
  - npm install semver
  - sudo apt-get install -y golang
