@@ -1,5 +1,7 @@
 language: ruby
 
+sudo: true
+
 rvm:
  - "2.2"
 
