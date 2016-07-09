@@ -7,6 +7,7 @@ rvm:
 
 before_install:
  - sudo apt-get install -y curl
+ - touch ~/.bash_profile
  - sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
  - sudo bash ~/.bash_profile
  - sudo nvm install stable
