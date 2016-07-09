@@ -9,18 +9,15 @@ before_install:
  - sudo apt-get -y install curl
  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
  - sudo apt-get install -y nodejs
- - npm install -g n
- - sudo n stable
+ - sudo apt-get install -y nodejs-legacy
+ - sodu apt-get install -y npm
  - npm install bower
  - npm install semver
  - sudo apt-get install -y golang
  - sudo add-apt-repository -y ppa:cwchien/gradle
  - sudo apt-get update
  - sudo apt-get install gradle
-# - npm install
-# - bundle install
 
 script:
- - n
  - bundle exec rake build
  - bundle exec rspec spec
