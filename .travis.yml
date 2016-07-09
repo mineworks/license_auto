@@ -6,9 +6,9 @@ dist: trusty
 rvm:
  - "2.2"
 
-#before_install:
- #- npm install bower
- #- npm install semver
+before_install:
+ - npm install bower
+ - npm install semver
 
 script:
  - bundle exec rake build
