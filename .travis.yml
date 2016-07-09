@@ -6,6 +6,8 @@ rvm:
  - "2.2"
 
 before_install:
+ - sudo apt-get -y install curl
+ - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
  - sudo apt-get install -y nodejs
  - npm install bower
  - npm install semver
