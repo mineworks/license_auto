@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'license_auto/package_manager/golang'
 
-describe LicenseAuto::Npm do
+describe LicenseAuto::Golang do
   let(:repo_dir) { 'spec/fixtures/golang.org/hello_world'}
   let(:target) {
     [
         {
             :dep_file=>nil,
             :deps=> [
-                {:name=>"github.com/astaxie/beego",
+                {:name=>"beego",
                 :version=>"88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a",
                 :remote=>"https://github.com/astaxie/beego"}
               ]

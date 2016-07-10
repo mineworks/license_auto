@@ -1,14 +1,14 @@
-language: ruby, node_js
+language: ruby
+
+sudo: required
+dist: trusty
 
 rvm:
  - "2.2"
 
-node_js:
- - "5"
-
-#install:
-# - npm install
-# - bundle install
+before_install:
+ - npm install bower
+ - npm install semver
 
 script:
  - bundle exec rake build
