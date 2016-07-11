@@ -112,6 +112,7 @@ module LicenseAuto
             response.body
           else
             LicenseAuto.logger.error("pom_url: #{pom_url}, #{response}")
+            nil
           end
       [pom_url, pom_str]
     end
@@ -147,6 +148,26 @@ module LicenseAuto
             pom_url, pom_str = get_package_pom(@group_id, @artifact_id, @version)
             if pom_str
               pack_wrapper, license_files = parser_pom(pom_url, pom_str)
+              #if can't get license from central maven pom,then get try effective pom
+              if !license_files || license_files.empty?
+                begin
+                  effective_pack_wrapper, effective_license_files = parser_effective_pom
+                rescue => e
+                  LicenseAuto.logger.error(e)
+                end
+                if effective_license_files && !effective_license_files.empty?
+                  pack_wrapper, license_files = effective_pack_wrapper, effective_license_files
+                else
+                  # try parent pom
+                  pom_url, pom_str = get_package_pom(@group_id, "parent", @version)
+                  if pom_str
+                    parent_pack_wrapper, parent_license_files = parser_pom(pom_url, pom_str)
+                  end
+                  if parent_license_files && !parent_license_files.empty?
+                    pack_wrapper, license_files = parent_pack_wrapper, parent_license_files
+                  end
+                end
+              end
               license_info[:pack] = pack_wrapper
               license_info[:licenses] = license_files
             end
@@ -157,6 +178,28 @@ module LicenseAuto
       license_info
     end
 
+    # from maven-repository.com,get effective pom
+    def parser_effective_pom()
+      pom_url = "http://maven-repository.com/artifact/"+@group_id+"/"+@artifact_id+"/"+@version+"/pom_effective";
+      LicenseAuto.logger.debug("effective_pom_url: #{pom_url}")
+      begin
+        response = HTTParty.get(pom_url)
+      ensure
+        LicenseAuto.logger.debug("effective_pom_url: end")
+      end
+      if response.code == 200
+        pom_str = response.body
+      else
+        LicenseAuto.logger.error("effective_pom_url: #{pom_url}, #{response}")
+        return nil
+      end
+      #get effective pom
+      /<pre>(.*)<\/pre>/m=~pom_str
+      return nil if !$1
+
+      pom_str = $1.gsub(/<\/?.*?>/,"").gsub("&lt;","<").gsub("&gt;",">").gsub("&quot;","\"")
+      parser_pom(pom_str,pom_str)
+    end
     # @return homepage, source_url, licenses_file
     def parser_pom(pom_url, pom_str)
       LicenseAuto.logger.debug("pom_str:\n#{pom_str[0..70]}")
